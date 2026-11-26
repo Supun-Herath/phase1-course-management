@@ -1,0 +1,51 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login | Phase 1 Course</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <main class="application-container">
+        <div class="application-card">
+            <h1>Administrator Login</h1>
+            <p>Phase 1 Course Management System</p>
+
+            <form id="admin-login-form">
+                <div class="form-group">
+                    <label for="admin-email">Email</label>
+                    <input
+                        type="email"
+                        id="admin-email"
+                        required
+                        autocomplete="username">
+                </div>
+
+                <div class="form-group">
+                    <label for="admin-password">Password</label>
+                    <input
+                        type="password"
+                        id="admin-password"
+                        required
+                        autocomplete="current-password">
+                </div>
+
+                <button type="submit" id="admin-login-button">
+                    Login
+                </button>
+
+                <p id="admin-message" role="status"></p>
+            </form>
+
+            <p><a href="index.html">Back to Home</a></p>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="admin.js"></script>
+
+</body>
+</html>
