@@ -5,73 +5,169 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#102f24">
+
     <title>Phase 1 Leader Training Course | Registration Portal</title>
+
     <link rel="stylesheet" href="style.css">
 
     <style>
-        /* Header layout */
-        .portal-header-inner {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 24px;
+        /* PROFESSIONAL HEADER */
+        .portal-header {
+            background: #ffffff;
+            border-bottom: 1px solid #e5ebe7;
         }
 
-        /* Separate the two logos */
-        .portal-logos {
-            display: flex;
+        .portal-header-inner {
+            max-width: 1180px;
+            min-height: 112px;
+            margin: auto;
+            padding: 18px 28px;
+            display: grid;
+            grid-template-columns: 90px 1fr 90px;
             align-items: center;
-            justify-content: center;
-            gap: 22px;
-            flex-shrink: 0;
+            gap: 28px;
+        }
+
+        .portal-logos {
+            display: contents;
         }
 
         .portal-logos img {
-            width: 62px;
-            height: 62px;
+            width: 78px;
+            height: 78px;
             object-fit: contain;
-            padding: 5px;
-            background: #ffffff;
-            border-radius: 12px;
-            box-sizing: border-box;
+            display: block;
+        }
+
+        .portal-logos img:first-child {
+            grid-column: 1;
+            grid-row: 1;
+        }
+
+        .portal-logos img:last-child {
+            grid-column: 3;
+            grid-row: 1;
+            justify-self: end;
         }
 
         .portal-brand {
-            flex: 1;
-            min-width: 0;
+            grid-column: 2;
+            grid-row: 1;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .portal-brand strong {
+            color: #102f24;
+            font-size: 25px;
+            font-weight: 800;
+            letter-spacing: 2px;
+        }
+
+        .portal-brand span {
+            color: #65756b;
+            font-size: 13px;
+            letter-spacing: 0.5px;
         }
 
         .portal-top-button {
-            flex-shrink: 0;
+            display: none;
         }
 
-        /* Mobile layout */
+        /* INTRODUCTION */
+        .portal-intro {
+            text-align: center;
+        }
+
+        .portal-intro h1 {
+            color: #102f24;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .portal-label {
+            color: #397451;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+        }
+
+        /* REGISTER BUTTON */
+        .portal-register-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            background: #174c35;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 15px 24px;
+            border-radius: 6px;
+            font-weight: 700;
+            transition: background 0.2s ease;
+        }
+
+        .portal-register-button:hover {
+            background: #103522;
+        }
+
+        /* MOBILE HEADER */
         @media (max-width: 600px) {
             .portal-header-inner {
-                gap: 12px;
-            }
-
-            .portal-logos {
+                min-height: auto;
+                padding: 17px 14px;
+                grid-template-columns: 55px 1fr 55px;
                 gap: 10px;
             }
 
             .portal-logos img {
-                width: 43px;
-                height: 43px;
-                padding: 3px;
+                width: 51px;
+                height: 51px;
+            }
+
+            .portal-brand {
+                gap: 5px;
             }
 
             .portal-brand strong {
-                font-size: 14px;
+                font-size: 15px;
+                letter-spacing: 1px;
             }
 
             .portal-brand span {
                 font-size: 10px;
+                line-height: 1.4;
             }
 
-            .portal-top-button {
-                font-size: 12px;
-                padding: 9px 11px;
+            .portal-intro h1 {
+                font-size: 27px;
+                line-height: 1.2;
+            }
+
+            .portal-register-button {
+                width: 100%;
+                box-sizing: border-box;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .portal-header-inner {
+                grid-template-columns: 43px 1fr 43px;
+                gap: 7px;
+            }
+
+            .portal-logos img {
+                width: 42px;
+                height: 42px;
+            }
+
+            .portal-brand strong {
+                font-size: 13px;
+            }
+
+            .portal-brand span {
+                font-size: 9px;
             }
         }
     </style>
@@ -83,18 +179,17 @@
     <div class="portal-header-inner">
 
         <div class="portal-logos">
-            <img src="mp.png?v=4" alt="Moratuwa-Piliyandala District Logo">
-            <img src="sl.png?v=4" alt="Sri Lanka Scout Logo">
+            <img src="mp.png?v=5"
+                 alt="Moratuwa - Piliyandala District Scout Association">
+
+            <img src="sl.png?v=5"
+                 alt="Sri Lanka Scout Association">
         </div>
 
         <div class="portal-brand">
             <strong>PHASE 1 COURSE</strong>
-            <span>Scout Leader Development Program</span>
+            <span>SCOUT LEADER DEVELOPMENT PROGRAM</span>
         </div>
-
-        <a href="registration.html" class="portal-top-button">
-            Register <span>↗</span>
-        </a>
 
     </div>
 </header>
@@ -102,11 +197,16 @@
 <main class="portal-main">
 
     <section class="portal-intro">
-        <span class="portal-label">OFFICIAL COURSE REGISTRATION PORTAL</span>
+
+        <span class="portal-label">
+            OFFICIAL COURSE REGISTRATION PORTAL
+        </span>
 
         <h1>Phase 1 Leader Training Course</h1>
 
-        <p>ORGANIZED BY MORATUWA - PILIYANDALA DISTRICT SCOUT ASSOCIATION</p>
+        <p>
+            ORGANIZED BY MORATUWA - PILIYANDALA DISTRICT SCOUT ASSOCIATION
+        </p>
 
         <div class="portal-divider"></div>
 
@@ -114,6 +214,7 @@
             Welcome to the Phase 1 Course registration portal.
             Find the essential course information below and register online.
         </p>
+
     </section>
 
     <section class="portal-details">
@@ -190,9 +291,13 @@
 
 <footer class="portal-footer">
     <div class="portal-footer-inner">
+
         <span>PHASE 1 COURSE · SCOUT LEADER DEVELOPMENT</span>
+
         <span>Developed by <strong>Supun Herath with ♡</strong></span>
+
         <span>© 2026 All Rights Reserved</span>
+
     </div>
 </footer>
 
