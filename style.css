@@ -1,16 +1,40 @@
 
-/* =========================================
-   PHASE 1 — PREMIUM SCOUT DESIGN
-========================================= */
+/* =====================================================
+   PHASE 1 COURSE MANAGEMENT SYSTEM
+   PREMIUM SCOUT DESIGN
+   Forest Green | Ivory | Antique Gold
+===================================================== */
+
+/* 1. DESIGN VARIABLES */
 
 :root {
     --forest: #102f24;
-    --forest-light: #1c4935;
+    --forest-dark: #0b2119;
+    --forest-light: #1d4935;
     --forest-soft: #eaf0e8;
-    --cream: #f7f5ed;
+
     --gold: #c5a15b;
-    --gold-light: #e1c887;
+    --gold-light: #e4cd96;
+
+    --cream: #f7f5ed;
+    --white: #ffffff;
+
     --ink: #202b25;
+    --muted: #718075;
+
+    --border: #e4e5dc;
+    --danger: #a83232;
+    --success: #24734b;
+
+    --shadow: 0 15px 45px rgba(16, 47, 36, 0.09);
+}
+
+/* 2. GLOBAL RESET */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 html {
@@ -21,11 +45,49 @@ body {
     font-family: "Segoe UI", Arial, sans-serif;
     background: var(--cream);
     color: var(--ink);
+    line-height: 1.7;
 }
+
+button,
+input,
+select,
+textarea {
+    font: inherit;
+}
+
+button,
+a {
+    -webkit-tap-highlight-color: transparent;
+}
+
+a {
+    color: var(--forest-light);
+    transition: 0.25s ease;
+}
+
+button {
+    cursor: pointer;
+}
+
+button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+img {
+    max-width: 100%;
+}
+
+::selection {
+    background: var(--gold-light);
+    color: var(--forest-dark);
+}
+
+/* 3. PREMIUM HEADER */
 
 .premium-header {
     background: var(--cream);
-    border-bottom: 1px solid #e5e0d3;
+    border-bottom: 1px solid var(--border);
     position: relative;
     z-index: 5;
 }
@@ -35,6 +97,7 @@ body {
     min-height: 100px;
     margin: auto;
     padding: 15px 28px;
+
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -88,7 +151,7 @@ body {
 }
 
 .premium-nav-links a:hover {
-    color: #a17b36;
+    color: var(--gold);
 }
 
 .premium-nav-links .nav-apply {
@@ -97,6 +160,13 @@ body {
     padding: 13px 21px;
     border-radius: 3px;
 }
+
+.premium-nav-links .nav-apply:hover {
+    background: var(--gold);
+    color: var(--forest-dark);
+}
+
+/* 4. HOMEPAGE HERO */
 
 .premium-hero {
     background: var(--forest);
@@ -110,7 +180,8 @@ body {
     content: "";
     position: absolute;
     inset: 0;
-    opacity: .12;
+    opacity: 0.12;
+
     background-image:
         repeating-radial-gradient(
             ellipse at 90% 20%,
@@ -119,6 +190,7 @@ body {
             #d8c89f 35px,
             transparent 36px
         );
+
     pointer-events: none;
 }
 
@@ -126,10 +198,12 @@ body {
     max-width: 1180px;
     min-height: 430px;
     margin: auto;
+
     display: grid;
-    grid-template-columns: 1.05fr .95fr;
+    grid-template-columns: 1.05fr 0.95fr;
     align-items: center;
     gap: 55px;
+
     position: relative;
 }
 
@@ -182,13 +256,13 @@ body {
 .gold-button {
     display: inline-block;
     background: var(--gold);
-    color: #172d22;
+    color: var(--forest-dark);
     padding: 16px 25px;
     text-decoration: none;
     font-size: 13px;
     font-weight: 700;
-    transition: .25s ease;
     border: 1px solid var(--gold);
+    transition: 0.25s ease;
 }
 
 .gold-button:hover {
@@ -202,12 +276,18 @@ body {
     font-size: 13px;
 }
 
+.text-button:hover {
+    color: var(--gold-light);
+}
+
 .hero-note {
     color: #aab9a9;
     font-size: 9px;
     letter-spacing: 2px;
     margin-top: 55px;
 }
+
+/* 5. HERO SKETCH ILLUSTRATION */
 
 .hero-art {
     min-height: 390px;
@@ -219,7 +299,7 @@ body {
 .art-circle {
     width: min(360px, 85vw);
     aspect-ratio: 1;
-    border: 1px solid rgba(212, 179, 107, .65);
+    border: 1px solid rgba(212, 179, 107, 0.65);
     border-radius: 50%;
     position: absolute;
 }
@@ -229,7 +309,7 @@ body {
     content: "";
     position: absolute;
     inset: 20px;
-    border: 1px dashed rgba(212, 179, 107, .4);
+    border: 1px dashed rgba(212, 179, 107, 0.4);
     border-radius: 50%;
 }
 
@@ -270,7 +350,7 @@ body {
 .hero-sketch {
     position: absolute;
     color: var(--gold);
-    opacity: .4;
+    opacity: 0.4;
     font-size: 45px;
 }
 
@@ -288,14 +368,19 @@ body {
     max-width: 1180px;
     margin: 65px auto 0;
     padding-top: 20px;
-    border-top: 1px solid rgba(255,255,255,.2);
+
+    border-top: 1px solid rgba(255,255,255,0.2);
+
     display: flex;
     justify-content: space-between;
     gap: 20px;
+
     color: #aab9a9;
     font-size: 9px;
     letter-spacing: 2px;
 }
+
+/* 6. ABOUT SECTION */
 
 .premium-container {
     max-width: 1180px;
@@ -329,6 +414,10 @@ body {
     line-height: 2;
 }
 
+.about-description p + p {
+    margin-top: 15px;
+}
+
 .dark-link {
     display: inline-block;
     color: var(--forest);
@@ -338,6 +427,8 @@ body {
     padding-bottom: 6px;
     margin-top: 15px;
 }
+
+/* 7. SCOUT SECTIONS */
 
 .premium-sections {
     background: #edf0e8;
@@ -368,12 +459,13 @@ body {
     padding: 30px 23px;
     min-height: 205px;
     border: 1px solid #e1dfd2;
-    transition: .25s ease;
+    transition: 0.25s ease;
 }
 
 .premium-section-card:hover {
     transform: translateY(-6px);
     border-color: var(--gold);
+    box-shadow: var(--shadow);
 }
 
 .premium-section-card span {
@@ -396,6 +488,8 @@ body {
     color: #68746b;
 }
 
+/* 8. HOMEPAGE CALL TO ACTION */
+
 .premium-cta {
     background: var(--forest-light);
     color: white;
@@ -408,8 +502,10 @@ body {
     margin: 20px 0 35px;
 }
 
+/* 9. PREMIUM FOOTER */
+
 .premium-footer {
-    background: #0b241b;
+    background: var(--forest-dark);
     color: #e8e8dd;
     padding: 65px 28px 20px;
 }
@@ -466,12 +562,14 @@ body {
 }
 
 .footer-bottom {
-    border-top: 1px solid rgba(255,255,255,.15);
+    border-top: 1px solid rgba(255,255,255,0.15);
     padding-top: 22px;
+
     display: flex;
     justify-content: space-between;
     gap: 15px;
     flex-wrap: wrap;
+
     color: #aab9a9;
     font-size: 11px;
 }
@@ -480,7 +578,287 @@ body {
     color: var(--gold-light);
 }
 
+/* 10. GENERAL APPLICATION PAGES */
+
+.application-container {
+    min-height: 100vh;
+    padding: 55px 20px;
+    background:
+        radial-gradient(
+            circle at top right,
+            rgba(197, 161, 91, 0.12),
+            transparent 35%
+        ),
+        var(--cream);
+
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.application-card {
+    width: 100%;
+    max-width: 850px;
+    padding: 42px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+}
+
+.application-card h1 {
+    font-family: Georgia, serif;
+    font-size: 34px;
+    line-height: 1.3;
+    font-weight: 400;
+    color: var(--forest);
+    margin-bottom: 8px;
+}
+
+.application-card > p {
+    color: var(--muted);
+    margin-bottom: 20px;
+}
+
+.application-card h2 {
+    color: var(--forest);
+    font-family: Georgia, serif;
+    font-weight: 400;
+    font-size: 23px;
+    margin: 25px 0 18px;
+}
+
+.application-card h3 {
+    color: var(--forest);
+}
+
+.application-card hr {
+    border: 0;
+    border-top: 1px solid var(--border);
+    margin: 25px 0;
+}
+
+.application-card a {
+    color: var(--forest-light);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.application-card a:hover {
+    color: #a17b36;
+}
+
+/* 11. FORMS */
+
+.form-group {
+    margin-bottom: 21px;
+}
+
+.form-group label,
+.application-card label {
+    display: block;
+    color: var(--forest);
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea,
+.application-card input,
+.application-card select,
+.application-card textarea {
+    width: 100%;
+    min-height: 46px;
+    padding: 11px 13px;
+
+    background: #fcfcf9;
+    color: var(--ink);
+
+    border: 1px solid #dce1d9;
+    border-radius: 4px;
+    outline: none;
+
+    transition: 0.2s ease;
+}
+
+.form-group textarea,
+.application-card textarea {
+    min-height: 110px;
+    resize: vertical;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus,
+.application-card input:focus,
+.application-card select:focus,
+.application-card textarea:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(197, 161, 91, 0.14);
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: #a0aaa0;
+}
+
+/* 12. BUTTONS */
+
+button {
+    border: none;
+    border-radius: 4px;
+    background: var(--forest);
+    color: white;
+
+    padding: 13px 22px;
+    font-size: 13px;
+    font-weight: 700;
+
+    transition: 0.25s ease;
+}
+
+button:hover:not(:disabled) {
+    background: var(--forest-light);
+    transform: translateY(-1px);
+}
+
+.application-card button {
+    margin: 5px 5px 5px 0;
+}
+
+.application-card button:focus-visible,
+.application-card a:focus-visible {
+    outline: 3px solid var(--gold);
+    outline-offset: 3px;
+}
+
+/* 13. STATUS MESSAGES */
+
+#registration-message,
+#admin-message,
+#dashboard-message,
+#participant-message,
+#management-message,
+#results-message,
+#reset-message {
+    margin-top: 15px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.success-message {
+    color: var(--success);
+    background: #e9f5ed;
+    border-left: 3px solid var(--success);
+    padding: 12px;
+}
+
+.error-message {
+    color: var(--danger);
+    background: #f9eaea;
+    border-left: 3px solid var(--danger);
+    padding: 12px;
+}
+
+/* 14. ADMIN AND MANAGEMENT CARDS */
+
+#participant-list,
+#management-list,
+#results-list {
+    margin-top: 20px;
+}
+
+#participant-list > div,
+#management-list > div,
+#results-list > div {
+    background: #fbfcf8;
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--gold);
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 15px;
+}
+
+#participant-list h3,
+#management-list h3,
+#results-list h3 {
+    font-family: Georgia, serif;
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--forest);
+    margin-bottom: 8px;
+}
+
+#participant-list p,
+#management-list p {
+    color: #66736a;
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+/* 15. TABLES */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+}
+
+th,
+td {
+    padding: 13px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+}
+
+th {
+    background: var(--forest);
+    color: white;
+    font-weight: 600;
+}
+
+/* 16. ADMIN LOGIN AND RESET PAGES */
+
+#admin-login-form,
+#reset-form {
+    margin-top: 25px;
+}
+
+#admin-login-button,
+#reset-button {
+    width: 100%;
+    margin-top: 10px;
+}
+
+#forgot-password-button {
+    background: transparent;
+    color: var(--forest);
+    border: 1px solid var(--border);
+    margin-top: 15px;
+}
+
+#forgot-password-button:hover {
+    background: var(--forest-soft);
+}
+
+/* 17. ACCESSIBILITY */
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    outline: 3px solid var(--gold);
+    outline-offset: 3px;
+}
+
+/* 18. RESPONSIVE DESIGN - TABLETS */
+
 @media (max-width: 800px) {
+
     .premium-nav {
         flex-wrap: wrap;
     }
@@ -508,23 +886,81 @@ body {
     .about-grid {
         gap: 25px;
     }
+
+    .footer-main {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .application-card {
+        padding: 30px;
+    }
 }
 
+/* 19. RESPONSIVE DESIGN - MOBILE */
+
 @media (max-width: 480px) {
+
+    .premium-nav {
+        padding: 15px;
+        gap: 12px;
+    }
+
+    .brand-logos img {
+        width: 43px;
+        height: 43px;
+    }
+
+    .brand-title strong {
+        font-size: 13px;
+    }
+
+    .brand-title span {
+        font-size: 8px;
+        letter-spacing: 1px;
+    }
+
+    .premium-nav-links {
+        gap: 13px;
+    }
+
+    .premium-nav-links a {
+        font-size: 11px;
+    }
+
     .premium-hero {
-        padding-top: 65px;
+        padding: 65px 20px 30px;
     }
 
     .hero-copy h1 {
         font-size: 48px;
     }
 
-    .premium-section-grid {
-        grid-template-columns: 1fr;
+    .hero-art {
+        min-height: 270px;
     }
 
     .hero-bottom-line {
         flex-direction: column;
+        margin-top: 35px;
+    }
+
+    .premium-about,
+    .premium-sections {
+        padding: 65px 20px;
+    }
+
+    .premium-section-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .section-heading {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .premium-cta {
+        padding: 65px 20px;
     }
 
     .footer-main {
@@ -532,8 +968,41 @@ body {
         gap: 35px;
     }
 
-    .brand-logos img {
-        width: 43px;
-        height: 43px;
+    .footer-bottom {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .application-container {
+        padding: 20px 12px;
+    }
+
+    .application-card {
+        padding: 23px 17px;
+    }
+
+    .application-card h1 {
+        font-size: 27px;
+    }
+
+    .application-card h2 {
+        font-size: 21px;
+    }
+
+    .application-card button {
+        width: 100%;
+        margin: 7px 0;
+    }
+}
+
+/* 20. REDUCED MOTION */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
     }
 }
