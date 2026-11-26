@@ -4,84 +4,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#102f24">
+    <meta name="theme-color" content="#102c21">
 
     <title>Phase 1 Leader Training Course | Registration Portal</title>
 
     <link rel="stylesheet" href="style.css">
 
     <style>
-        /* PROFESSIONAL HEADER */
-        .portal-header {
-            background: #ffffff;
-            border-bottom: 1px solid #e5ebe7;
-        }
+        /* HOMEPAGE HEADER LAYOUT */
 
-        .portal-header-inner {
-            max-width: 1180px;
-            min-height: 125px;
-            margin: auto;
-            padding: 15px 28px;
+        .home-header-inner {
             display: grid;
             grid-template-columns: 115px 1fr 90px;
             align-items: center;
-            gap: 28px;
+            gap: 25px;
+            width: min(1160px, 94%);
+            min-height: 145px;
+            margin: auto;
+            padding: 18px 0;
         }
 
-        .portal-logos {
-            display: contents;
+        .home-header-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .portal-logos img {
-            width: 78px;
-            height: 78px;
+        .home-header-logo img {
+            width: 82px;
+            height: 82px;
             object-fit: contain;
-            display: block;
+            filter: drop-shadow(0 4px 7px rgba(0,0,0,.2));
+            transition: transform .25s ease;
         }
 
-        /* Larger MP logo */
-        .portal-logos img:first-child {
-            grid-column: 1;
-            grid-row: 1;
+        .home-header-logo img:hover {
+            transform: translateY(-3px);
+        }
+
+        .home-header-logo.left img {
             width: 108px;
             height: 108px;
         }
 
-        /* Sri Lanka Scout logo */
-        .portal-logos img:last-child {
-            grid-column: 3;
-            grid-row: 1;
-            justify-self: end;
+        .home-header-logo.right img {
+            width: 82px;
+            height: 82px;
         }
 
-        /* CENTRE BRANDING */
-        .portal-brand {
+        .home-header-inner .portal-brand {
             grid-column: 2;
-            grid-row: 1;
             text-align: center;
-            display: flex;
-            flex-direction: column;
-            gap: 7px;
+            align-items: center;
         }
 
-        .portal-brand strong {
-            color: #102f24;
-            font-size: 25px;
-            font-weight: 800;
+        .home-header-inner .portal-brand strong {
+            font-size: clamp(23px, 3.2vw, 36px);
+            letter-spacing: 3px;
+        }
+
+        .home-header-inner .portal-brand span {
+            font-size: 11px;
             letter-spacing: 2px;
         }
 
-        .portal-brand span {
-            color: #65756b;
-            font-size: 13px;
-            letter-spacing: 0.5px;
-        }
-
-        .portal-top-button {
-            display: none;
-        }
-
         /* INTRODUCTION */
+
         .portal-intro {
             text-align: center;
         }
@@ -99,6 +87,7 @@
         }
 
         /* REGISTER BUTTON */
+
         .portal-register-button {
             display: inline-flex;
             align-items: center;
@@ -117,37 +106,40 @@
             background: #103522;
         }
 
-        /* MOBILE HEADER */
-        @media (max-width: 600px) {
-            .portal-header-inner {
-                min-height: 90px;
-                padding: 12px 14px;
+        /* MOBILE */
+
+        @media (max-width: 650px) {
+
+            .home-header-inner {
                 grid-template-columns: 75px 1fr 55px;
+                min-height: 115px;
                 gap: 10px;
+                padding: 14px 0;
             }
 
-            .portal-logos img:first-child {
+            .home-header-logo.left img {
                 width: 70px;
                 height: 70px;
             }
 
-            .portal-logos img:last-child {
+            .home-header-logo.right img {
                 width: 51px;
                 height: 51px;
             }
 
-            .portal-brand {
-                gap: 5px;
+            .home-header-inner .portal-brand {
+                gap: 6px;
             }
 
-            .portal-brand strong {
-                font-size: 15px;
-                letter-spacing: 1px;
+            .home-header-inner .portal-brand strong {
+                font-size: 17px;
+                letter-spacing: 1.2px;
             }
 
-            .portal-brand span {
-                font-size: 10px;
-                line-height: 1.4;
+            .home-header-inner .portal-brand span {
+                font-size: 8px;
+                letter-spacing: .8px;
+                line-height: 1.5;
             }
 
             .portal-intro h1 {
@@ -161,28 +153,30 @@
             }
         }
 
-        @media (max-width: 360px) {
-            .portal-header-inner {
+        @media (max-width: 390px) {
+
+            .home-header-inner {
                 grid-template-columns: 62px 1fr 43px;
                 gap: 7px;
             }
 
-            .portal-logos img:first-child {
+            .home-header-logo.left img {
                 width: 60px;
                 height: 60px;
             }
 
-            .portal-logos img:last-child {
+            .home-header-logo.right img {
                 width: 42px;
                 height: 42px;
             }
 
-            .portal-brand strong {
-                font-size: 13px;
+            .home-header-inner .portal-brand strong {
+                font-size: 14px;
+                letter-spacing: .8px;
             }
 
-            .portal-brand span {
-                font-size: 9px;
+            .home-header-inner .portal-brand span {
+                font-size: 7px;
             }
         }
     </style>
@@ -191,19 +185,21 @@
 <body class="portal-page">
 
 <header class="portal-header">
-    <div class="portal-header-inner">
+    <div class="home-header-inner">
 
-        <div class="portal-logos">
-            <img src="mp.png?v=6"
+        <div class="home-header-logo left">
+            <img src="mp.png?v=7"
                  alt="Moratuwa - Piliyandala District Scout Association">
-
-            <img src="sl.png?v=6"
-                 alt="Sri Lanka Scout Association">
         </div>
 
         <div class="portal-brand">
             <strong>PHASE 1 COURSE</strong>
             <span>SCOUT LEADER DEVELOPMENT PROGRAM</span>
+        </div>
+
+        <div class="home-header-logo right">
+            <img src="sl.png?v=7"
+                 alt="Sri Lanka Scout Association">
         </div>
 
     </div>
