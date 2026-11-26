@@ -4,405 +4,1007 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#102f24">
+    <meta name="theme-color" content="#123c2b">
 
     <title>Phase 1 Leader Training Course | Registration Portal</title>
 
     <link rel="stylesheet" href="style.css">
 
     <style>
-        /* PROFESSIONAL HEADER */
-        .portal-header {
-            background: #ffffff;
-            border-bottom: 1px solid #e5ebe7;
-        }
-        .portal-header-inner {
-            max-width: 1180px;
-            min-height: 125px;
-            margin: auto;
-            padding: 15px 28px;
-            display: grid;
-            grid-template-columns: 115px 1fr 90px;
-            align-items: center;
-            gap: 28px;
+        /* =========================================
+           PHASE 1 COURSE - HOMEPAGE DESIGN
+           Forest Green | Emerald | Gold | Cream
+        ========================================= */
+
+        :root {
+            --home-dark: #123c2b;
+            --home-deep: #0c2c20;
+            --home-green: #236b49;
+            --home-emerald: #39845c;
+            --home-light-green: #e8f2e9;
+            --home-gold: #d5a947;
+            --home-gold-light: #f6e7bd;
+            --home-cream: #f7f6ef;
+            --home-white: #ffffff;
+            --home-text: #243b30;
+            --home-muted: #738278;
         }
 
-        .portal-logos {
-            display: contents;
+        * {
+            box-sizing: border-box;
         }
-        .portal-logos img {
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body.home-page {
+            min-height: 100vh;
+            margin: 0;
+            font-family: "Segoe UI", Arial, sans-serif;
+            color: var(--home-text);
+            background:
+                radial-gradient(circle at 5% 10%, rgba(213,169,71,.12), transparent 27%),
+                radial-gradient(circle at 95% 40%, rgba(57,132,92,.10), transparent 30%),
+                var(--home-cream);
+        }
+
+        /* =========================================
+           HEADER
+        ========================================= */
+
+        .home-header {
+            position: relative;
+            z-index: 5;
+            background: rgba(255,255,255,.96);
+            border-bottom: 1px solid #e4eae3;
+            box-shadow: 0 4px 18px rgba(18,60,43,.05);
+        }
+
+        .home-header-inner {
+            width: min(1160px, calc(100% - 40px));
+            min-height: 112px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: 110px 1fr 90px;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .home-header-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .home-header-logo img {
+            display: block;
+            width: 76px;
+            height: 76px;
+            object-fit: contain;
+            transition: transform .25s ease;
+        }
+
+        .home-header-logo img:hover {
+            transform: translateY(-3px);
+        }
+
+        .home-header-logo.left img {
+            width: 100px;
+            height: 100px;
+        }
+
+        .home-header-logo.right img {
             width: 78px;
             height: 78px;
-            object-fit: contain;
-            display: block;
         }
 
-        .portal-logos img:first-child {
-            grid-column: 1;
-            grid-row: 1;
-            width: 108px;
-            height: 108px;
-        }
-
-        .portal-logos img:last-child {
-            grid-column: 3;
-            grid-row: 1;
-            justify-self: end;
-        }
-
-        /* CENTRE BRANDING */
-        .portal-brand {
-            grid-column: 2;
-            grid-row: 1;
+        .home-brand {
             text-align: center;
             display: flex;
             flex-direction: column;
-            gap: 7px;
+            gap: 5px;
         }
 
-        .portal-brand strong {
-            color: #102f24;
-            font-size: 25px;
+        .home-brand strong {
+            color: var(--home-dark);
+            font-size: clamp(21px, 3vw, 31px);
+            font-weight: 900;
+            letter-spacing: 2.5px;
+        }
+
+        .home-brand span {
+            color: #78877c;
+            font-size: 10px;
             font-weight: 800;
             letter-spacing: 2px;
         }
-        .portal-brand span {
-            color: #65756b;
-            font-size: 13px;
-            letter-spacing: 0.5px;
+
+        /* =========================================
+           MAIN CONTENT
+        ========================================= */
+
+        .home-main {
+            width: min(1100px, calc(100% - 40px));
+            margin: auto;
+            padding: 55px 0 65px;
         }
 
-        .portal-top-button {
-            display: none;
-        }
+        /* =========================================
+           HERO SECTION
+        ========================================= */
 
-        /* INTRODUCTION */
-        .portal-intro {
+        .home-hero {
+            position: relative;
+            overflow: hidden;
+            padding: 58px 35px;
+            margin-bottom: 35px;
+            border-radius: 25px;
             text-align: center;
+            background:
+                radial-gradient(circle at 90% 10%, rgba(213,169,71,.20), transparent 32%),
+                radial-gradient(circle at 5% 100%, rgba(91,164,112,.25), transparent 35%),
+                linear-gradient(125deg, #103a29, #1d6040 62%, #28734d);
+            box-shadow: 0 18px 42px rgba(18,60,43,.16);
         }
 
-        .portal-intro h1 {
-            color: #102f24;
-            font-weight: 800;
-            letter-spacing: -0.5px;
+        .home-hero::before {
+            content: "";
+            position: absolute;
+            width: 280px;
+            height: 280px;
+            border: 1px solid rgba(255,255,255,.10);
+            border-radius: 50%;
+            top: -175px;
+            right: -65px;
         }
-        .portal-label {
-            color: #397451;
+
+        .home-hero::after {
+            content: "";
+            position: absolute;
+            width: 210px;
+            height: 210px;
+            border: 1px solid rgba(255,255,255,.09);
+            border-radius: 50%;
+            bottom: -145px;
+            left: -55px;
+        }
+
+        .home-hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: auto;
+        }
+
+        .home-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 9px;
+            padding: 9px 17px;
+            border: 1px solid rgba(246,231,189,.35);
+            border-radius: 50px;
+            background: rgba(246,231,189,.12);
+            color: #f6e7bd;
+            font-size: 10px;
+            font-weight: 900;
+            letter-spacing: 1.8px;
+        }
+
+        .home-eyebrow::before {
+            content: "";
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--home-gold);
+        }
+
+        .home-hero h1 {
+            margin: 24px 0 12px;
+            color: #ffffff;
+            font-size: clamp(34px, 6vw, 55px);
+            font-weight: 900;
+            letter-spacing: -1.7px;
+            line-height: 1.13;
+        }
+
+        .home-hero h1 span {
+            color: #f0cd7c;
+        }
+
+        .home-hero-subtitle {
+            max-width: 650px;
+            margin: 0 auto;
+            color: #e0eee3;
+            font-size: 13px;
             font-weight: 700;
-            letter-spacing: 1.5px;
+            line-height: 1.8;
+            letter-spacing: 1px;
         }
 
-        /* REGISTER BUTTON */
-        .portal-register-button {
+        .home-hero-divider {
+            width: 58px;
+            height: 3px;
+            margin: 24px auto;
+            border-radius: 10px;
+            background: var(--home-gold);
+        }
+
+        .home-hero-description {
+            max-width: 550px;
+            margin: auto;
+            color: #d5e5d8;
+            font-size: 14px;
+            line-height: 1.9;
+        }
+
+        /* =========================================
+           SECTION HEADINGS
+        ========================================= */
+
+        .home-section-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            gap: 15px;
+            margin: 0 0 20px;
+        }
+
+        .home-section-heading small {
+            display: block;
+            margin-bottom: 6px;
+            color: #a17d38;
+            font-size: 10px;
+            font-weight: 900;
+            letter-spacing: 1.8px;
+        }
+
+        .home-section-heading h2 {
+            margin: 0;
+            color: var(--home-dark);
+            font-size: 25px;
+            font-weight: 850;
+        }
+
+        .home-batch {
+            padding: 8px 15px;
+            border: 1px solid #d7e7d9;
+            border-radius: 50px;
+            background: #eaf3e9;
+            color: #276342;
+            font-size: 10px;
+            font-weight: 900;
+            letter-spacing: .7px;
+            white-space: nowrap;
+        }
+
+        /* =========================================
+           COURSE INFORMATION
+        ========================================= */
+
+        .home-information {
+            margin-bottom: 32px;
+            padding: 32px;
+            border: 1px solid #e5e9dc;
+            border-radius: 22px;
+            background: rgba(255,255,255,.94);
+            box-shadow: 0 12px 32px rgba(28,67,44,.07);
+        }
+
+        .home-information-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 15px;
+        }
+
+        .home-info-card {
+            min-height: 112px;
+            display: flex;
+            align-items: center;
+            gap: 17px;
+            padding: 20px;
+            border: 1px solid transparent;
+            border-radius: 15px;
+            transition: transform .2s ease, box-shadow .2s ease;
+        }
+
+        .home-info-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 18px rgba(18,60,43,.08);
+        }
+
+        .home-info-card:nth-child(1) {
+            background: #eaf3eb;
+            border-color: #dcebdd;
+        }
+
+        .home-info-card:nth-child(2) {
+            background: #fbf2df;
+            border-color: #f0e3c5;
+        }
+
+        .home-info-card:nth-child(3) {
+            background: #e9f0f5;
+            border-color: #dce6ed;
+        }
+
+        .home-info-card:nth-child(4) {
+            background: #f5ece3;
+            border-color: #eddfd0;
+        }
+
+        .home-info-icon {
+            width: 49px;
+            height: 49px;
+            display: grid;
+            place-items: center;
+            flex-shrink: 0;
+            border-radius: 14px;
+            font-size: 22px;
+        }
+
+        .home-info-card:nth-child(1) .home-info-icon {
+            background: #d3e8d5;
+            color: #236b49;
+        }
+
+        .home-info-card:nth-child(2) .home-info-icon {
+            background: #f2e1b9;
+            color: #936b25;
+        }
+
+        .home-info-card:nth-child(3) .home-info-icon {
+            background: #d9e7f0;
+            color: #426d89;
+        }
+
+        .home-info-card:nth-child(4) .home-info-icon {
+            background: #ead9c8;
+            color: #98653c;
+        }
+
+        .home-info-content {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .home-info-content small {
+            color: #77857a;
+            font-size: 9px;
+            font-weight: 900;
+            letter-spacing: 1.1px;
+        }
+
+        .home-info-content strong {
+            color: #193e2c;
+            font-size: 15px;
+            font-weight: 800;
+            line-height: 1.4;
+        }
+
+        /* =========================================
+           AVAILABLE SECTIONS
+        ========================================= */
+
+        .home-sections {
+            margin-top: 28px;
+            padding-top: 24px;
+            border-top: 1px solid #e9ece4;
+        }
+
+        .home-sections-label {
+            color: #78877c;
+            font-size: 10px;
+            font-weight: 900;
+            letter-spacing: 1.4px;
+        }
+
+        .home-section-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 14px;
+        }
+
+        .home-section-tags span {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 9px 17px;
+            border: 1px solid #d9e7d9;
+            border-radius: 50px;
+            background: #edf5ed;
+            color: #285c3e;
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        .home-section-tags span::before {
+            content: "";
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #39845c;
+        }
+
+        /* =========================================
+           REGISTRATION CTA
+        ========================================= */
+
+        .home-register {
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 25px;
+            padding: 31px 35px;
+            margin-bottom: 28px;
+            border-radius: 20px;
+            background:
+                radial-gradient(circle at 90% 10%, rgba(213,169,71,.18), transparent 32%),
+                linear-gradient(115deg, #123c2b, #236b49);
+            box-shadow: 0 13px 30px rgba(18,60,43,.15);
+        }
+
+        .home-register-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .home-register-content small {
+            color: #f1d48d;
+            font-size: 10px;
+            font-weight: 900;
+            letter-spacing: 1.7px;
+        }
+
+        .home-register h2 {
+            margin: 8px 0;
+            color: #ffffff;
+            font-size: 25px;
+        }
+
+        .home-register p {
+            margin: 0;
+            color: #d8e8dc;
+            font-size: 13px;
+        }
+
+        .home-register-button {
+            position: relative;
+            z-index: 1;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 14px;
-            background: #174c35;
-            color: #ffffff;
-            text-decoration: none;
+            gap: 13px;
+            flex-shrink: 0;
             padding: 15px 24px;
-            border-radius: 6px;
-            font-weight: 700;
-            transition: background 0.2s ease;
-        }
-        .portal-register-button:hover {
-            background: #103522;
+            border: 1px solid #f2d58e;
+            border-radius: 9px;
+            background: linear-gradient(135deg, #f1d184, #d5a947);
+            color: #263b2b;
+            font-size: 13px;
+            font-weight: 900;
+            text-decoration: none;
+            box-shadow: 0 5px 14px rgba(0,0,0,.12);
+            transition: .2s ease;
         }
 
-        /* RESULT DOWNLOAD SECTION */
-        .result-download-section {
+        .home-register-button:hover {
+            transform: translateY(-3px);
+            background: #f7dfaa;
+            color: #173c2a;
+            box-shadow: 0 8px 18px rgba(0,0,0,.16);
+        }
+
+        /* =========================================
+           RESULT DOWNLOAD SECTION
+        ========================================= */
+
+        .home-results {
             position: relative;
             overflow: hidden;
-            background: linear-gradient(120deg, #174c35 0%, #236b49 100%);
-            border: 1px solid #397d59;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 25px;
+            padding: 30px 35px;
+            border: 1px solid #d9e5ed;
+            border-radius: 20px;
+            background:
+                radial-gradient(circle at 100% 0%, rgba(93,145,177,.13), transparent 35%),
+                linear-gradient(115deg, #f0f5f8, #ffffff);
+            box-shadow: 0 10px 28px rgba(39,75,95,.07);
+        }
+
+        .home-results-content {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            gap: 19px;
+        }
+
+        .home-results-icon {
+            width: 57px;
+            height: 57px;
+            display: grid;
+            place-items: center;
+            flex-shrink: 0;
             border-radius: 16px;
-            padding: 34px 24px;
-            margin: 38px auto;
-            max-width: 850px;
-            text-align: center;
-            box-shadow: 0 8px 22px rgba(16, 47, 36, 0.13);
+            background: #dceaf2;
+            color: #356b89;
+            font-size: 26px;
         }
 
-        .result-download-section::before {
-            content: "";
-            position: absolute;
-            width: 190px;
-            height: 190px;
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 50%;
-            top: -115px;
-            right: -55px;
+        .home-results-text small {
+            display: block;
+            margin-bottom: 5px;
+            color: #497b98;
+            font-size: 9px;
+            font-weight: 900;
+            letter-spacing: 1.5px;
         }
 
-        .result-download-section::after {
-            content: "";
-            position: absolute;
-            width: 130px;
-            height: 130px;
-            border: 1px solid rgba(255, 255, 255, 0.10);
-            border-radius: 50%;
-            bottom: -90px;
-            left: -35px;
+        .home-results h2 {
+            margin: 0 0 7px;
+            color: #1c4054;
+            font-size: 21px;
+            font-weight: 850;
         }
 
-        .result-download-section h2 {
-            position: relative;
-            z-index: 1;
-            color: #ffffff;
-            font-size: 25px;
-            margin: 0 0 11px;
+        .home-results p {
+            margin: 0;
+            color: #71818a;
+            font-size: 12px;
+            line-height: 1.7;
         }
 
-        .result-download-section p {
-            position: relative;
-            z-index: 1;
-            color: #e1eee5;
-            margin: 0 0 23px;
-            line-height: 1.6;
-        }
-
-        .result-download-button {
+        .home-results-button {
             position: relative;
             z-index: 1;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
-            background: #e8bd59;
-            color: #26351f;
-            padding: 14px 27px;
-            border: 1px solid #f3d58e;
-            border-radius: 8px;
-            text-decoration: none;
+            flex-shrink: 0;
+            padding: 14px 21px;
+            border: 1px solid #2f6e8d;
+            border-radius: 9px;
+            background: linear-gradient(135deg, #397d9e, #285e7c);
+            color: #ffffff;
+            font-size: 12px;
             font-weight: 800;
-            font-size: 15px;
-            transition: all 0.2s ease;
-            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+            text-decoration: none;
+            box-shadow: 0 5px 13px rgba(40,94,124,.17);
+            transition: .2s ease;
         }
 
-        .result-download-button:hover {
-            background: #f2d17e;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.16);
+        .home-results-button:hover {
+            transform: translateY(-3px);
+            background: linear-gradient(135deg, #4b91b2, #326e8e);
+            color: #ffffff;
+            box-shadow: 0 8px 18px rgba(40,94,124,.22);
         }
 
-        /* MOBILE HEADER */
-        @media (max-width: 600px) {
-            .portal-header-inner {
-                min-height: 90px;
-                padding: 12px 14px;
-                grid-template-columns: 75px 1fr 55px;
-                gap: 10px;
+        /* =========================================
+           FOOTER
+        ========================================= */
+
+        .home-footer {
+            padding: 27px 20px;
+            border-top: 3px solid var(--home-gold);
+            background:
+                radial-gradient(circle at 90% 0%, rgba(213,169,71,.13), transparent 35%),
+                #0c2c20;
+        }
+
+        .home-footer-inner {
+            width: min(1160px, 100%);
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .home-footer-inner span {
+            color: #d0dfd3;
+            font-size: 10px;
+            letter-spacing: .5px;
+        }
+
+        .home-footer-inner strong {
+            color: #f1d48d;
+        }
+
+        /* =========================================
+           RESPONSIVE DESIGN
+        ========================================= */
+
+        @media (max-width: 700px) {
+
+            .home-header-inner {
+                width: calc(100% - 25px);
+                min-height: 88px;
+                grid-template-columns: 65px 1fr 50px;
+                gap: 9px;
             }
 
-            .portal-logos img:first-child {
-                width: 70px;
-                height: 70px;
-            }
-            .portal-logos img:last-child {
-                width: 51px;
-                height: 51px;
+            .home-header-logo.left img {
+                width: 65px;
+                height: 65px;
             }
 
-            .portal-brand {
-                gap: 5px;
+            .home-header-logo.right img {
+                width: 49px;
+                height: 49px;
             }
 
-            .portal-brand strong {
-                font-size: 15px;
+            .home-brand {
+                gap: 4px;
+            }
+
+            .home-brand strong {
+                font-size: 16px;
                 letter-spacing: 1px;
             }
 
-            .portal-brand span {
+            .home-brand span {
+                font-size: 8px;
+                letter-spacing: .8px;
+                line-height: 1.5;
+            }
+
+            .home-main {
+                width: calc(100% - 26px);
+                padding: 28px 0 40px;
+            }
+
+            .home-hero {
+                padding: 43px 20px;
+                border-radius: 19px;
+                margin-bottom: 28px;
+            }
+
+            .home-hero h1 {
+                font-size: clamp(32px, 8vw, 43px);
+                letter-spacing: -1px;
+            }
+
+            .home-hero-subtitle {
                 font-size: 10px;
-                line-height: 1.4;
-            }
-            .portal-intro h1 {
-                font-size: 27px;
-                line-height: 1.2;
+                letter-spacing: .6px;
             }
 
-            .portal-register-button {
-                width: 100%;
-                box-sizing: border-box;
-            }
-
-            .result-download-section {
-                margin: 28px 12px;
-                padding: 29px 17px;
-            }
-
-            .result-download-section h2 {
-                font-size: 21px;
-            }
-
-            .result-download-button {
-                width: 100%;
-                box-sizing: border-box;
-            }
-        }
-
-        @media (max-width: 360px) {
-            .portal-header-inner {
-                grid-template-columns: 62px 1fr 43px;
-                gap: 7px;
-            }
-            .portal-logos img:first-child {
-                width: 60px;
-                height: 60px;
-            }
-
-            .portal-logos img:last-child {
-                width: 42px;
-                height: 42px;
-            }
-
-            .portal-brand strong {
+            .home-hero-description {
                 font-size: 13px;
             }
 
-            .portal-brand span {
-                font-size: 9px;
+            .home-information {
+                padding: 22px 17px;
+                border-radius: 18px;
+            }
+
+            .home-section-heading h2 {
+                font-size: 21px;
+            }
+
+            .home-information-grid {
+                grid-template-columns: 1fr;
+                gap: 11px;
+            }
+
+            .home-info-card {
+                min-height: 90px;
+                padding: 15px;
+            }
+
+            .home-info-icon {
+                width: 44px;
+                height: 44px;
+                font-size: 20px;
+            }
+
+            .home-info-content strong {
+                font-size: 14px;
+            }
+
+            .home-register {
+                flex-direction: column;
+                align-items: stretch;
+                padding: 25px 22px;
+                gap: 20px;
+                border-radius: 18px;
+            }
+
+            .home-register-button {
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+            .home-results {
+                flex-direction: column;
+                align-items: stretch;
+                padding: 24px 20px;
+                gap: 20px;
+                border-radius: 18px;
+            }
+
+            .home-results-content {
+                align-items: flex-start;
+                gap: 13px;
+            }
+
+            .home-results-icon {
+                width: 48px;
+                height: 48px;
+                font-size: 22px;
+            }
+
+            .home-results h2 {
+                font-size: 18px;
+            }
+
+            .home-results-button {
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+            .home-footer-inner {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+        }
+
+        @media (max-width: 390px) {
+            .home-header-inner {
+                grid-template-columns: 55px 1fr 42px;
+                gap: 6px;
+            }
+
+            .home-header-logo.left img {
+                width: 54px;
+                height: 54px;
+            }
+
+            .home-header-logo.right img {
+                width: 41px;
+                height: 41px;
+            }
+
+            .home-brand strong {
+                font-size: 13px;
+            }
+
+            .home-brand span {
+                font-size: 7px;
+            }
+
+            .home-eyebrow {
+                font-size: 8px;
+                letter-spacing: 1px;
+            }
+
+            .home-section-heading {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+        }
+
+        /* ACCESSIBILITY */
+        .home-page a:focus-visible {
+            outline: 3px solid #d5a947;
+            outline-offset: 4px;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                transition-duration: .01ms !important;
+                animation-duration: .01ms !important;
             }
         }
     </style>
 </head>
 
-<body class="portal-page">
-<header class="portal-header">
-    <div class="portal-header-inner">
+<body class="home-page">
 
-        <div class="portal-logos">
-            <img src="mp.png?v=6"
-                 alt="Moratuwa - Piliyandala District Scout Association">
+    <!-- HEADER -->
+    <header class="home-header">
+        <div class="home-header-inner">
 
-            <img src="sl.png?v=6"
-                 alt="Sri Lanka Scout Association">
+            <div class="home-header-logo left">
+                <img src="mp.png?v=7"
+                     alt="Moratuwa - Piliyandala District Scout Association">
+            </div>
+
+            <div class="home-brand">
+                <strong>PHASE 1 COURSE</strong>
+                <span>SCOUT LEADER DEVELOPMENT PROGRAM</span>
+            </div>
+
+            <div class="home-header-logo right">
+                <img src="sl.png?v=7"
+                     alt="Sri Lanka Scout Association">
+            </div>
+
         </div>
+    </header>
 
-        <div class="portal-brand">
-            <strong>PHASE 1 COURSE</strong>
-            <span>SCOUT LEADER DEVELOPMENT PROGRAM</span>
-        </div>
+    <!-- MAIN CONTENT -->
+    <main class="home-main">
 
-    </div>
-</header>
+        <!-- HERO -->
+        <section class="home-hero">
 
-<main class="portal-main">
+            <div class="home-hero-content">
 
-    <section class="portal-intro">
+                <span class="home-eyebrow">
+                    OFFICIAL COURSE PORTAL
+                </span>
 
-        <span class="portal-label">
-            OFFICIAL COURSE REGISTRATION PORTAL
-        </span>
+                <h1>
+                    Phase 1 <span>Leader Training</span> Course
+                </h1>
 
-        <h1>Phase 1 Leader Training Course</h1>
+                <p class="home-hero-subtitle">
+                    ORGANIZED BY MORATUWA - PILIYANDALA DISTRICT SCOUT ASSOCIATION
+                </p>
 
-        <p>
-            ORGANIZED BY MORATUWA - PILIYANDALA DISTRICT SCOUT ASSOCIATION
-        </p>
+                <div class="home-hero-divider"></div>
 
-        <div class="portal-divider"></div>
-        <p class="portal-description">
-            Welcome to the Phase 1 Course registration portal.
-            Find the essential course information below and register online.
-        </p>
+                <p class="home-hero-description">
+                    Welcome to the Phase 1 Course portal.
+                    Explore the course information and complete your
+                    participant registration online.
+                </p>
 
-    </section>
+            </div>
 
-    <section class="portal-details">
+        </section>
 
-        <div class="portal-section-heading">
-            <span>COURSE INFORMATION</span>
-            <span class="portal-batch">2026 BATCH</span>
-        </div>
+        <!-- COURSE INFORMATION -->
+        <section class="home-information">
 
-        <div class="portal-detail-grid">
-            <div class="portal-detail">
-                <span class="portal-detail-icon">▦</span>
+            <div class="home-section-heading">
                 <div>
-                    <small>COURSE DATES</small>
-                    <strong>28–29 November 2026</strong>
+                    <small>PLAN YOUR PARTICIPATION</small>
+                    <h2>Course Information</h2>
                 </div>
+
+                <span class="home-batch">2026 · 1ST BATCH</span>
             </div>
-            <div class="portal-detail">
-                <span class="portal-detail-icon">◷</span>
-                <div>
-                    <small>DURATION</small>
-                    <strong>2 Days</strong>
+
+            <div class="home-information-grid">
+
+                <div class="home-info-card">
+                    <div class="home-info-icon">▦</div>
+
+                    <div class="home-info-content">
+                        <small>COURSE DATES</small>
+                        <strong>28–29 November 2026</strong>
+                    </div>
                 </div>
-            </div>
-            <div class="portal-detail">
-                <span class="portal-detail-icon">♧</span>
-                <div>
-                    <small>ELIGIBLE SECTIONS</small>
-                    <strong>All Four Sections</strong>
+
+                <div class="home-info-card">
+                    <div class="home-info-icon">◷</div>
+
+                    <div class="home-info-content">
+                        <small>DURATION</small>
+                        <strong>2 Days</strong>
+                    </div>
                 </div>
-            </div>
-            <div class="portal-detail">
-                <span class="portal-detail-icon">▤</span>
-                <div>
-                    <small>REGISTRATION CLOSES</small>
-                    <strong>28 November 2026</strong>
+
+                <div class="home-info-card">
+                    <div class="home-info-icon">♧</div>
+
+                    <div class="home-info-content">
+                        <small>ELIGIBLE SECTIONS</small>
+                        <strong>Singithi, Cub, Scout</strong>
+                    </div>
                 </div>
+
+                <div class="home-info-card">
+                    <div class="home-info-icon">▤</div>
+
+                    <div class="home-info-content">
+                        <small>REGISTRATION CLOSES</small>
+                        <strong>28 November 2026</strong>
+                    </div>
+                </div>
+
             </div>
+
+            <div class="home-sections">
+
+                <span class="home-sections-label">
+                    AVAILABLE SCOUTING SECTIONS
+                </span>
+
+                <div class="home-section-tags">
+                    <span>Singithi</span>
+                    <span>Cub</span>
+                    <span>Scout</span>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- REGISTRATION -->
+        <section class="home-register">
+
+            <div class="home-register-content">
+                <small>YOUR NEXT STEP</small>
+
+                <h2>Ready to register?</h2>
+
+                <p>
+                    Complete the online participant registration form.
+                </p>
+            </div>
+
+            <a href="registration.html" class="home-register-button">
+                Register for the Course <span>→</span>
+            </a>
+
+        </section>
+
+        <!-- RESULT DOWNLOAD -->
+        <section class="home-results">
+
+            <div class="home-results-content">
+
+                <div class="home-results-icon">▤</div>
+
+                <div class="home-results-text">
+                    <small>PARTICIPANT RESULTS</small>
+
+                    <h2>View & Download Your Result Sheet</h2>
+
+                    <p>
+                        Access your course result sheet using your
+                        registration details.
+                    </p>
+                </div>
+
+            </div>
+
+            <a href="download-result.html" class="home-results-button">
+                View & Download <span>↓</span>
+            </a>
+
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="home-footer">
+
+        <div class="home-footer-inner">
+
+            <span>
+                PHASE 1 COURSE · SCOUT LEADER DEVELOPMENT
+            </span>
+
+            <span>
+                Developed by <strong>Supun Herath with ♡</strong>
+            </span>
+
+            <span>
+                © 2026 All Rights Reserved
+            </span>
 
         </div>
 
-        <div class="portal-sections">
-            <small>AVAILABLE SCOUTING SECTIONS</small>
-            <div class="portal-section-tags">
-                <span>Singithi</span>
-                <span>Cub</span>
-                <span>Scout</span>
-                <span>Rover</span>
-            </div>
-        </div>
-
-    </section>
-
-    <section class="portal-register">
-
-        <div>
-            <span>YOUR NEXT STEP</span>
-            <h2>Ready to register?</h2>
-            <p>Complete the online participant registration form.</p>
-        </div>
-        <a href="registration.html" class="portal-register-button">
-            Register for the Course <span>→</span>
-        </a>
-
-    </section>
-
-    <!-- RESULT SHEET DOWNLOAD -->
-    <section class="result-download-section">
-
-        <h2>View & Download Your Result Sheet</h2>
-
-        <p>
-            Access your course result sheet using your registration details.
-        </p>
-
-        <a href="download-result.html" class="result-download-button">
-            View & Download Result Sheet →
-        </a>
-
-    </section>
-
-</main>
-
-<footer class="portal-footer">
-    <div class="portal-footer-inner">
-
-        <span>PHASE 1 COURSE · SCOUT LEADER DEVELOPMENT</span>
-
-        <span>Developed by <strong>Supun Herath with ♡</strong></span>
-
-        <span>© 2026 All Rights Reserved</span>
-
-    </div>
-</footer>
+    </footer>
 
 </body>
 </html>
