@@ -4,96 +4,206 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#102c21">
     <meta name="description" content="Register for the Phase 1 Course.">
-    <title>Course Registration | Phase 1 Course</title>
+    <title>Registration | Phase 1 Course</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
+<body class="portal-page registration-page">
 
-    <header class="site-header">
-        <nav class="navbar">
-            <a href="index.html" class="logo">Phase 1 Course</a>
-            <a href="index.html">Home</a>
-        </nav>
+    <!-- HEADER -->
+    <header class="portal-header">
+        <div class="portal-header-inner">
+
+            <a href="index.html" class="registration-brand">
+                <div class="portal-logos">
+                    <img src="mp.png?v=3" alt="Organization Logo">
+                    <img src="sl.png?v=3" alt="Scout Logo">
+                </div>
+
+                <div class="portal-brand">
+                    <strong>PHASE 1 COURSE</strong>
+                    <span>SCOUT LEADER DEVELOPMENT</span>
+                </div>
+            </a>
+
+            <a href="index.html" class="portal-top-button">
+                ← Home
+            </a>
+
+        </div>
     </header>
 
-    <main>
-        <section class="page-heading">
-            <h1>Course Registration</h1>
-            <p>Complete the form below to register for the Phase 1 Course.</p>
+
+    <!-- MAIN CONTENT -->
+    <main class="registration-main">
+
+        <!-- PAGE INTRO -->
+        <section class="registration-intro">
+
+            <span class="portal-label">
+                OFFICIAL COURSE REGISTRATION
+            </span>
+
+            <h1>Join the Course</h1>
+
+            <p>
+                Complete your details below to register for the
+                Phase 1 Scout Leader Development Programme.
+            </p>
+
+            <div class="portal-divider"></div>
+
         </section>
 
-        <section class="application-container">
-            <div class="application-card">
 
-                <p class="registration-notice">
-                    Registration period: 26–28 November 2026
-                </p>
+        <!-- REGISTRATION PERIOD -->
+        <section class="registration-period">
 
-                <form id="registration-form">
+            <div class="registration-period-icon">✦</div>
 
-                    <div class="form-section">
-                        <h2>Personal Information</h2>
+            <div>
+                <span>REGISTRATION PERIOD</span>
+                <strong>26 – 28 November 2026</strong>
+            </div>
 
-                        <div class="form-group">
-                            <label for="full_name">Full Name *</label>
-                            <input
-                                type="text"
-                                id="full_name"
-                                name="full_name"
-                                maxlength="150"
-                                autocomplete="name"
-                                required>
+            <span class="registration-open-tag">
+                Registration Open
+            </span>
+
+        </section>
+
+
+        <!-- FORM -->
+        <section class="registration-form-card">
+
+            <div class="registration-form-heading">
+                <span>PARTICIPANT DETAILS</span>
+                <h2>Registration Form</h2>
+                <p>Fields marked with * are required.</p>
+            </div>
+
+
+            <form id="registration-form">
+
+                <!-- PERSONAL INFORMATION -->
+                <div class="form-section registration-section">
+
+                    <div class="registration-section-heading">
+                        <span class="section-number">01</span>
+
+                        <div>
+                            <h3>Personal Information</h3>
+                            <p>Your basic contact details</p>
                         </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="full_name">
+                            Full Name <span class="required-star">*</span>
+                        </label>
+
+                        <input
+                            type="text"
+                            id="full_name"
+                            name="full_name"
+                            maxlength="150"
+                            autocomplete="name"
+                            placeholder="Enter your full name"
+                            required>
+                    </div>
+
+
+                    <div class="registration-two-column">
 
                         <div class="form-group">
-                            <label for="contact_number">Contact Number *</label>
+                            <label for="contact_number">
+                                Contact Number <span class="required-star">*</span>
+                            </label>
+
                             <input
                                 type="tel"
                                 id="contact_number"
                                 name="contact_number"
                                 maxlength="30"
                                 autocomplete="tel"
+                                placeholder="Enter contact number"
                                 required>
                         </div>
 
+
                         <div class="form-group">
-                            <label for="email">Email Address (Optional)</label>
+                            <label for="email">
+                                Email Address
+                                <span class="optional-label">OPTIONAL</span>
+                            </label>
+
                             <input
                                 type="email"
                                 id="email"
                                 name="email"
                                 maxlength="254"
-                                autocomplete="email">
+                                autocomplete="email"
+                                placeholder="Enter email address">
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- SCOUTING INFORMATION -->
+                <div class="form-section registration-section">
+
+                    <div class="registration-section-heading">
+                        <span class="section-number">02</span>
+
+                        <div>
+                            <h3>Scouting Information</h3>
+                            <p>Your Scouting background</p>
                         </div>
                     </div>
 
-                    <div class="form-section">
-                        <h2>Scouting Information</h2>
+
+                    <div class="form-group">
+                        <label for="school_troop">
+                            School / Troop <span class="required-star">*</span>
+                        </label>
+
+                        <input
+                            type="text"
+                            id="school_troop"
+                            name="school_troop"
+                            maxlength="150"
+                            placeholder="Enter your school or troop"
+                            required>
+                    </div>
+
+
+                    <div class="registration-two-column">
 
                         <div class="form-group">
-                            <label for="school_troop">School / Troop *</label>
-                            <input
-                                type="text"
-                                id="school_troop"
-                                name="school_troop"
-                                maxlength="150"
-                                required>
-                        </div>
+                            <label for="district">
+                                District <span class="required-star">*</span>
+                            </label>
 
-                        <div class="form-group">
-                            <label for="district">District *</label>
                             <input
                                 type="text"
                                 id="district"
                                 name="district"
                                 maxlength="100"
+                                placeholder="Enter your district"
                                 required>
                         </div>
 
+
                         <div class="form-group">
-                            <label for="section">Section *</label>
+                            <label for="section">
+                                Scouting Section <span class="required-star">*</span>
+                            </label>
+
                             <select id="section" name="section" required>
                                 <option value="">Select your section</option>
                                 <option value="Singithi">Singithi</option>
@@ -102,10 +212,33 @@
                                 <option value="Rover">Rover</option>
                             </select>
                         </div>
+
                     </div>
 
-                    <div class="form-section">
-                        <h2>Security Verification</h2>
+
+                    <div class="registration-section-info">
+                        <span>✦</span>
+                        <p>
+                            Please select the section you currently belong to.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <!-- SECURITY VERIFICATION -->
+                <div class="form-section registration-section">
+
+                    <div class="registration-section-heading">
+                        <span class="section-number">03</span>
+
+                        <div>
+                            <h3>Security Verification</h3>
+                            <p>Verify that you are submitting the form</p>
+                        </div>
+                    </div>
+
+                    <div class="registration-captcha">
                         <p>Please complete the security verification below.</p>
 
                         <div
@@ -114,14 +247,26 @@
                         </div>
                     </div>
 
-                    <div class="form-actions">
-                        <button
-                            type="button"
-                            id="submit-registration"
-                            class="primary-button">
-                            Submit Registration
-                        </button>
-                    </div>
+                </div>
+
+
+                <!-- SUBMIT -->
+                <div class="registration-submit-area">
+
+                    <p>
+                        By submitting this form, you are registering
+                        your interest in participating in the Phase 1 Course.
+                    </p>
+
+                    <button
+                        type="button"
+                        id="submit-registration"
+                        class="registration-submit-button">
+
+                        Submit Registration
+                        <span>→</span>
+
+                    </button>
 
                     <p
                         id="registration-message"
@@ -129,15 +274,31 @@
                         aria-live="polite">
                     </p>
 
-                </form>
-            </div>
+                </div>
+
+            </form>
+
         </section>
+
+
+        <div class="registration-back">
+            <a href="index.html">← Return to Course Information</a>
+        </div>
+
     </main>
 
-    <footer class="site-footer">
-        <p>Phase 1 Course | All Rights Reserved</p>
+
+    <!-- FOOTER -->
+    <footer class="portal-footer">
+        <div class="portal-footer-inner">
+            <span>PHASE 1 COURSE · SCOUT LEADER DEVELOPMENT</span>
+            <span>Developed by <strong>Supun Herath</strong></span>
+            <span>© 2026 All Rights Reserved</span>
+        </div>
     </footer>
 
+
+    <!-- REQUIRED SCRIPTS -->
     <script
         src="https://challenges.cloudflare.com/turnstile/v0/api.js"
         async
