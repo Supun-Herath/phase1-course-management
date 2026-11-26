@@ -4,47 +4,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Participants | Phase 1 Course</title>
+    <title>Participant Management | Phase 1 Course</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        .participant-table-wrap {
+            width: 100%;
+            overflow-x: auto;
+            margin-top: 20px;
+        }
+        .participant-table {
+            width: 100%;
+            min-width: 1150px;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+        .participant-table th,
+        .participant-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+            vertical-align: middle;
+        }
+        .participant-table th {
+            background: #eaf1eb;
+            color: #183d2b;
+            white-space: nowrap;
+        }
+        .participant-table tr:hover {
+            background: #f7faf7;
+        }
+        .participant-actions {
+            min-width: 190px;
+        }
+        .participant-actions button {
+            margin-top: 8px;
+            white-space: nowrap;
+        }
+        .completion-control {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+        .completion-control input {
+            width: 18px;
+            height: 18px;
+        }
+        .table-status {
+            margin: 12px 0;
+        }
+    </style>
 </head>
 <body>
-
     <main class="application-container">
         <div class="application-card">
-
             <h1>Participant Management</h1>
-            <p>Phase 1 Course</p>
-
+            <p>Phase 1 Course Administration</p>
             <hr>
 
             <h2>Registered Participants</h2>
+            <p>View participant details, update course completion and download result sheets.</p>
 
             <div class="form-group">
-                <label for="participant-search">
-                    Search Participants
-                </label>
-
+                <label for="participant-search">Search participants</label>
                 <input
                     type="search"
                     id="participant-search"
-                    placeholder="Search name or registration number">
+                    placeholder="Search name, registration number, troop or contact number">
             </div>
 
-            <p id="participant-message" role="status">
+            <p id="participant-message" class="table-status" role="status">
                 Loading participants...
             </p>
 
-            <div id="participant-list"></div>
+            <div id="participant-list" class="participant-table-wrap"></div>
 
-            <p>
-                <a href="dashboard.html">Back to Dashboard</a>
-            </p>
-
+            <hr>
+            <p><a href="dashboard.html">Back to Dashboard</a></p>
         </div>
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="participant.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.3/html2pdf.bundle.min.js"></script>
+    <script src="participant.js?v=3"></script>
 </body>
 </html>
