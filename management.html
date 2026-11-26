@@ -8,48 +8,55 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<main class="application-container">
-    <div class="application-card">
-        <h1>Course Management</h1>
-        <p>Phase 1 Course Administration</p>
+    <main class="application-container">
+        <div class="application-card">
+            <h1>Course Management</h1>
+            <p>Phase 1 Course Administration</p>
 
-        <hr>
+            <hr>
 
-        <h2>Create Course Session</h2>
-        <form id="session-form">
+            <h2>Create Course Session</h2>
+
+            <form id="session-form">
+                <div class="form-group">
+                    <label for="session-title">Session title</label>
+                    <input id="session-title" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="session-date">Session date</label>
+                    <input type="date" id="session-date" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="session-description">Description</label>
+                    <textarea id="session-description"></textarea>
+                </div>
+
+                <button type="submit" id="session-button">
+                    Create Session
+                </button>
+            </form>
+
+            <hr>
+
+            <h2>Attendance, Completion & Results</h2>
+
             <div class="form-group">
-                <label for="session-title">Session title</label>
-                <input id="session-title" required>
+                <label for="session-select">Select session</label>
+                <select id="session-select">
+                    <option value="">Loading sessions...</option>
+                </select>
             </div>
-            <div class="form-group">
-                <label for="session-date">Session date</label>
-                <input type="date" id="session-date" required>
-            </div>
-            <div class="form-group">
-                <label for="session-description">Description</label>
-                <textarea id="session-description"></textarea>
-            </div>
-            <button type="submit" id="session-button">Create Session</button>
-        </form>
 
-        <hr>
+            <p id="management-message" role="status"></p>
+            <div id="management-list"></div>
 
-        <h2>Attendance and Results</h2>
-        <div class="form-group">
-            <label for="session-select">Select session</label>
-            <select id="session-select">
-                <option value="">Loading sessions...</option>
-            </select>
+            <p><a href="dashboard.html">Back to Dashboard</a></p>
         </div>
+    </main>
 
-        <p id="management-message" role="status"></p>
-        <div id="management-list"></div>
-
-        <p><a href="dashboard.html">Back to Dashboard</a></p>
-    </div>
-</main>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="management.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="management.js"></script>
 </body>
 </html>
