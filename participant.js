@@ -27,7 +27,7 @@ let adminUser = null;
 // ==================================================
 
 function showMessage(text) {
-    message.textContent = text;
+    if (message) message.textContent = text;
 }
 
 function escapeHTML(value) {
@@ -61,13 +61,19 @@ function getCompletion(registrationId) {
 
 // ==================================================
 // ADMIN VERIFICATION
+// Do not automatically sign out on profile errors.
 // ==================================================
 
 async function verifyAdmin() {
     const { data, error } = await db.auth.getSession();
 
-    if (error || !data.session) {
-        window.location.href = "admin.html";
+    if (error) {
+        showMessage("Session error: " + error.message);
+        return false;
+    }
+
+    if (!data.session) {
+        showMessage("No active login session. Please log in again.");
         return false;
     }
 
@@ -77,12 +83,16 @@ async function verifyAdmin() {
         .eq("id", data.session.user.id)
         .single();
 
-    if (
-        profileError ||
-        !["admin", "super_admin"].includes(profile?.role)
-    ) {
-        await db.auth.signOut();
-        window.location.href = "admin.html";
+    if (profileError) {
+        showMessage("Admin profile error: " + profileError.message);
+        return false;
+    }
+
+    if (!["admin", "super_admin"].includes(profile?.role)) {
+        showMessage(
+            "Admin access denied. Role found: " +
+            (profile?.role || "none")
+        );
         return false;
     }
 
@@ -97,6 +107,11 @@ async function verifyAdmin() {
 async function loadParticipants() {
     try {
         showMessage("Loading participants...");
+
+        if (!list) {
+            throw new Error("Participant table container not found.");
+        }
+
         list.replaceChildren();
 
         const { data, error } = await db
@@ -302,7 +317,7 @@ function displayParticipants(items) {
             }
         });
 
-        // GENERATE A NEW PDF VERSION AND DOWNLOAD
+        // GENERATE NEW PDF VERSION AND DOWNLOAD
 
         pdfButton.addEventListener("click", async () => {
             const currentCompletion = getCompletion(registration.id);
@@ -367,7 +382,7 @@ function displayParticipants(items) {
 }
 
 // ==================================================
-// PROFESSIONAL A4 COURSE COMPLETION RESULT SHEET
+// PROFESSIONAL COURSE COMPLETION CERTIFICATE
 // ==================================================
 
 async function createResultSheet(registration, completion) {
@@ -406,11 +421,8 @@ async function createResultSheet(registration, completion) {
                 border-bottom:2px solid #245b40;
                 padding-bottom:18px;
             ">
-                <img
-                    src="${mpLogo}"
-                    alt="Organization Logo"
-                    style="width:82px;height:82px;object-fit:contain;"
-                >
+                <img src="${mpLogo}" alt="Organization Logo"
+                    style="width:82px;height:82px;object-fit:contain;">
 
                 <div style="text-align:center;flex:1;">
                     <div style="
@@ -438,17 +450,11 @@ async function createResultSheet(registration, completion) {
                     ">OFFICIAL COURSE DOCUMENT</div>
                 </div>
 
-                <img
-                    src="${scoutLogo}"
-                    alt="Scout Logo"
-                    style="width:82px;height:82px;object-fit:contain;"
-                >
+                <img src="${scoutLogo}" alt="Scout Logo"
+                    style="width:82px;height:82px;object-fit:contain;">
             </div>
 
-            <div style="
-                text-align:center;
-                margin:35px 0 28px;
-            ">
+            <div style="text-align:center;margin:35px 0 28px;">
                 <div style="
                     font-family:Arial,sans-serif;
                     font-size:11px;
@@ -605,8 +611,6 @@ async function createResultSheet(registration, completion) {
 
     document.body.appendChild(sheet);
 
-    // WAIT FOR BOTH LOGOS
-
     const images = Array.from(sheet.querySelectorAll("img"));
 
     await Promise.all(images.map(img => {
@@ -653,9 +657,6 @@ async function generatePDF(registration, completion) {
         pdfBlob = await window.html2pdf()
             .set({
                 margin: 5,
-                filename: safeFilename(
-                    getParticipant(registration).full_name
-                ),
                 image: {
                     type: "jpeg",
                     quality: 0.98
