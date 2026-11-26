@@ -4,72 +4,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#102c21">
+    <meta name="theme-color" content="#102f24">
 
     <title>Phase 1 Leader Training Course | Registration Portal</title>
 
     <link rel="stylesheet" href="style.css">
 
     <style>
-        /* HOMEPAGE HEADER LAYOUT */
-
-        .home-header-inner {
+        /* PROFESSIONAL HEADER */
+        .portal-header {
+            background: #ffffff;
+            border-bottom: 1px solid #e5ebe7;
+        }
+        .portal-header-inner {
+            max-width: 1180px;
+            min-height: 125px;
+            margin: auto;
+            padding: 15px 28px;
             display: grid;
             grid-template-columns: 115px 1fr 90px;
             align-items: center;
-            gap: 25px;
-            width: min(1160px, 94%);
-            min-height: 145px;
-            margin: auto;
-            padding: 18px 0;
+            gap: 28px;
         }
 
-        .home-header-logo {
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .portal-logos {
+            display: contents;
         }
-
-        .home-header-logo img {
-            width: 82px;
-            height: 82px;
+        .portal-logos img {
+            width: 78px;
+            height: 78px;
             object-fit: contain;
-            filter: drop-shadow(0 4px 7px rgba(0,0,0,.2));
-            transition: transform .25s ease;
+            display: block;
         }
 
-        .home-header-logo img:hover {
-            transform: translateY(-3px);
-        }
-
-        .home-header-logo.left img {
+        /* Larger MP logo */
+        .portal-logos img:first-child {
+            grid-column: 1;
+            grid-row: 1;
             width: 108px;
             height: 108px;
         }
 
-        .home-header-logo.right img {
-            width: 82px;
-            height: 82px;
+        /* Sri Lanka Scout logo */
+        .portal-logos img:last-child {
+            grid-column: 3;
+            grid-row: 1;
+            justify-self: end;
         }
 
-        .home-header-inner .portal-brand {
+        /* CENTRE BRANDING */
+        .portal-brand {
             grid-column: 2;
+            grid-row: 1;
             text-align: center;
-            align-items: center;
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
         }
 
-        .home-header-inner .portal-brand strong {
-            font-size: clamp(23px, 3.2vw, 36px);
-            letter-spacing: 3px;
-        }
-
-        .home-header-inner .portal-brand span {
-            font-size: 11px;
+        .portal-brand strong {
+            color: #102f24;
+            font-size: 25px;
+            font-weight: 800;
             letter-spacing: 2px;
+        }
+        .portal-brand span {
+            color: #65756b;
+            font-size: 13px;
+            letter-spacing: 0.5px;
+        }
+
+        .portal-top-button {
+            display: none;
         }
 
         /* INTRODUCTION */
-
         .portal-intro {
             text-align: center;
         }
@@ -79,7 +88,6 @@
             font-weight: 800;
             letter-spacing: -0.5px;
         }
-
         .portal-label {
             color: #397451;
             font-weight: 700;
@@ -87,7 +95,6 @@
         }
 
         /* REGISTER BUTTON */
-
         .portal-register-button {
             display: inline-flex;
             align-items: center;
@@ -101,135 +108,139 @@
             font-weight: 700;
             transition: background 0.2s ease;
         }
-
         .portal-register-button:hover {
             background: #103522;
         }
 
-        /* HOMEPAGE ACTIONS */
-
-        .portal-actions {
-            display: flex;
-            flex-direction: column;
-            align-items: stretch;
-            gap: 12px;
+        /* RESULT DOWNLOAD SECTION */
+        .result-download-section {
+            background: #fff8e8;
+            border: 1px solid #e5c982;
+            border-radius: 14px;
+            padding: 30px 20px;
+            margin: 35px auto;
+            max-width: 850px;
+            text-align: center;
         }
 
-        .portal-download-button {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            padding: 13px 20px;
-            border: 1px solid #245b40;
-            border-radius: 6px;
-            background: transparent;
-            color: #245b40;
+        .result-download-section h2 {
+            color: #76521b;
+            margin-bottom: 10px;
+        }
+
+        .result-download-section p {
+            color: #665b48;
+            margin-bottom: 20px;
+        }
+
+        .result-download-button {
+            display: inline-block;
+            background: #b8862f;
+            color: #ffffff;
+            padding: 13px 25px;
+            border-radius: 8px;
             text-decoration: none;
-            font-weight: 700;
-            transition: background 0.2s ease, color 0.2s ease;
+            font-weight: 600;
+            transition: background 0.2s ease;
         }
 
-        .portal-download-button:hover {
-            background: #edf5ef;
-            color: #183d2b;
+        .result-download-button:hover {
+            background: #94691f;
         }
 
-        /* MOBILE */
-
-        @media (max-width: 650px) {
-
-            .home-header-inner {
+        /* MOBILE HEADER */
+        @media (max-width: 600px) {
+            .portal-header-inner {
+                min-height: 90px;
+                padding: 12px 14px;
                 grid-template-columns: 75px 1fr 55px;
-                min-height: 115px;
                 gap: 10px;
-                padding: 14px 0;
             }
 
-            .home-header-logo.left img {
+            .portal-logos img:first-child {
                 width: 70px;
                 height: 70px;
             }
-
-            .home-header-logo.right img {
+            .portal-logos img:last-child {
                 width: 51px;
                 height: 51px;
             }
 
-            .home-header-inner .portal-brand {
-                gap: 6px;
+            .portal-brand {
+                gap: 5px;
             }
 
-            .home-header-inner .portal-brand strong {
-                font-size: 17px;
-                letter-spacing: 1.2px;
+            .portal-brand strong {
+                font-size: 15px;
+                letter-spacing: 1px;
             }
 
-            .home-header-inner .portal-brand span {
-                font-size: 8px;
-                letter-spacing: .8px;
-                line-height: 1.5;
+            .portal-brand span {
+                font-size: 10px;
+                line-height: 1.4;
             }
-
             .portal-intro h1 {
                 font-size: 27px;
                 line-height: 1.2;
             }
 
-            .portal-register-button,
-            .portal-download-button {
+            .portal-register-button {
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+            .result-download-section {
+                margin: 25px 12px;
+                padding: 25px 16px;
+            }
+
+            .result-download-button {
                 width: 100%;
                 box-sizing: border-box;
             }
         }
 
-        @media (max-width: 390px) {
-
-            .home-header-inner {
+        @media (max-width: 360px) {
+            .portal-header-inner {
                 grid-template-columns: 62px 1fr 43px;
                 gap: 7px;
             }
-
-            .home-header-logo.left img {
+            .portal-logos img:first-child {
                 width: 60px;
                 height: 60px;
             }
 
-            .home-header-logo.right img {
+            .portal-logos img:last-child {
                 width: 42px;
                 height: 42px;
             }
 
-            .home-header-inner .portal-brand strong {
-                font-size: 14px;
-                letter-spacing: .8px;
+            .portal-brand strong {
+                font-size: 13px;
             }
 
-            .home-header-inner .portal-brand span {
-                font-size: 7px;
+            .portal-brand span {
+                font-size: 9px;
             }
         }
     </style>
 </head>
 
 <body class="portal-page">
-
 <header class="portal-header">
-    <div class="home-header-inner">
+    <div class="portal-header-inner">
 
-        <div class="home-header-logo left">
-            <img src="mp.png?v=7"
+        <div class="portal-logos">
+            <img src="mp.png?v=6"
                  alt="Moratuwa - Piliyandala District Scout Association">
+
+            <img src="sl.png?v=6"
+                 alt="Sri Lanka Scout Association">
         </div>
 
         <div class="portal-brand">
             <strong>PHASE 1 COURSE</strong>
             <span>SCOUT LEADER DEVELOPMENT PROGRAM</span>
-        </div>
-
-        <div class="home-header-logo right">
-            <img src="sl.png?v=7"
-                 alt="Sri Lanka Scout Association">
         </div>
 
     </div>
@@ -250,7 +261,6 @@
         </p>
 
         <div class="portal-divider"></div>
-
         <p class="portal-description">
             Welcome to the Phase 1 Course registration portal.
             Find the essential course information below and register online.
@@ -262,11 +272,10 @@
 
         <div class="portal-section-heading">
             <span>COURSE INFORMATION</span>
-            <span class="portal-batch">2026 1st BATCH</span>
+            <span class="portal-batch">2026 BATCH</span>
         </div>
 
         <div class="portal-detail-grid">
-
             <div class="portal-detail">
                 <span class="portal-detail-icon">▦</span>
                 <div>
@@ -274,7 +283,6 @@
                     <strong>28–29 November 2026</strong>
                 </div>
             </div>
-
             <div class="portal-detail">
                 <span class="portal-detail-icon">◷</span>
                 <div>
@@ -282,15 +290,13 @@
                     <strong>2 Days</strong>
                 </div>
             </div>
-
             <div class="portal-detail">
                 <span class="portal-detail-icon">♧</span>
                 <div>
                     <small>ELIGIBLE SECTIONS</small>
-                    <strong>Singithi , Cub , Scout</strong>
+                    <strong>All Four Sections</strong>
                 </div>
             </div>
-
             <div class="portal-detail">
                 <span class="portal-detail-icon">▤</span>
                 <div>
@@ -303,11 +309,11 @@
 
         <div class="portal-sections">
             <small>AVAILABLE SCOUTING SECTIONS</small>
-
             <div class="portal-section-tags">
                 <span>Singithi</span>
                 <span>Cub</span>
                 <span>Scout</span>
+                <span>Rover</span>
             </div>
         </div>
 
@@ -320,18 +326,24 @@
             <h2>Ready to register?</h2>
             <p>Complete the online participant registration form.</p>
         </div>
+        <a href="registration.html" class="portal-register-button">
+            Register for the Course <span>→</span>
+        </a>
 
-        <div class="portal-actions">
+    </section>
 
-            <a href="registration.html" class="portal-register-button">
-                Register for the Course <span>→</span>
-            </a>
+    <!-- RESULT SHEET DOWNLOAD -->
+    <section class="result-download-section">
 
-            <a href="download-result.html" class="portal-download-button">
-                Download Result Sheet <span>↓</span>
-            </a>
+        <h2>View & Download Your Result Sheet</h2>
 
-        </div>
+        <p>
+            Access your course result sheet using your registration details.
+        </p>
+
+        <a href="download-result.html" class="result-download-button">
+            View & Download Result Sheet →
+        </a>
 
     </section>
 
