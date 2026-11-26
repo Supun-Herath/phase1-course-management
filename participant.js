@@ -61,7 +61,6 @@ function getCompletion(registrationId) {
 
 // ==================================================
 // ADMIN VERIFICATION
-// Do not automatically sign out on profile errors.
 // ==================================================
 
 async function verifyAdmin() {
@@ -382,7 +381,7 @@ function displayParticipants(items) {
 }
 
 // ==================================================
-// PROFESSIONAL COURSE COMPLETION CERTIFICATE
+// PROFESSIONAL A4 COURSE COMPLETION CERTIFICATE
 // ==================================================
 
 async function createResultSheet(registration, completion) {
@@ -390,15 +389,20 @@ async function createResultSheet(registration, completion) {
 
     const sheet = document.createElement("div");
 
+    // Exact A4 dimensions
     sheet.style.cssText = `
-        width: 180mm;
-        min-height: 267mm;
-        padding: 14mm;
+        width: 210mm;
+        height: 297mm;
+        min-width: 210mm;
+        max-width: 210mm;
+        padding: 10mm;
+        margin: 0;
+        box-sizing: border-box;
         background: #ffffff;
         color: #263b30;
-        font-family: Georgia, 'Times New Roman', serif;
-        box-sizing: border-box;
+        font-family: Arial, Helvetica, sans-serif;
         position: relative;
+        overflow: hidden;
     `;
 
     const mpLogo = new URL("mp.png", window.location.href).href;
@@ -406,227 +410,340 @@ async function createResultSheet(registration, completion) {
 
     sheet.innerHTML = `
         <div style="
-            border:2px solid #245b40;
-            padding:8mm;
-            min-height:235mm;
+            width:100%;
+            height:100%;
             box-sizing:border-box;
+            border:2px solid #24583e;
+            padding:9mm;
             position:relative;
+            background:#ffffff;
+            font-family:Arial,Helvetica,sans-serif;
         ">
+
+            <!-- HEADER -->
 
             <div style="
                 display:flex;
                 align-items:center;
                 justify-content:space-between;
-                gap:12px;
-                border-bottom:2px solid #245b40;
-                padding-bottom:18px;
+                gap:10px;
+                border-bottom:2px solid #24583e;
+                padding-bottom:6mm;
             ">
                 <img src="${mpLogo}" alt="Organization Logo"
-                    style="width:82px;height:82px;object-fit:contain;">
+                    style="
+                        width:23mm;
+                        height:23mm;
+                        object-fit:contain;
+                        flex-shrink:0;
+                    ">
 
-                <div style="text-align:center;flex:1;">
+                <div style="flex:1;text-align:center;">
                     <div style="
-                        font-family:Arial,sans-serif;
-                        font-size:11px;
-                        letter-spacing:3px;
-                        color:#758579;
-                        margin-bottom:8px;
+                        font-size:9px;
+                        font-weight:600;
+                        letter-spacing:2px;
+                        color:#718075;
+                        margin-bottom:5px;
                     ">SCOUT LEADER DEVELOPMENT</div>
 
-                    <h1 style="
-                        font-family:Georgia,serif;
-                        font-size:25px;
-                        color:#17452e;
-                        margin:0;
+                    <div style="
+                        font-size:22px;
+                        font-weight:700;
                         letter-spacing:1px;
-                    ">PHASE 1 COURSE</h1>
+                        color:#17452e;
+                    ">PHASE 1 COURSE</div>
 
                     <div style="
-                        font-family:Arial,sans-serif;
-                        font-size:11px;
-                        letter-spacing:2px;
-                        margin-top:8px;
-                        color:#64756a;
+                        font-size:9px;
+                        letter-spacing:1.5px;
+                        color:#718075;
+                        margin-top:5px;
                     ">OFFICIAL COURSE DOCUMENT</div>
                 </div>
 
                 <img src="${scoutLogo}" alt="Scout Logo"
-                    style="width:82px;height:82px;object-fit:contain;">
+                    style="
+                        width:23mm;
+                        height:23mm;
+                        object-fit:contain;
+                        flex-shrink:0;
+                    ">
             </div>
 
-            <div style="text-align:center;margin:35px 0 28px;">
+            <!-- CERTIFICATE TITLE -->
+
+            <div style="
+                text-align:center;
+                margin-top:15mm;
+            ">
                 <div style="
-                    font-family:Arial,sans-serif;
-                    font-size:11px;
-                    letter-spacing:4px;
+                    font-size:10px;
+                    font-weight:600;
+                    letter-spacing:3px;
                     color:#8a9a8e;
-                    margin-bottom:12px;
+                    margin-bottom:8px;
                 ">CERTIFICATE OF</div>
 
-                <h2 style="
-                    font-size:29px;
-                    color:#245b40;
-                    margin:0;
-                    letter-spacing:1px;
-                    font-weight:normal;
-                ">COURSE COMPLETION</h2>
+                <div style="
+                    font-size:25px;
+                    font-weight:700;
+                    color:#24583e;
+                    letter-spacing:0.5px;
+                ">COURSE COMPLETION</div>
 
                 <div style="
-                    width:65px;
-                    height:2px;
+                    width:20mm;
+                    height:1mm;
                     background:#b89b58;
-                    margin:18px auto;
+                    margin:7mm auto;
                 "></div>
 
-                <p style="
-                    font-family:Arial,sans-serif;
-                    font-size:13px;
+                <div style="
+                    font-size:11px;
                     color:#65746a;
-                    margin:0;
-                ">This document confirms the successful completion of</p>
+                ">This document confirms the successful completion of</div>
 
-                <h2 style="
-                    font-size:25px;
+                <div style="
+                    font-size:21px;
+                    font-weight:700;
                     color:#183d2b;
-                    margin:18px 0 8px;
-                    padding-bottom:10px;
+                    margin:8mm 0 3mm;
+                    padding-bottom:3mm;
                     border-bottom:1px solid #cbd8ce;
-                    display:inline-block;
-                    min-width:75%;
-                ">${escapeHTML(participant.full_name)}</h2>
+                    overflow-wrap:anywhere;
+                    word-break:normal;
+                ">${escapeHTML(participant.full_name)}</div>
 
-                <p style="
-                    font-family:Arial,sans-serif;
-                    font-size:13px;
+                <div style="
+                    font-size:12px;
                     color:#65746a;
-                    margin:8px 0;
-                ">of the Phase 1 Course</p>
+                ">of the Phase 1 Course</div>
             </div>
+
+            <!-- PARTICIPANT DETAILS -->
 
             <div style="
                 background:#f1f6f2;
                 border:1px solid #d7e4d9;
-                padding:18px 20px;
-                margin-top:25px;
+                padding:6mm;
+                margin-top:11mm;
+                box-sizing:border-box;
             ">
-                <h3 style="
-                    font-family:Arial,sans-serif;
-                    font-size:12px;
-                    letter-spacing:2px;
-                    color:#245b40;
-                    margin:0 0 14px;
-                ">PARTICIPANT DETAILS</h3>
+                <div style="
+                    font-size:10px;
+                    font-weight:700;
+                    letter-spacing:1.5px;
+                    color:#24583e;
+                    margin-bottom:4mm;
+                ">PARTICIPANT DETAILS</div>
 
                 <table style="
                     width:100%;
                     border-collapse:collapse;
-                    font-family:Arial,sans-serif;
-                    font-size:12px;
+                    font-family:Arial,Helvetica,sans-serif;
+                    font-size:10px;
+                    table-layout:fixed;
                 ">
                     <tr>
-                        <td style="padding:9px 5px;color:#718075;width:42%;">Registration Number</td>
-                        <td style="padding:9px 5px;font-weight:bold;">${escapeHTML(registration.registration_number)}</td>
+                        <td style="
+                            padding:3.5mm 2mm;
+                            color:#718075;
+                            width:43%;
+                            border-bottom:1px solid #dce5dd;
+                        ">Registration Number</td>
+                        <td style="
+                            padding:3.5mm 2mm;
+                            font-weight:700;
+                            color:#263b30;
+                            border-bottom:1px solid #dce5dd;
+                            overflow-wrap:anywhere;
+                        ">${escapeHTML(registration.registration_number)}</td>
                     </tr>
+
                     <tr>
-                        <td style="padding:9px 5px;color:#718075;">Scouting Section</td>
-                        <td style="padding:9px 5px;font-weight:bold;">${escapeHTML(registration.section)}</td>
+                        <td style="
+                            padding:3.5mm 2mm;
+                            color:#718075;
+                            border-bottom:1px solid #dce5dd;
+                        ">Scouting Section</td>
+                        <td style="
+                            padding:3.5mm 2mm;
+                            font-weight:700;
+                            color:#263b30;
+                            border-bottom:1px solid #dce5dd;
+                        ">${escapeHTML(registration.section)}</td>
                     </tr>
+
                     <tr>
-                        <td style="padding:9px 5px;color:#718075;">School / Troop</td>
-                        <td style="padding:9px 5px;font-weight:bold;">${escapeHTML(participant.school_troop)}</td>
+                        <td style="
+                            padding:3.5mm 2mm;
+                            color:#718075;
+                            border-bottom:1px solid #dce5dd;
+                        ">School / Troop</td>
+                        <td style="
+                            padding:3.5mm 2mm;
+                            font-weight:700;
+                            color:#263b30;
+                            border-bottom:1px solid #dce5dd;
+                            overflow-wrap:anywhere;
+                        ">${escapeHTML(participant.school_troop)}</td>
                     </tr>
+
                     <tr>
-                        <td style="padding:9px 5px;color:#718075;">District</td>
-                        <td style="padding:9px 5px;font-weight:bold;">${escapeHTML(participant.district)}</td>
+                        <td style="
+                            padding:3.5mm 2mm;
+                            color:#718075;
+                            border-bottom:1px solid #dce5dd;
+                        ">District</td>
+                        <td style="
+                            padding:3.5mm 2mm;
+                            font-weight:700;
+                            color:#263b30;
+                            border-bottom:1px solid #dce5dd;
+                        ">${escapeHTML(participant.district)}</td>
                     </tr>
+
                     <tr>
-                        <td style="padding:9px 5px;color:#718075;">Completion Date</td>
-                        <td style="padding:9px 5px;font-weight:bold;">${escapeHTML(completion.completion_date || "-")}</td>
+                        <td style="
+                            padding:3.5mm 2mm;
+                            color:#718075;
+                        ">Completion Date</td>
+                        <td style="
+                            padding:3.5mm 2mm;
+                            font-weight:700;
+                            color:#263b30;
+                        ">${escapeHTML(completion.completion_date || "-")}</td>
                     </tr>
                 </table>
             </div>
 
+            <!-- COMPLETION STATUS -->
+
             <div style="
                 text-align:center;
-                margin:24px 0 0;
-                padding:14px;
+                margin-top:9mm;
+                padding:5mm;
                 border:1px solid #b8d0bd;
+                box-sizing:border-box;
             ">
                 <div style="
-                    font-family:Arial,sans-serif;
-                    font-size:10px;
+                    font-size:9px;
+                    font-weight:600;
                     letter-spacing:2px;
                     color:#758579;
                 ">COURSE STATUS</div>
 
                 <div style="
-                    font-family:Arial,sans-serif;
-                    font-size:19px;
-                    font-weight:bold;
-                    letter-spacing:3px;
-                    color:#245b40;
-                    margin-top:7px;
+                    font-size:17px;
+                    font-weight:700;
+                    letter-spacing:2px;
+                    color:#24583e;
+                    margin-top:3mm;
                 ">✓ COMPLETED</div>
             </div>
 
-            <div style="
-                display:flex;
-                justify-content:space-between;
-                gap:30px;
-                margin-top:65px;
-                font-family:Arial,sans-serif;
-                font-size:12px;
-                text-align:center;
-            ">
-                <div style="width:50%;">
-                    <div style="height:35px;border-bottom:1px solid #52665a;"></div>
-                    <div style="font-weight:bold;margin-top:10px;color:#244b35;">Course Leader</div>
-                    <div style="font-size:10px;color:#7b897f;margin-top:4px;">Signature</div>
-                </div>
-
-                <div style="width:50%;">
-                    <div style="height:35px;border-bottom:1px solid #52665a;"></div>
-                    <div style="font-weight:bold;margin-top:10px;color:#244b35;">District Commissioner</div>
-                    <div style="font-size:10px;color:#7b897f;margin-top:4px;">Signature</div>
-                </div>
-            </div>
+            <!-- SIGNATURES -->
 
             <div style="
                 position:absolute;
-                bottom:10mm;
-                left:8mm;
-                right:8mm;
-                border-top:1px solid #dce5dd;
-                padding-top:10px;
+                bottom:25mm;
+                left:9mm;
+                right:9mm;
+                display:flex;
+                justify-content:space-between;
+                gap:15mm;
+                font-family:Arial,Helvetica,sans-serif;
+                font-size:10px;
                 text-align:center;
-                font-family:Arial,sans-serif;
-                font-size:9px;
+            ">
+                <div style="flex:1;">
+                    <div style="
+                        height:12mm;
+                        border-bottom:1px solid #52665a;
+                    "></div>
+
+                    <div style="
+                        font-weight:700;
+                        margin-top:3mm;
+                        color:#244b35;
+                    ">Course Leader</div>
+
+                    <div style="
+                        font-size:9px;
+                        color:#7b897f;
+                        margin-top:2px;
+                    ">Signature</div>
+                </div>
+
+                <div style="flex:1;">
+                    <div style="
+                        height:12mm;
+                        border-bottom:1px solid #52665a;
+                    "></div>
+
+                    <div style="
+                        font-weight:700;
+                        margin-top:3mm;
+                        color:#244b35;
+                    ">District Commissioner</div>
+
+                    <div style="
+                        font-size:9px;
+                        color:#7b897f;
+                        margin-top:2px;
+                    ">Signature</div>
+                </div>
+            </div>
+
+            <!-- FOOTER -->
+
+            <div style="
+                position:absolute;
+                bottom:7mm;
+                left:9mm;
+                right:9mm;
+                border-top:1px solid #dce5dd;
+                padding-top:3mm;
+                text-align:center;
+                font-size:8px;
                 letter-spacing:1px;
                 color:#849187;
             ">
                 PHASE 1 COURSE · SCOUT LEADER DEVELOPMENT
             </div>
+
         </div>
     `;
 
     document.body.appendChild(sheet);
 
-    const images = Array.from(sheet.querySelectorAll("img"));
+    try {
+        const images = Array.from(sheet.querySelectorAll("img"));
 
-    await Promise.all(images.map(img => {
-        if (img.complete && img.naturalWidth > 0) {
-            return Promise.resolve();
-        }
+        await Promise.all(images.map(img => {
+            if (img.complete) {
+                return img.naturalWidth > 0
+                    ? Promise.resolve()
+                    : Promise.reject(
+                        new Error("Could not load a course logo. Check mp.png and sl.png.")
+                    );
+            }
 
-        return new Promise((resolve, reject) => {
-            img.onload = resolve;
-            img.onerror = () => reject(
-                new Error("Could not load a course logo. Check mp.png and sl.png.")
-            );
-        });
-    }));
+            return new Promise((resolve, reject) => {
+                img.onload = resolve;
+                img.onerror = () => reject(
+                    new Error("Could not load a course logo. Check mp.png and sl.png.")
+                );
+            });
+        }));
 
-    return sheet;
+        return sheet;
+
+    } catch (error) {
+        sheet.remove();
+        throw error;
+    }
 }
 
 // ==================================================
@@ -656,23 +773,36 @@ async function generatePDF(registration, completion) {
     try {
         pdfBlob = await window.html2pdf()
             .set({
-                margin: 5,
+                margin: 0,
+
+                filename: safeFilename(
+                    registration.registration_number
+                ),
+
                 image: {
                     type: "jpeg",
                     quality: 0.98
                 },
+
                 html2canvas: {
                     scale: 2,
                     useCORS: true,
-                    backgroundColor: "#ffffff"
+                    backgroundColor: "#ffffff",
+                    scrollY: 0,
+                    scrollX: 0,
+                    windowWidth: 794,
+                    windowHeight: 1123
                 },
+
                 jsPDF: {
                     unit: "mm",
                     format: "a4",
-                    orientation: "portrait"
+                    orientation: "portrait",
+                    compress: true
                 },
+
                 pagebreak: {
-                    mode: ["avoid-all", "css", "legacy"]
+                    mode: []
                 }
             })
             .from(sheet)
@@ -721,28 +851,30 @@ async function generatePDF(registration, completion) {
 // SEARCH PARTICIPANTS
 // ==================================================
 
-searchInput.addEventListener("input", () => {
-    const query = searchInput.value.trim().toLowerCase();
+if (searchInput) {
+    searchInput.addEventListener("input", () => {
+        const query = searchInput.value.trim().toLowerCase();
 
-    const filtered = registrations.filter(registration => {
-        const participant = getParticipant(registration);
+        const filtered = registrations.filter(registration => {
+            const participant = getParticipant(registration);
 
-        const searchableText = [
-            registration.registration_number,
-            registration.section,
-            registration.status,
-            participant.full_name,
-            participant.contact_number,
-            participant.school_troop,
-            participant.district,
-            participant.email
-        ].join(" ").toLowerCase();
+            const searchableText = [
+                registration.registration_number,
+                registration.section,
+                registration.status,
+                participant.full_name,
+                participant.contact_number,
+                participant.school_troop,
+                participant.district,
+                participant.email
+            ].join(" ").toLowerCase();
 
-        return searchableText.includes(query);
+            return searchableText.includes(query);
+        });
+
+        displayParticipants(filtered);
     });
-
-    displayParticipants(filtered);
-});
+}
 
 // ==================================================
 // START SYSTEM
