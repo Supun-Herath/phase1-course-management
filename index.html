@@ -37,7 +37,6 @@
             display: block;
         }
 
-        /* Larger MP logo */
         .portal-logos img:first-child {
             grid-column: 1;
             grid-row: 1;
@@ -45,7 +44,6 @@
             height: 108px;
         }
 
-        /* Sri Lanka Scout logo */
         .portal-logos img:last-child {
             grid-column: 3;
             grid-row: 1;
@@ -114,38 +112,79 @@
 
         /* RESULT DOWNLOAD SECTION */
         .result-download-section {
-            background: #fff8e8;
-            border: 1px solid #e5c982;
-            border-radius: 14px;
-            padding: 30px 20px;
-            margin: 35px auto;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(120deg, #174c35 0%, #236b49 100%);
+            border: 1px solid #397d59;
+            border-radius: 16px;
+            padding: 34px 24px;
+            margin: 38px auto;
             max-width: 850px;
             text-align: center;
+            box-shadow: 0 8px 22px rgba(16, 47, 36, 0.13);
+        }
+
+        .result-download-section::before {
+            content: "";
+            position: absolute;
+            width: 190px;
+            height: 190px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 50%;
+            top: -115px;
+            right: -55px;
+        }
+
+        .result-download-section::after {
+            content: "";
+            position: absolute;
+            width: 130px;
+            height: 130px;
+            border: 1px solid rgba(255, 255, 255, 0.10);
+            border-radius: 50%;
+            bottom: -90px;
+            left: -35px;
         }
 
         .result-download-section h2 {
-            color: #76521b;
-            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+            color: #ffffff;
+            font-size: 25px;
+            margin: 0 0 11px;
         }
 
         .result-download-section p {
-            color: #665b48;
-            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+            color: #e1eee5;
+            margin: 0 0 23px;
+            line-height: 1.6;
         }
 
         .result-download-button {
-            display: inline-block;
-            background: #b8862f;
-            color: #ffffff;
-            padding: 13px 25px;
+            position: relative;
+            z-index: 1;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: #e8bd59;
+            color: #26351f;
+            padding: 14px 27px;
+            border: 1px solid #f3d58e;
             border-radius: 8px;
             text-decoration: none;
-            font-weight: 600;
-            transition: background 0.2s ease;
+            font-weight: 800;
+            font-size: 15px;
+            transition: all 0.2s ease;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
         }
 
         .result-download-button:hover {
-            background: #94691f;
+            background: #f2d17e;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.16);
         }
 
         /* MOBILE HEADER */
@@ -190,8 +229,12 @@
             }
 
             .result-download-section {
-                margin: 25px 12px;
-                padding: 25px 16px;
+                margin: 28px 12px;
+                padding: 29px 17px;
+            }
+
+            .result-download-section h2 {
+                font-size: 21px;
             }
 
             .result-download-button {
