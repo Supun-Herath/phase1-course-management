@@ -1,1049 +1,288 @@
 
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap');
-
 /* =========================================
-   PHASE 1 COURSE — PREMIUM SCOUT UI
+   PHASE 1 — RICH FOREST COLOUR UPGRADE
 ========================================= */
 
 :root {
-    --green-950: #102a20;
-    --green-900: #173b2c;
-    --green-800: #20513b;
-    --green-700: #2e694c;
-    --green-600: #3e8060;
-    --green-100: #eaf1e9;
+    --green-950: #102c21;
+    --green-900: #173e2d;
+    --green-800: #24583e;
+    --green-700: #347451;
+    --green-600: #4b9067;
 
-    --gold: #c6a15b;
-    --gold-light: #e5d2a5;
+    --gold: #c5a15b;
+    --gold-light: #ead8a9;
 
-    --cream: #faf9f4;
-    --white: #ffffff;
-    --ink: #25342d;
-    --muted: #77847b;
+    --cream: #f3f1e7;
+    --white: #fffdf7;
+    --ink: #24372c;
+    --muted: #7b887b;
 
-    --border: #e9e9df;
-    --danger: #b94343;
-    --success: #28784e;
+    --border: rgba(43, 82, 55, 0.08);
 
-    --radius-sm: 12px;
-    --radius-md: 18px;
-    --radius-lg: 26px;
-    --radius-xl: 34px;
-
-    --shadow-soft: 0 8px 30px rgba(24, 55, 39, 0.06);
-    --shadow-card: 0 15px 45px rgba(24, 55, 39, 0.08);
+    --shadow-soft: 0 12px 35px rgba(29, 65, 43, 0.07);
+    --shadow-card: 0 20px 55px rgba(29, 65, 43, 0.10);
 }
 
-/* =========================================
-   RESET
-========================================= */
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-html {
-    scroll-behavior: smooth;
-}
+/* Page background — remove plain white corners */
 
 body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--cream);
-    color: var(--ink);
-    line-height: 1.65;
-    font-size: 15px;
-    -webkit-font-smoothing: antialiased;
+    background:
+        radial-gradient(ellipse at 5% 5%, rgba(197,161,91,0.18), transparent 30%),
+        radial-gradient(ellipse at 95% 25%, rgba(77,139,93,0.13), transparent 32%),
+        radial-gradient(ellipse at 50% 100%, rgba(197,161,91,0.10), transparent 38%),
+        #f3f1e7;
 }
 
-h1, h2, h3, h4, h5 {
-    font-family: 'Outfit', sans-serif;
-    line-height: 1.2;
-    color: var(--green-950);
-    font-weight: 600;
-}
-
-button, input, select, textarea {
-    font: inherit;
-}
-
-button, a {
-    -webkit-tap-highlight-color: transparent;
-}
-
-a {
-    color: inherit;
-    text-decoration: none;
-}
-
-button {
-    cursor: pointer;
-}
-
-img {
-    max-width: 100%;
-}
-
-/* =========================================
-   HOME / REGISTRATION PORTAL
-========================================= */
+/* Main portal background */
 
 .portal-page {
-    min-height: 100vh;
     background:
-        radial-gradient(ellipse at 10% 5%, rgba(198,161,91,0.09), transparent 35%),
-        var(--cream);
-    display: flex;
-    flex-direction: column;
+        radial-gradient(circle at 0% 15%, rgba(197,161,91,0.20), transparent 28%),
+        radial-gradient(circle at 100% 45%, rgba(67,123,79,0.14), transparent 30%),
+        linear-gradient(145deg, #f5f2e7, #e9eee4 55%, #f4eddd);
 }
 
-/* Header */
+/* Header — warm tinted background */
 
 .portal-header {
-    background: rgba(255,255,255,0.92);
-    border-bottom: 1px solid rgba(32,81,59,0.07);
-    padding: 17px 5%;
+    background: rgba(247, 247, 237, 0.82);
+    backdrop-filter: blur(18px);
+    border-bottom: 1px solid rgba(39,83,54,0.10);
 }
 
-.portal-header-inner {
-    max-width: 1180px;
-    margin: auto;
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
+/* Intro heading */
 
-.portal-logos {
-    display: flex;
-    align-items: center;
-    gap: 13px;
-}
-
-.portal-logos img {
-    width: 64px;
-    height: 64px;
-    object-fit: contain;
-}
-
-.portal-logos img:first-child {
-    width: 82px;
-    height: 82px;
-}
-
-.portal-brand {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-}
-
-.portal-brand strong {
-    font-family: 'Outfit', sans-serif;
-    color: var(--green-950);
-    font-size: 19px;
-    letter-spacing: 1.2px;
-    font-weight: 700;
-}
-
-.portal-brand span {
-    color: var(--muted);
-    font-size: 10px;
-    letter-spacing: 2px;
-    font-weight: 700;
-}
-
-.portal-top-button {
-    margin-left: auto;
-    background: var(--green-900);
-    color: white;
-    padding: 13px 23px;
-    border-radius: 50px;
-    font-weight: 700;
-    font-size: 13px;
-    transition: 0.25s ease;
-}
-
-.portal-top-button:hover {
-    background: var(--green-700);
-    transform: translateY(-2px);
-}
-
-.portal-top-button span {
-    margin-left: 8px;
-    color: var(--gold-light);
-}
-
-/* Main content */
-
-.portal-main {
-    width: min(100% - 40px, 1020px);
-    margin: auto;
-    padding: 65px 0 55px;
-    flex: 1;
-}
-
-.portal-intro {
-    text-align: center;
-    max-width: 720px;
-    margin: 0 auto 48px;
+.portal-intro h1 {
+    background: linear-gradient(
+        120deg,
+        #102c21,
+        #347451 55%,
+        #a47c37
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
 }
 
 .portal-label {
-    display: inline-block;
-    color: var(--green-700);
-    background: var(--green-100);
-    padding: 9px 17px;
-    border-radius: 50px;
-    font-size: 10px;
-    font-weight: 800;
-    letter-spacing: 1.8px;
+    background: linear-gradient(120deg, #dfeade, #f4e8c9);
+    color: #285b3e;
+    border: 1px solid rgba(197,161,91,0.22);
 }
 
-.portal-intro h1 {
-    font-size: clamp(40px, 6vw, 65px);
-    margin: 22px 0 8px;
-    letter-spacing: -1.8px;
-    color: var(--green-950);
-}
-
-.portal-intro > p:first-of-type {
-    font-size: 18px;
-    color: var(--green-700);
-    font-weight: 600;
-}
-
-.portal-divider {
-    width: 55px;
-    height: 3px;
-    background: var(--gold);
-    border-radius: 20px;
-    margin: 25px auto;
-}
-
-.portal-description {
-    color: var(--muted);
-    max-width: 570px;
-    margin: auto;
-    font-size: 15px;
-}
-
-/* Course details */
+/* Main details surface */
 
 .portal-details {
-    background: var(--white);
-    padding: 34px;
-    border-radius: var(--radius-xl);
-    box-shadow: var(--shadow-card);
-    border: 1px solid rgba(32,81,59,0.05);
+    background: rgba(255,253,247,0.88);
+    border: 1px solid rgba(197,161,91,0.20);
+    border-radius: 34px;
+    box-shadow: 0 22px 65px rgba(29,65,43,0.09);
+    position: relative;
+    overflow: hidden;
 }
 
-.portal-section-heading {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 15px;
-    margin-bottom: 27px;
-    color: var(--green-900);
-    font-size: 12px;
-    font-weight: 800;
-    letter-spacing: 1.5px;
+.portal-details::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(90deg, #24583e, #c5a15b, #4b9067);
 }
 
-.portal-batch {
-    background: #f6f0e3;
-    color: #98743a;
-    padding: 8px 14px;
-    border-radius: 50px;
-    font-size: 10px;
-}
-
-.portal-detail-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
-}
+/* Detail cards */
 
 .portal-detail {
-    display: flex;
-    align-items: center;
-    gap: 17px;
-    padding: 21px;
-    background: #fafaf7;
-    border-radius: var(--radius-md);
-    transition: 0.25s ease;
+    background: linear-gradient(135deg, #f0f3e9, #faf5e9);
+    border: 1px solid rgba(52,116,81,0.08);
+    border-radius: 23px;
 }
 
-.portal-detail:hover {
-    background: var(--green-100);
-    transform: translateY(-2px);
+.portal-detail:nth-child(2) {
+    background: linear-gradient(135deg, #f8f0dc, #fffaf0);
+}
+
+.portal-detail:nth-child(3) {
+    background: linear-gradient(135deg, #e8f0e6, #f7f8ef);
+}
+
+.portal-detail:nth-child(4) {
+    background: linear-gradient(135deg, #f0e9d9, #faf5e9);
 }
 
 .portal-detail-icon {
-    width: 47px;
-    height: 47px;
-    display: grid;
-    place-items: center;
-    flex-shrink: 0;
-    border-radius: 16px;
-    background: var(--green-100);
-    color: var(--green-800);
-    font-size: 22px;
+    background: linear-gradient(145deg, #dceadd, #f0e6c9);
+    color: #24583e;
+    border-radius: 18px;
 }
 
-.portal-detail div {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
+.portal-detail:nth-child(2) .portal-detail-icon,
+.portal-detail:nth-child(4) .portal-detail-icon {
+    background: linear-gradient(145deg, #f3e5c3, #ead5a5);
+    color: #85652e;
 }
 
-.portal-detail small,
-.portal-sections > small {
-    font-size: 10px;
-    color: var(--muted);
-    letter-spacing: 1.2px;
-    font-weight: 800;
-}
-
-.portal-detail strong {
-    font-family: 'Outfit', sans-serif;
-    color: var(--green-950);
-    font-size: 16px;
-    font-weight: 600;
-}
-
-.portal-sections {
-    border-top: 1px solid var(--border);
-    margin-top: 28px;
-    padding-top: 25px;
-}
-
-.portal-section-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 13px;
-}
+/* Section tags */
 
 .portal-section-tags span {
-    padding: 9px 18px;
-    background: var(--green-100);
-    color: var(--green-800);
+    background: linear-gradient(135deg, #e0ebdf, #f2ecd9);
+    color: #285b3e;
+    border: 1px solid rgba(52,116,81,0.08);
+    padding: 10px 19px;
     border-radius: 50px;
-    font-size: 12px;
-    font-weight: 700;
 }
 
-/* Registration call to action */
+/* Registration call-to-action */
 
 .portal-register {
-    margin-top: 28px;
-    padding: 33px 38px;
-    border-radius: var(--radius-xl);
     background:
-        radial-gradient(circle at 90% 10%, rgba(198,161,91,0.18), transparent 35%),
-        var(--green-900);
-    color: white;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 25px;
+        radial-gradient(circle at 90% 10%, rgba(218,184,111,0.25), transparent 35%),
+        radial-gradient(circle at 5% 100%, rgba(84,143,99,0.28), transparent 40%),
+        linear-gradient(120deg, #102c21, #24583e 65%, #306647);
+    border: 1px solid rgba(234,216,169,0.18);
+    border-radius: 34px;
+    box-shadow: 0 20px 50px rgba(16,44,33,0.18);
 }
 
-.portal-register > div > span {
-    color: var(--gold-light);
-    font-size: 10px;
-    font-weight: 800;
-    letter-spacing: 1.7px;
-}
-
-.portal-register h2 {
-    color: white;
-    font-size: 27px;
-    margin: 7px 0;
-}
-
-.portal-register p {
-    color: rgba(255,255,255,0.72);
-    font-size: 13px;
-}
+/* Gold registration button */
 
 .portal-register-button {
-    background: var(--gold);
-    color: var(--green-950);
-    padding: 15px 23px;
+    background: linear-gradient(135deg, #e5c780, #c5a15b);
+    box-shadow: 0 8px 22px rgba(0,0,0,0.12);
     border-radius: 50px;
-    font-size: 13px;
-    font-weight: 800;
-    white-space: nowrap;
-    transition: 0.25s ease;
 }
 
 .portal-register-button:hover {
-    background: var(--gold-light);
-    transform: translateY(-2px);
+    background: linear-gradient(135deg, #f1d99e, #d4b46d);
 }
 
-.portal-register-button span {
-    margin-left: 9px;
+/* Header register button */
+
+.portal-top-button {
+    background: linear-gradient(135deg, #24583e, #102c21);
+    border-radius: 50px;
+    box-shadow: 0 6px 17px rgba(16,44,33,0.12);
 }
 
 /* Footer */
 
 .portal-footer {
-    background: var(--green-950);
-    padding: 23px 5%;
-    color: rgba(255,255,255,0.65);
+    background:
+        radial-gradient(circle at 90% 0%, rgba(197,161,91,0.15), transparent 35%),
+        #102c21;
+    border-top: 3px solid #b99552;
 }
 
-.portal-footer-inner {
-    max-width: 1180px;
-    margin: auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 12px;
-    font-size: 11px;
+/* Application and admin cards */
+
+.application-card,
+.auth-card,
+.dashboard-card,
+.stat-card,
+.panel,
+.content-card,
+.management-card,
+.participant-card,
+.result-card,
+.result-document,
+.pdf-card {
+    background: rgba(255,253,247,0.94);
+    border: 1px solid rgba(52,116,81,0.09);
+    border-radius: 28px;
+    box-shadow: var(--shadow-soft);
 }
 
-.portal-footer-inner strong {
-    color: var(--gold-light);
-}
-
-/* =========================================
-   COMMON APPLICATION LAYOUT
-========================================= */
-
-.application-container {
-    width: min(100% - 36px, 1050px);
-    margin: 45px auto;
-}
-
-.application-card {
-    background: white;
-    padding: 35px;
-    border-radius: var(--radius-xl);
-    box-shadow: var(--shadow-card);
-    border: 1px solid rgba(32,81,59,0.05);
-}
-
-.application-card h1,
-.application-card h2 {
-    margin-bottom: 12px;
-}
-
-.application-card > p {
-    color: var(--muted);
-}
-
-/* =========================================
-   FORMS
-========================================= */
-
-.form-group {
-    margin-bottom: 21px;
-}
-
-.form-group label,
-label {
-    display: block;
-    margin-bottom: 8px;
-    color: var(--green-900);
-    font-size: 13px;
-    font-weight: 700;
-}
+/* Inputs — softer edges */
 
 input,
 select,
 textarea {
-    width: 100%;
-    padding: 14px 17px;
-    border: 1px solid #e2e7df;
-    border-radius: var(--radius-md);
-    background: #fbfcf9;
-    color: var(--ink);
-    font-size: 14px;
-    outline: none;
-    transition: 0.2s ease;
-}
-
-input::placeholder,
-textarea::placeholder {
-    color: #a1aaa2;
+    background: #f5f5ed;
+    border: 1px solid rgba(52,116,81,0.14);
+    border-radius: 17px;
 }
 
 input:focus,
 select:focus,
 textarea:focus {
-    border-color: var(--green-600);
-    background: white;
-    box-shadow: 0 0 0 4px rgba(62,128,96,0.10);
+    background: #fffdf7;
+    border-color: #4b9067;
+    box-shadow: 0 0 0 4px rgba(75,144,103,0.12);
 }
 
-textarea {
-    min-height: 110px;
-    resize: vertical;
-}
-
-input[type="checkbox"],
-input[type="radio"] {
-    width: auto;
-    accent-color: var(--green-800);
-}
-
-/* =========================================
-   BUTTONS
-========================================= */
+/* Buttons */
 
 button,
 .btn,
 .button {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
-    border: none;
     border-radius: 50px;
-    padding: 13px 22px;
-    background: var(--green-900);
-    color: white;
-    font-size: 13px;
-    font-weight: 700;
-    transition: 0.25s ease;
+    box-shadow: 0 5px 14px rgba(23,62,45,0.10);
 }
 
-button:hover,
-.btn:hover,
-.button:hover {
-    background: var(--green-700);
-    transform: translateY(-1px);
-}
-
-button:disabled {
-    opacity: 0.55;
-    cursor: not-allowed;
-    transform: none;
-}
-
-.btn-secondary,
-.button-secondary {
-    background: #edf2ec;
-    color: var(--green-900);
-}
-
-.btn-secondary:hover,
-.button-secondary:hover {
-    background: #dfe9de;
-}
-
-.btn-danger,
-.button-danger {
-    background: #fff0ee;
-    color: var(--danger);
-}
-
-.btn-danger:hover,
-.button-danger:hover {
-    background: #f9ddda;
-}
-
-.btn-gold {
-    background: var(--gold);
-    color: var(--green-950);
-}
-
-/* =========================================
-   STATUS / MESSAGES
-========================================= */
-
-.message,
-.alert,
-.status-message {
-    padding: 14px 18px;
-    border-radius: var(--radius-md);
-    margin: 15px 0;
-    font-size: 13px;
-}
-
-.success,
-.message.success {
-    color: #21613d;
-    background: #eaf6ed;
-}
-
-.error,
-.message.error {
-    color: #a53636;
-    background: #fff0ee;
-}
-
-.warning,
-.message.warning {
-    color: #8a6424;
-    background: #fff7e7;
-}
-
-/* =========================================
-   ADMIN / DASHBOARD HEADER
-========================================= */
-
-.admin-header,
-.dashboard-header {
-    background: var(--green-950);
-    color: white;
-    padding: 22px 5%;
-}
-
-.admin-header h1,
-.dashboard-header h1 {
-    color: white;
-}
-
-.admin-header-inner,
-.dashboard-header-inner {
-    max-width: 1200px;
-    margin: auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 20px;
-}
-
-.admin-nav,
-.dashboard-nav {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-
-.admin-nav a,
-.dashboard-nav a {
-    color: rgba(255,255,255,0.8);
-    padding: 9px 15px;
-    border-radius: 50px;
-    font-size: 12px;
-    font-weight: 600;
-}
-
-.admin-nav a:hover,
-.dashboard-nav a:hover,
-.admin-nav a.active,
-.dashboard-nav a.active {
-    background: rgba(255,255,255,0.12);
-    color: white;
-}
-
-/* =========================================
-   DASHBOARD CARDS
-========================================= */
-
-.dashboard-container,
-.admin-container {
-    width: min(100% - 36px, 1200px);
-    margin: 35px auto;
-}
-
-.dashboard-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-    gap: 20px;
-}
-
-.dashboard-card,
-.stat-card {
-    background: white;
-    border-radius: var(--radius-lg);
-    padding: 25px;
-    box-shadow: var(--shadow-soft);
-    border: 1px solid rgba(32,81,59,0.05);
-}
-
-.dashboard-card h3,
-.stat-card h3 {
-    color: var(--muted);
-    font-size: 13px;
-    font-weight: 600;
-}
-
-.dashboard-card strong,
-.stat-card strong {
-    display: block;
-    font-family: 'Outfit', sans-serif;
-    font-size: 34px;
-    color: var(--green-900);
-    margin-top: 10px;
-}
-
-/* =========================================
-   LOGIN / PASSWORD RESET
-========================================= */
-
-.auth-container {
-    min-height: 100vh;
-    display: grid;
-    place-items: center;
-    padding: 25px;
-    background:
-        radial-gradient(circle at top left, rgba(198,161,91,0.13), transparent 35%),
-        var(--cream);
-}
-
-.auth-card {
-    width: min(100%, 440px);
-    padding: 40px;
-    border-radius: var(--radius-xl);
-    background: white;
-    box-shadow: var(--shadow-card);
-}
-
-.auth-card h1 {
-    font-size: 30px;
-    margin-bottom: 8px;
-}
-
-.auth-card > p {
-    color: var(--muted);
-    margin-bottom: 28px;
-}
-
-.auth-card button {
-    width: 100%;
-    margin-top: 12px;
-}
-
-.auth-card a {
-    color: var(--green-700);
-    font-weight: 700;
-}
-
-/* =========================================
-   PARTICIPANTS / MANAGEMENT / RESULTS
-========================================= */
-
-.panel,
-.content-card,
-.management-card,
-.participant-card,
-.result-card {
-    background: white;
-    padding: 25px;
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-soft);
-    border: 1px solid rgba(32,81,59,0.05);
-    margin-bottom: 20px;
-}
-
-.panel h2,
-.content-card h2,
-.management-card h2 {
-    margin-bottom: 18px;
-}
-
-.page-heading {
-    margin-bottom: 28px;
-}
-
-.page-heading h1 {
-    font-size: 32px;
-}
-
-.page-heading p {
-    color: var(--muted);
-    margin-top: 6px;
-}
-
-/* =========================================
-   TABLES
-========================================= */
+/* Tables */
 
 .table-container {
-    width: 100%;
-    overflow-x: auto;
-    border-radius: var(--radius-lg);
-    background: white;
-    box-shadow: var(--shadow-soft);
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    min-width: 600px;
+    background: #fffdf7;
+    border-radius: 25px;
+    overflow: hidden;
+    border: 1px solid rgba(52,116,81,0.08);
 }
 
 th {
-    padding: 16px;
-    text-align: left;
-    background: #f1f5ef;
-    color: var(--green-900);
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.8px;
-}
-
-td {
-    padding: 15px 16px;
-    border-bottom: 1px solid #edf0e9;
-    font-size: 13px;
-    color: var(--ink);
-}
-
-tr:last-child td {
-    border-bottom: none;
+    background: linear-gradient(120deg, #e3ecdf, #f4ecd9);
+    color: #24583e;
 }
 
 tbody tr:hover {
-    background: #fafbf8;
+    background: #f1f4e9;
 }
 
-/* =========================================
-   SEARCH / FILTERS
-========================================= */
+/* Admin header */
 
-.search-box,
-.filter-box {
-    margin-bottom: 20px;
+.admin-header,
+.dashboard-header {
+    background:
+        radial-gradient(circle at 90% 0%, rgba(197,161,91,0.20), transparent 35%),
+        linear-gradient(120deg, #102c21, #24583e);
 }
+
+/* Rounded search fields */
 
 .search-box input,
 .filter-box select {
-    max-width: 350px;
+    border-radius: 50px;
 }
 
-/* =========================================
-   PDF / RESULT DOCUMENTS
-========================================= */
+/* Soft page sections */
 
-.result-document,
-.pdf-card {
-    background: white;
-    border-radius: var(--radius-lg);
-    padding: 22px;
-    box-shadow: var(--shadow-soft);
-    margin-bottom: 18px;
+.portal-main {
+    position: relative;
+    z-index: 1;
 }
 
-.result-document h3,
-.pdf-card h3 {
-    color: var(--green-900);
-    margin-bottom: 10px;
-}
-
-/* =========================================
-   UTILITY CLASSES
-========================================= */
-
-.text-muted {
-    color: var(--muted);
-}
-
-.text-center {
-    text-align: center;
-}
-
-.mt-1 { margin-top: 10px; }
-.mt-2 { margin-top: 20px; }
-.mt-3 { margin-top: 30px; }
-
-.mb-1 { margin-bottom: 10px; }
-.mb-2 { margin-bottom: 20px; }
-.mb-3 { margin-bottom: 30px; }
-
-.flex {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.flex-between {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 15px;
-}
-
-.hidden {
-    display: none !important;
-}
-
-/* =========================================
-   RESPONSIVE DESIGN
-========================================= */
+/* Mobile refinements */
 
 @media (max-width: 700px) {
-
-    .portal-header {
-        padding: 12px 17px;
-    }
-
-    .portal-header-inner {
-        gap: 10px;
-    }
-
-    .portal-logos {
-        gap: 5px;
-    }
-
-    .portal-logos img {
-        width: 40px;
-        height: 40px;
-    }
-
-    .portal-logos img:first-child {
-        width: 55px;
-        height: 55px;
-    }
-
-    .portal-brand strong {
-        font-size: 14px;
-        letter-spacing: 0.5px;
-    }
-
-    .portal-brand span {
-        font-size: 8px;
-        letter-spacing: 1px;
-    }
-
-    .portal-top-button {
-        padding: 10px 14px;
-        font-size: 11px;
-    }
-
-    .portal-main {
-        width: min(100% - 28px, 1020px);
-        padding: 45px 0 35px;
-    }
-
-    .portal-intro {
-        margin-bottom: 32px;
-    }
-
-    .portal-intro h1 {
-        font-size: 43px;
-    }
-
-    .portal-intro > p:first-of-type {
-        font-size: 15px;
-    }
-
-    .portal-details {
-        padding: 22px 17px;
-        border-radius: 24px;
-    }
-
-    .portal-detail-grid {
-        grid-template-columns: 1fr;
-        gap: 11px;
+    .portal-details,
+    .portal-register {
+        border-radius: 25px;
     }
 
     .portal-detail {
-        padding: 16px;
-    }
-
-    .portal-detail strong {
-        font-size: 14px;
-    }
-
-    .portal-register {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 27px 22px;
-        border-radius: 24px;
-    }
-
-    .portal-register h2 {
-        font-size: 24px;
-    }
-
-    .portal-register-button {
-        width: 100%;
-        text-align: center;
-    }
-
-    .portal-footer-inner {
-        flex-direction: column;
-        text-align: center;
-        gap: 8px;
-    }
-
-    .application-container,
-    .dashboard-container,
-    .admin-container {
-        width: min(100% - 24px, 1050px);
-        margin: 22px auto;
+        border-radius: 19px;
     }
 
     .application-card,
-    .auth-card {
-        padding: 24px 19px;
-        border-radius: 24px;
-    }
-
-    .admin-header-inner,
-    .dashboard-header-inner {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .admin-nav,
-    .dashboard-nav {
-        width: 100%;
-    }
-
-    .admin-nav a,
-    .dashboard-nav a {
-        font-size: 11px;
-        padding: 8px 11px;
-    }
-
-    .flex-between {
-        align-items: flex-start;
-        flex-direction: column;
-    }
-
+    .auth-card,
+    .dashboard-card,
+    .stat-card,
     .panel,
     .content-card,
     .management-card,
     .participant-card,
     .result-card {
-        padding: 19px;
-    }
-}
-
-@media (max-width: 380px) {
-
-    .portal-brand strong {
-        font-size: 12px;
-    }
-
-    .portal-brand span {
-        font-size: 7px;
-    }
-
-    .portal-top-button {
-        padding: 9px 11px;
-    }
-
-    .portal-intro h1 {
-        font-size: 36px;
-    }
-}
-
-/* =========================================
-   ACCESSIBILITY
-========================================= */
-
-:focus-visible {
-    outline: 3px solid rgba(198,161,91,0.75);
-    outline-offset: 3px;
-}
-
-@media (prefers-reduced-motion: reduce) {
-    *,
-    *::before,
-    *::after {
-        scroll-behavior: auto !important;
-        transition-duration: 0.01ms !important;
-        animation-duration: 0.01ms !important;
+        border-radius: 23px;
     }
 }
