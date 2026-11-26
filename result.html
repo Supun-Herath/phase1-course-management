@@ -8,10 +8,13 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
     <main class="application-container">
         <div class="application-card">
+
             <h1>Result Documents</h1>
             <p>Generate and manage participant result PDFs.</p>
+
             <hr>
 
             <button type="button" id="generate-all">
@@ -28,13 +31,17 @@
 
             <div id="results-list"></div>
 
-            <p><a href="dashboard.html">Back to Dashboard</a></p>
+            <p>
+                <a href="dashboard.html">Back to Dashboard</a>
+            </p>
+
         </div>
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.3/html2pdf.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-    <script src="results.js"></script>
+    <script src="result.js"></script>
+
 </body>
 </html>
