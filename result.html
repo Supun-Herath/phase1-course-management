@@ -1,0 +1,40 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Result Documents | Phase 1 Course</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main class="application-container">
+        <div class="application-card">
+            <h1>Result Documents</h1>
+            <p>Generate and manage participant result PDFs.</p>
+            <hr>
+
+            <button type="button" id="generate-all">
+                Generate All Completed PDFs
+            </button>
+
+            <button type="button" id="download-zip">
+                Download PDFs as ZIP
+            </button>
+
+            <p id="results-message" role="status">
+                Loading completed participants...
+            </p>
+
+            <div id="results-list"></div>
+
+            <p><a href="dashboard.html">Back to Dashboard</a></p>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.3/html2pdf.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="results.js"></script>
+</body>
+</html>
