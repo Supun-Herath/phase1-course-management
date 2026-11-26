@@ -1,7 +1,7 @@
 
 // Phase 1 Course - Registration System
 
-const SUPABASE_URL = "https://etfqfyyoagsyiwafziji.supabase.co/rest/v1/";
+const SUPABASE_URL = "https://etfqfyyoagsyiwafziji.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_RDrPK0Kus5rKT5v3ioaZ5Q_H3YdfAyp";
 const COURSE_BATCH_ID = "5b1c2d61-dc49-4dc2-b9a6-92ce716eaeff";
 
