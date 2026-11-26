@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Phase 1 Course Result Documents">
     <title>Result Documents | Phase 1 Course</title>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -13,9 +14,12 @@
         <div class="application-card">
 
             <h1>Result Documents</h1>
-            <p>Generate and manage participant result PDFs.</p>
+            <p>Phase 1 Course Management System</p>
 
             <hr>
+
+            <h2>PDF Management</h2>
+            <p>Generate, store and download participant result PDFs.</p>
 
             <button type="button" id="generate-all">
                 Generate All Completed PDFs
@@ -25,15 +29,19 @@
                 Download PDFs as ZIP
             </button>
 
+            <hr>
+
+            <h2>Participant Documents</h2>
+
             <p id="results-message" role="status">
                 Loading completed participants...
             </p>
 
             <div id="results-list"></div>
 
-            <p>
-                <a href="dashboard.html">Back to Dashboard</a>
-            </p>
+            <hr>
+
+            <a href="dashboard.html">Back to Admin Dashboard</a>
 
         </div>
     </main>
@@ -41,6 +49,8 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.3/html2pdf.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+    <!-- Correct JavaScript filename -->
     <script src="result.js"></script>
 
 </body>
