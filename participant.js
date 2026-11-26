@@ -34,6 +34,7 @@ async function loadParticipants() {
         .from("registrations")
         .select(`
             registration_number,
+            section,
             status,
             participants (
                 full_name,
