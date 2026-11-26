@@ -10,7 +10,9 @@ const submitButton = document.getElementById("submit-registration");
 const messageBox = document.getElementById("registration-message");
 
 if (form && submitButton && messageBox) {
+
     submitButton.addEventListener("click", async () => {
+
         messageBox.textContent = "";
         messageBox.className = "";
 
@@ -24,6 +26,7 @@ if (form && submitButton && messageBox) {
             batch_id: COURSE_BATCH_ID
         };
 
+        // Validate required fields
         if (
             !registrationData.full_name ||
             !registrationData.contact_number ||
@@ -36,43 +39,72 @@ if (form && submitButton && messageBox) {
             return;
         }
 
+        // Get Cloudflare Turnstile token
+        const turnstileToken = document.querySelector(
+            '[name="cf-turnstile-response"]'
+        )?.value;
+
+        if (!turnstileToken) {
+            messageBox.textContent =
+                "Please complete the security verification.";
+            messageBox.className = "error-message";
+            return;
+        }
+
         submitButton.disabled = true;
         submitButton.textContent = "Submitting...";
 
         try {
+
             const response = await fetch(
                 `${SUPABASE_URL}/functions/v1/public-registration`,
                 {
                     method: "POST",
+
                     headers: {
                         "Content-Type": "application/json",
                         "apikey": SUPABASE_PUBLISHABLE_KEY
                     },
-                    body: JSON.stringify(registrationData)
+
+                    body: JSON.stringify({
+                        ...registrationData,
+                        turnstile_token: turnstileToken
+                    })
                 }
             );
 
             const result = await response.json();
 
             if (!response.ok) {
-                throw new Error(result.error || "Registration failed.");
+                throw new Error(
+                    result.error || "Registration failed."
+                );
             }
 
             messageBox.textContent =
                 `Registration successful! Your registration number is ${result.registration_number}.`;
 
             messageBox.className = "success-message";
+
             form.reset();
 
         } catch (error) {
+
             messageBox.textContent =
                 error.message || "Something went wrong. Please try again.";
 
             messageBox.className = "error-message";
 
         } finally {
+
+            // Reset Cloudflare verification
+            if (window.turnstile) {
+                window.turnstile.reset();
+            }
+
             submitButton.disabled = false;
             submitButton.textContent = "Submit Registration";
+
         }
     });
 }
