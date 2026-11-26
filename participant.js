@@ -1,8 +1,10 @@
 
+// ==================================================
 // PHASE 1 COURSE - PARTICIPANT MANAGEMENT
+// ==================================================
 
 const SUPABASE_URL = "https://etfqfyyoagsyiwafziji.supabase.co";
-const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_RDrPK0Kus5rKT5v3ioaZ5Q_H3YdfAyp";
+const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_RDrPK0Kus5rKT5v3ioaZ5Q_HY3dfAyp";
 
 const BATCH_ID = "5b1c2d61-dc49-4dc2-b9a6-92ce716eaeff";
 const BUCKET = "phase1-result-pdfs";
@@ -18,12 +20,11 @@ const searchInput = document.getElementById("participant-search");
 
 let registrations = [];
 let completions = [];
-let documents = [];
 let adminUser = null;
 
-// --------------------------------------------------
+// ==================================================
 // HELPERS
-// --------------------------------------------------
+// ==================================================
 
 function showMessage(text) {
     message.textContent = text;
@@ -58,15 +59,9 @@ function getCompletion(registrationId) {
     );
 }
 
-function getLatestDocument(completionId) {
-    return documents
-        .filter(item => item.completion_id === completionId)
-        .sort((a, b) => b.version - a.version)[0];
-}
-
-// --------------------------------------------------
+// ==================================================
 // ADMIN VERIFICATION
-// --------------------------------------------------
+// ==================================================
 
 async function verifyAdmin() {
     const { data, error } = await db.auth.getSession();
@@ -95,9 +90,9 @@ async function verifyAdmin() {
     return true;
 }
 
-// --------------------------------------------------
-// LOAD DATA
-// --------------------------------------------------
+// ==================================================
+// LOAD PARTICIPANTS
+// ==================================================
 
 async function loadParticipants() {
     try {
@@ -117,11 +112,6 @@ async function loadParticipants() {
                     school_troop,
                     district,
                     email
-                ),
-                results (
-                    marks,
-                    grade,
-                    remarks
                 )
             `)
             .eq("batch_id", BATCH_ID)
@@ -132,19 +122,13 @@ async function loadParticipants() {
 
         registrations = data || [];
 
-        const [completionResult, documentResult] = await Promise.all([
-            db.from("course_completions").select("*"),
+        const { data: completionData, error: completionError } = await db
+            .from("course_completions")
+            .select("*");
 
-            db.from("result_documents")
-                .select("*")
-                .order("version", { ascending: false })
-        ]);
+        if (completionError) throw completionError;
 
-        if (completionResult.error) throw completionResult.error;
-        if (documentResult.error) throw documentResult.error;
-
-        completions = completionResult.data || [];
-        documents = documentResult.data || [];
+        completions = completionData || [];
 
         displayParticipants(registrations);
 
@@ -153,9 +137,9 @@ async function loadParticipants() {
     }
 }
 
-// --------------------------------------------------
+// ==================================================
 // PARTICIPANT TABLE
-// --------------------------------------------------
+// ==================================================
 
 function displayParticipants(items) {
     list.replaceChildren();
@@ -252,7 +236,7 @@ function displayParticipants(items) {
         row.append(completionCell, pdfCell);
         tbody.appendChild(row);
 
-        // SAVE COMPLETION
+        // SAVE COMPLETION STATUS
 
         checkbox.addEventListener("change", async () => {
             const requestedValue = checkbox.checked;
@@ -307,9 +291,7 @@ function displayParticipants(items) {
 
             } catch (error) {
                 checkbox.checked = !requestedValue;
-
-                pdfButton.disabled =
-                    !checkbox.checked;
+                pdfButton.disabled = !checkbox.checked;
 
                 showMessage(
                     "Could not save completion: " + error.message
@@ -320,7 +302,7 @@ function displayParticipants(items) {
             }
         });
 
-        // DOWNLOAD PDF
+        // GENERATE A NEW PDF VERSION AND DOWNLOAD
 
         pdfButton.addEventListener("click", async () => {
             const currentCompletion = getCompletion(registration.id);
@@ -334,21 +316,17 @@ function displayParticipants(items) {
             }
 
             pdfButton.disabled = true;
-            pdfButton.textContent = "Preparing PDF...";
+            pdfButton.textContent = "Generating PDF...";
 
             try {
-                let documentRecord = getLatestDocument(
-                    currentCompletion.id
+                showMessage(
+                    `Generating a new result sheet for ${participant.full_name}...`
                 );
 
-                if (!documentRecord) {
-                    showMessage("Generating official result sheet...");
-
-                    documentRecord = await generatePDF(
-                        registration,
-                        currentCompletion
-                    );
-                }
+                const documentRecord = await generatePDF(
+                    registration,
+                    currentCompletion
+                );
 
                 const { data: file, error } = await db.storage
                     .from(BUCKET)
@@ -366,16 +344,16 @@ function displayParticipants(items) {
                 link.click();
                 link.remove();
 
-                setTimeout(() => URL.revokeObjectURL(url), 1500);
+                setTimeout(() => URL.revokeObjectURL(url), 2000);
 
                 showMessage(
-                    `Result sheet downloaded for ${participant.full_name}.`
+                    `New result sheet downloaded for ${participant.full_name}.`
                 );
 
-                pdfButton.textContent = "Download Again";
+                pdfButton.textContent = "Download New Version";
 
             } catch (error) {
-                showMessage("PDF download failed: " + error.message);
+                showMessage("PDF generation failed: " + error.message);
                 pdfButton.textContent = "Download Result PDF";
 
             } finally {
@@ -388,242 +366,247 @@ function displayParticipants(items) {
     list.appendChild(table);
 }
 
-// --------------------------------------------------
-// OFFICIAL RESULT SHEET DESIGN
-// --------------------------------------------------
+// ==================================================
+// PROFESSIONAL A4 COURSE COMPLETION RESULT SHEET
+// ==================================================
 
 async function createResultSheet(registration, completion) {
     const participant = getParticipant(registration);
-
-    const result = Array.isArray(registration.results)
-        ? registration.results[0]
-        : registration.results;
 
     const sheet = document.createElement("div");
 
     sheet.style.cssText = `
         width: 180mm;
-        min-height: 255mm;
-        padding: 13mm;
+        min-height: 267mm;
+        padding: 14mm;
         background: #ffffff;
-        color: #24352b;
-        font-family: Arial, sans-serif;
+        color: #263b30;
+        font-family: Georgia, 'Times New Roman', serif;
         box-sizing: border-box;
+        position: relative;
     `;
+
+    const mpLogo = new URL("mp.png", window.location.href).href;
+    const scoutLogo = new URL("sl.png", window.location.href).href;
 
     sheet.innerHTML = `
         <div style="
-            display:flex;
-            align-items:center;
-            justify-content:space-between;
-            border-bottom:3px solid #245b40;
-            padding-bottom:18px;
+            border:2px solid #245b40;
+            padding:8mm;
+            min-height:235mm;
+            box-sizing:border-box;
+            position:relative;
         ">
-            <img
-                src="mp.png?v=3"
-                alt="Organization Logo"
-                style="width:85px;height:85px;object-fit:contain;"
-            >
 
-            <div style="text-align:center;flex:1;padding:0 12px;">
-                <h1 style="
-                    color:#183d2b;
-                    font-size:23px;
-                    margin:0 0 7px;
-                ">
-                    PHASE 1 COURSE
-                </h1>
+            <div style="
+                display:flex;
+                align-items:center;
+                justify-content:space-between;
+                gap:12px;
+                border-bottom:2px solid #245b40;
+                padding-bottom:18px;
+            ">
+                <img
+                    src="${mpLogo}"
+                    alt="Organization Logo"
+                    style="width:82px;height:82px;object-fit:contain;"
+                >
+
+                <div style="text-align:center;flex:1;">
+                    <div style="
+                        font-family:Arial,sans-serif;
+                        font-size:11px;
+                        letter-spacing:3px;
+                        color:#758579;
+                        margin-bottom:8px;
+                    ">SCOUT LEADER DEVELOPMENT</div>
+
+                    <h1 style="
+                        font-family:Georgia,serif;
+                        font-size:25px;
+                        color:#17452e;
+                        margin:0;
+                        letter-spacing:1px;
+                    ">PHASE 1 COURSE</h1>
+
+                    <div style="
+                        font-family:Arial,sans-serif;
+                        font-size:11px;
+                        letter-spacing:2px;
+                        margin-top:8px;
+                        color:#64756a;
+                    ">OFFICIAL COURSE DOCUMENT</div>
+                </div>
+
+                <img
+                    src="${scoutLogo}"
+                    alt="Scout Logo"
+                    style="width:82px;height:82px;object-fit:contain;"
+                >
+            </div>
+
+            <div style="
+                text-align:center;
+                margin:35px 0 28px;
+            ">
+                <div style="
+                    font-family:Arial,sans-serif;
+                    font-size:11px;
+                    letter-spacing:4px;
+                    color:#8a9a8e;
+                    margin-bottom:12px;
+                ">CERTIFICATE OF</div>
 
                 <h2 style="
-                    font-size:14px;
+                    font-size:29px;
+                    color:#245b40;
                     margin:0;
                     letter-spacing:1px;
-                ">
-                    SCOUT LEADER DEVELOPMENT
-                </h2>
+                    font-weight:normal;
+                ">COURSE COMPLETION</h2>
+
+                <div style="
+                    width:65px;
+                    height:2px;
+                    background:#b89b58;
+                    margin:18px auto;
+                "></div>
 
                 <p style="
+                    font-family:Arial,sans-serif;
+                    font-size:13px;
+                    color:#65746a;
+                    margin:0;
+                ">This document confirms the successful completion of</p>
+
+                <h2 style="
+                    font-size:25px;
+                    color:#183d2b;
+                    margin:18px 0 8px;
+                    padding-bottom:10px;
+                    border-bottom:1px solid #cbd8ce;
+                    display:inline-block;
+                    min-width:75%;
+                ">${escapeHTML(participant.full_name)}</h2>
+
+                <p style="
+                    font-family:Arial,sans-serif;
+                    font-size:13px;
+                    color:#65746a;
+                    margin:8px 0;
+                ">of the Phase 1 Course</p>
+            </div>
+
+            <div style="
+                background:#f1f6f2;
+                border:1px solid #d7e4d9;
+                padding:18px 20px;
+                margin-top:25px;
+            ">
+                <h3 style="
+                    font-family:Arial,sans-serif;
                     font-size:12px;
-                    margin:8px 0 0;
-                    color:#637568;
+                    letter-spacing:2px;
+                    color:#245b40;
+                    margin:0 0 14px;
+                ">PARTICIPANT DETAILS</h3>
+
+                <table style="
+                    width:100%;
+                    border-collapse:collapse;
+                    font-family:Arial,sans-serif;
+                    font-size:12px;
                 ">
-                    OFFICIAL PARTICIPANT RESULT SHEET
-                </p>
+                    <tr>
+                        <td style="padding:9px 5px;color:#718075;width:42%;">Registration Number</td>
+                        <td style="padding:9px 5px;font-weight:bold;">${escapeHTML(registration.registration_number)}</td>
+                    </tr>
+                    <tr>
+                        <td style="padding:9px 5px;color:#718075;">Scouting Section</td>
+                        <td style="padding:9px 5px;font-weight:bold;">${escapeHTML(registration.section)}</td>
+                    </tr>
+                    <tr>
+                        <td style="padding:9px 5px;color:#718075;">School / Troop</td>
+                        <td style="padding:9px 5px;font-weight:bold;">${escapeHTML(participant.school_troop)}</td>
+                    </tr>
+                    <tr>
+                        <td style="padding:9px 5px;color:#718075;">District</td>
+                        <td style="padding:9px 5px;font-weight:bold;">${escapeHTML(participant.district)}</td>
+                    </tr>
+                    <tr>
+                        <td style="padding:9px 5px;color:#718075;">Completion Date</td>
+                        <td style="padding:9px 5px;font-weight:bold;">${escapeHTML(completion.completion_date || "-")}</td>
+                    </tr>
+                </table>
             </div>
 
-            <img
-                src="sl.png?v=3"
-                alt="Scout Logo"
-                style="width:85px;height:85px;object-fit:contain;"
-            >
-        </div>
+            <div style="
+                text-align:center;
+                margin:24px 0 0;
+                padding:14px;
+                border:1px solid #b8d0bd;
+            ">
+                <div style="
+                    font-family:Arial,sans-serif;
+                    font-size:10px;
+                    letter-spacing:2px;
+                    color:#758579;
+                ">COURSE STATUS</div>
 
-        <div style="
-            margin-top:28px;
-            padding:13px;
-            background:#edf4ee;
-            border-left:4px solid #245b40;
-        ">
-            <h3 style="margin:0;color:#245b40;font-size:15px;">
-                PARTICIPANT INFORMATION
-            </h3>
-        </div>
-
-        <table style="
-            width:100%;
-            border-collapse:collapse;
-            margin-top:12px;
-            font-size:13px;
-        ">
-            <tr>
-                <td style="padding:12px;border-bottom:1px solid #ddd;width:38%;">
-                    <strong>Registration Number</strong>
-                </td>
-                <td style="padding:12px;border-bottom:1px solid #ddd;">
-                    ${escapeHTML(registration.registration_number)}
-                </td>
-            </tr>
-
-            <tr>
-                <td style="padding:12px;border-bottom:1px solid #ddd;">
-                    <strong>Full Name</strong>
-                </td>
-                <td style="padding:12px;border-bottom:1px solid #ddd;">
-                    ${escapeHTML(participant.full_name)}
-                </td>
-            </tr>
-
-            <tr>
-                <td style="padding:12px;border-bottom:1px solid #ddd;">
-                    <strong>School / Troop</strong>
-                </td>
-                <td style="padding:12px;border-bottom:1px solid #ddd;">
-                    ${escapeHTML(participant.school_troop)}
-                </td>
-            </tr>
-
-            <tr>
-                <td style="padding:12px;border-bottom:1px solid #ddd;">
-                    <strong>District</strong>
-                </td>
-                <td style="padding:12px;border-bottom:1px solid #ddd;">
-                    ${escapeHTML(participant.district)}
-                </td>
-            </tr>
-
-            <tr>
-                <td style="padding:12px;border-bottom:1px solid #ddd;">
-                    <strong>Scouting Section</strong>
-                </td>
-                <td style="padding:12px;border-bottom:1px solid #ddd;">
-                    ${escapeHTML(registration.section)}
-                </td>
-            </tr>
-        </table>
-
-        <div style="
-            margin-top:25px;
-            padding:13px;
-            background:#edf4ee;
-            border-left:4px solid #245b40;
-        ">
-            <h3 style="margin:0;color:#245b40;font-size:15px;">
-                COURSE RESULTS
-            </h3>
-        </div>
-
-        <table style="
-            width:100%;
-            border-collapse:collapse;
-            margin-top:12px;
-            font-size:13px;
-        ">
-            <tr>
-                <td style="padding:12px;border-bottom:1px solid #ddd;width:38%;">
-                    <strong>Completion Status</strong>
-                </td>
-                <td style="
-                    padding:12px;
-                    border-bottom:1px solid #ddd;
-                    color:#267347;
+                <div style="
+                    font-family:Arial,sans-serif;
+                    font-size:19px;
                     font-weight:bold;
-                ">
-                    COMPLETED
-                </td>
-            </tr>
-
-            <tr>
-                <td style="padding:12px;border-bottom:1px solid #ddd;">
-                    <strong>Completion Date</strong>
-                </td>
-                <td style="padding:12px;border-bottom:1px solid #ddd;">
-                    ${escapeHTML(completion.completion_date || "-")}
-                </td>
-            </tr>
-
-            <tr>
-                <td style="padding:12px;border-bottom:1px solid #ddd;">
-                    <strong>Marks</strong>
-                </td>
-                <td style="padding:12px;border-bottom:1px solid #ddd;">
-                    ${escapeHTML(result?.marks ?? "Not recorded")}
-                </td>
-            </tr>
-
-            <tr>
-                <td style="padding:12px;border-bottom:1px solid #ddd;">
-                    <strong>Grade</strong>
-                </td>
-                <td style="padding:12px;border-bottom:1px solid #ddd;">
-                    ${escapeHTML(result?.grade || "Not recorded")}
-                </td>
-            </tr>
-
-            <tr>
-                <td style="padding:12px;border-bottom:1px solid #ddd;">
-                    <strong>Remarks</strong>
-                </td>
-                <td style="padding:12px;border-bottom:1px solid #ddd;">
-                    ${escapeHTML(result?.remarks || "-")}
-                </td>
-            </tr>
-        </table>
-
-        <div style="
-            display:flex;
-            justify-content:space-between;
-            margin-top:75px;
-            font-size:12px;
-            text-align:center;
-        ">
-            <div style="width:43%;">
-                __________________________
-                <p>Authorized Signature</p>
+                    letter-spacing:3px;
+                    color:#245b40;
+                    margin-top:7px;
+                ">✓ COMPLETED</div>
             </div>
 
-            <div style="width:43%;">
-                __________________________
-                <p>Course Coordinator</p>
-            </div>
-        </div>
+            <div style="
+                display:flex;
+                justify-content:space-between;
+                gap:30px;
+                margin-top:65px;
+                font-family:Arial,sans-serif;
+                font-size:12px;
+                text-align:center;
+            ">
+                <div style="width:50%;">
+                    <div style="height:35px;border-bottom:1px solid #52665a;"></div>
+                    <div style="font-weight:bold;margin-top:10px;color:#244b35;">Course Leader</div>
+                    <div style="font-size:10px;color:#7b897f;margin-top:4px;">Signature</div>
+                </div>
 
-        <div style="
-            margin-top:40px;
-            padding-top:12px;
-            border-top:1px solid #dce5dd;
-            text-align:center;
-            font-size:10px;
-            color:#758078;
-        ">
-            PHASE 1 COURSE · SCOUT LEADER DEVELOPMENT
-            <br>
-            Official Course Administration Document
+                <div style="width:50%;">
+                    <div style="height:35px;border-bottom:1px solid #52665a;"></div>
+                    <div style="font-weight:bold;margin-top:10px;color:#244b35;">District Commissioner</div>
+                    <div style="font-size:10px;color:#7b897f;margin-top:4px;">Signature</div>
+                </div>
+            </div>
+
+            <div style="
+                position:absolute;
+                bottom:10mm;
+                left:8mm;
+                right:8mm;
+                border-top:1px solid #dce5dd;
+                padding-top:10px;
+                text-align:center;
+                font-family:Arial,sans-serif;
+                font-size:9px;
+                letter-spacing:1px;
+                color:#849187;
+            ">
+                PHASE 1 COURSE · SCOUT LEADER DEVELOPMENT
+            </div>
         </div>
     `;
 
     document.body.appendChild(sheet);
 
-    // Wait for both logos to load before creating the PDF.
+    // WAIT FOR BOTH LOGOS
+
     const images = Array.from(sheet.querySelectorAll("img"));
 
     await Promise.all(images.map(img => {
@@ -634,7 +617,7 @@ async function createResultSheet(registration, completion) {
         return new Promise((resolve, reject) => {
             img.onload = resolve;
             img.onerror = () => reject(
-                new Error("Could not load a course logo for the PDF.")
+                new Error("Could not load a course logo. Check mp.png and sl.png.")
             );
         });
     }));
@@ -642,11 +625,15 @@ async function createResultSheet(registration, completion) {
     return sheet;
 }
 
-// --------------------------------------------------
-// GENERATE AND STORE PDF
-// --------------------------------------------------
+// ==================================================
+// GENERATE AND STORE A NEW PDF VERSION
+// ==================================================
 
 async function generatePDF(registration, completion) {
+    if (typeof window.html2pdf !== "function") {
+        throw new Error("PDF library not loaded. Refresh the page and try again.");
+    }
+
     const { data: previousDocuments, error: versionError } = await db
         .from("result_documents")
         .select("version")
@@ -663,21 +650,28 @@ async function generatePDF(registration, completion) {
     let pdfBlob;
 
     try {
-        pdfBlob = await html2pdf()
+        pdfBlob = await window.html2pdf()
             .set({
                 margin: 5,
+                filename: safeFilename(
+                    getParticipant(registration).full_name
+                ),
                 image: {
                     type: "jpeg",
                     quality: 0.98
                 },
                 html2canvas: {
                     scale: 2,
-                    useCORS: true
+                    useCORS: true,
+                    backgroundColor: "#ffffff"
                 },
                 jsPDF: {
                     unit: "mm",
                     format: "a4",
                     orientation: "portrait"
+                },
+                pagebreak: {
+                    mode: ["avoid-all", "css", "legacy"]
                 }
             })
             .from(sheet)
@@ -719,14 +713,12 @@ async function generatePDF(registration, completion) {
         );
     }
 
-    documents.push(savedDocument);
-
     return savedDocument;
 }
 
-// --------------------------------------------------
-// SEARCH
-// --------------------------------------------------
+// ==================================================
+// SEARCH PARTICIPANTS
+// ==================================================
 
 searchInput.addEventListener("input", () => {
     const query = searchInput.value.trim().toLowerCase();
@@ -751,9 +743,9 @@ searchInput.addEventListener("input", () => {
     displayParticipants(filtered);
 });
 
-// --------------------------------------------------
-// START
-// --------------------------------------------------
+// ==================================================
+// START SYSTEM
+// ==================================================
 
 async function start() {
     try {
