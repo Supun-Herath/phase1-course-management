@@ -1,6 +1,4 @@
 
-// Phase 1 Course - Participant Management
-
 const SUPABASE_URL = "https://etfqfyyoagsyiwafziji.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_RDrPK0Kus5rKT5v3ioaZ5Q_H3YdfAyp";
 
@@ -17,7 +15,8 @@ let registrations = [];
 
 async function loadParticipants() {
     try {
-        // Verify login
+        message.textContent = "Loading participants...";
+
         const { data: sessionData, error: sessionError } =
             await supabaseClient.auth.getSession();
 
@@ -26,7 +25,6 @@ async function loadParticipants() {
             return;
         }
 
-        // Verify admin role
         const { data: profile, error: profileError } =
             await supabaseClient
                 .from("profiles")
@@ -43,14 +41,12 @@ async function loadParticipants() {
             return;
         }
 
-        // Load registrations and participant details
         const { data, error } = await supabaseClient
             .from("registrations")
             .select(`
                 registration_number,
                 section,
                 status,
-                created_at,
                 participants (
                     full_name,
                     contact_number,
@@ -59,7 +55,7 @@ async function loadParticipants() {
                     email
                 )
             `)
-            .order("created_at", { ascending: false });
+            .order("registration_number", { ascending: true });
 
         if (error) throw error;
 
@@ -82,39 +78,36 @@ function displayParticipants(items) {
 
     message.textContent = `Total registrations: ${items.length}`;
 
-    items.forEach((registration) => {
-        const participant = registration.participants;
+    items.forEach(registration => {
+        const participant = registration.participants || {};
 
         const card = document.createElement("div");
+        card.className = "form-group";
+
         const heading = document.createElement("h3");
-        const details = document.createElement("p");
-
         heading.textContent =
-            participant?.full_name || "Unknown participant";
+            participant.full_name || "Unknown participant";
 
+        const details = document.createElement("p");
         details.textContent = [
             `Registration: ${registration.registration_number}`,
             `Section: ${registration.section}`,
-            `Contact: ${participant?.contact_number || "-"}`,
-            `School/Troop: ${participant?.school_troop || "-"}`,
-            `District: ${participant?.district || "-"}`,
-            `Email: ${participant?.email || "-"}`,
+            `Contact: ${participant.contact_number || "-"}`,
+            `School/Troop: ${participant.school_troop || "-"}`,
+            `District: ${participant.district || "-"}`,
+            `Email: ${participant.email || "-"}`,
             `Status: ${registration.status}`
         ].join(" | ");
 
-        card.appendChild(heading);
-        card.appendChild(details);
-
+        card.append(heading, details);
         list.appendChild(card);
     });
 }
 
-// Search by name, registration number, section,
-// contact number, school/troop or district.
 searchInput.addEventListener("input", () => {
     const query = searchInput.value.trim().toLowerCase();
 
-    const filtered = registrations.filter((registration) => {
+    const filtered = registrations.filter(registration => {
         const participant = registration.participants || {};
 
         const searchableText = [
