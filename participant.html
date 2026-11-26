@@ -1,0 +1,29 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Participants | Phase 1 Course</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main class="application-container">
+        <div class="application-card">
+            <h1>Participant Management</h1>
+            <p>Phase 1 Course</p>
+
+            <p id="participant-message" role="status">
+                Loading participants...
+            </p>
+
+            <div id="participant-list"></div>
+
+            <p><a href="dashboard.html">Back to Dashboard</a></p>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="participants.js"></script>
+</body>
+</html>
