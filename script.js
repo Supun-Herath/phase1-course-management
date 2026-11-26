@@ -1,8 +1,10 @@
 
-// Phase 1 Course - Registration System
+// ==================================================
+// PHASE 1 COURSE - REGISTRATION SYSTEM
+// ==================================================
 
 const SUPABASE_URL = "https://etfqfyyoagsyiwafziji.supabase.co";
-const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_RDrPK0Kus5rKT5v3ioaZ5Q_H3YdfAyp";
+const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_RDrPK0Kus5rKT5v3ioaZ5Q_HY3dfAyp";
 const COURSE_BATCH_ID = "5b1c2d61-dc49-4dc2-b9a6-92ce716eaeff";
 
 const form = document.getElementById("registration-form");
@@ -11,7 +13,7 @@ const messageBox = document.getElementById("registration-message");
 
 if (form && submitButton && messageBox) {
 
-    submitButton.addEventListener("click", async () => {
+    submitButton.addEventListener("click", async (event) => {
 
         messageBox.textContent = "";
         messageBox.className = "";
@@ -63,17 +65,15 @@ if (form && submitButton && messageBox) {
 
         try {
 
-            // Send registration and CAPTCHA token to Supabase
+            // Send registration to Supabase
             const response = await fetch(
                 `${SUPABASE_URL}/functions/v1/public-registration`,
                 {
                     method: "POST",
-
                     headers: {
                         "Content-Type": "application/json",
                         "apikey": SUPABASE_PUBLISHABLE_KEY
                     },
-
                     body: JSON.stringify({
                         ...registrationData,
                         turnstile_token: turnstileToken
@@ -90,11 +90,40 @@ if (form && submitButton && messageBox) {
             }
 
             // Successful registration
-            messageBox.textContent =
-                `Registration successful! Your registration number is ${result.registration_number}.`;
-
             messageBox.className = "success-message";
+            messageBox.replaceChildren();
 
+            const heading = document.createElement("strong");
+            heading.className = "success-heading";
+            heading.textContent = "✓ REGISTRATION COMPLETED";
+
+            const description = document.createElement("p");
+            description.textContent =
+                "Your registration has been successfully submitted.";
+
+            const numberLabel = document.createElement("span");
+            numberLabel.className = "registration-number-label";
+            numberLabel.textContent = "YOUR REGISTRATION NUMBER";
+
+            const number = document.createElement("strong");
+            number.className = "registration-number-highlight";
+            number.textContent =
+                result.registration_number || "Not provided";
+
+            const reminder = document.createElement("p");
+            reminder.className = "registration-reminder";
+            reminder.textContent =
+                "Please save this number for future reference.";
+
+            messageBox.append(
+                heading,
+                description,
+                numberLabel,
+                number,
+                reminder
+            );
+
+            // Clear form after successful registration
             form.reset();
 
         } catch (error) {
@@ -106,14 +135,13 @@ if (form && submitButton && messageBox) {
 
         } finally {
 
-            // Reset CAPTCHA for another attempt
+            // Reset CAPTCHA
             if (window.turnstile) {
                 window.turnstile.reset();
             }
 
             submitButton.disabled = false;
             submitButton.textContent = "Submit Registration";
-
         }
     });
 }
