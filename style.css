@@ -1,6 +1,7 @@
 
 /* =========================================
-   PHASE 1 — RICH FOREST COLOUR UPGRADE
+   PHASE 1 COURSE — COMPLETE STYLESHEET
+   Scout-inspired forest green and gold theme
 ========================================= */
 
 :root {
@@ -18,66 +19,434 @@
     --ink: #24372c;
     --muted: #7b887b;
 
-    --border: rgba(43, 82, 55, 0.08);
-
-    --shadow-soft: 0 12px 35px rgba(29, 65, 43, 0.07);
-    --shadow-card: 0 20px 55px rgba(29, 65, 43, 0.10);
+    --border: rgba(43, 82, 55, 0.12);
+    --shadow-soft: 0 12px 35px rgba(29, 65, 43, 0.08);
+    --shadow-card: 0 20px 55px rgba(29, 65, 43, 0.12);
 }
 
-/* Page background — remove plain white corners */
+/* =========================================
+   GLOBAL
+========================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
 
 body {
+    min-height: 100vh;
+    font-family: "Segoe UI", Arial, sans-serif;
+    color: var(--ink);
     background:
-        radial-gradient(ellipse at 5% 5%, rgba(197,161,91,0.18), transparent 30%),
-        radial-gradient(ellipse at 95% 25%, rgba(77,139,93,0.13), transparent 32%),
-        radial-gradient(ellipse at 50% 100%, rgba(197,161,91,0.10), transparent 38%),
-        #f3f1e7;
+        radial-gradient(ellipse at 5% 5%, rgba(197,161,91,.15), transparent 30%),
+        radial-gradient(ellipse at 95% 25%, rgba(77,139,93,.12), transparent 32%),
+        var(--cream);
+    line-height: 1.6;
 }
 
-/* Main portal background */
+h1, h2, h3, h4 {
+    color: var(--green-950);
+    line-height: 1.25;
+}
+
+p {
+    color: var(--muted);
+}
+
+a {
+    color: var(--green-700);
+    text-decoration: none;
+    transition: .2s ease;
+}
+
+a:hover {
+    color: var(--gold);
+}
+
+button,
+input,
+select,
+textarea {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+/* =========================================
+   GENERAL APPLICATION / ADMIN PAGES
+========================================= */
+
+.application-container {
+    width: min(100% - 32px, 1050px);
+    min-height: 100vh;
+    margin: 0 auto;
+    padding: 65px 0;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.application-card {
+    width: 100%;
+    max-width: 850px;
+    padding: 42px;
+    background: rgba(255,253,247,.96);
+    border: 1px solid rgba(197,161,91,.22);
+    border-radius: 28px;
+    box-shadow: var(--shadow-card);
+    position: relative;
+    overflow: hidden;
+}
+
+.application-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(
+        90deg,
+        var(--green-800),
+        var(--gold),
+        var(--green-600)
+    );
+}
+
+.application-card h1 {
+    font-size: clamp(27px, 4vw, 36px);
+    margin-bottom: 8px;
+}
+
+.application-card > p {
+    margin-bottom: 22px;
+}
+
+.application-card h2 {
+    font-size: 21px;
+    margin: 25px 0 12px;
+}
+
+.application-card hr {
+    border: 0;
+    border-top: 1px solid var(--border);
+    margin: 25px 0;
+}
+
+/* =========================================
+   FORMS
+========================================= */
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+label {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--green-900);
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    min-height: 48px;
+    padding: 12px 15px;
+    color: var(--ink);
+    background: #f7f7f0;
+    border: 1px solid rgba(52,116,81,.18);
+    border-radius: 13px;
+    outline: none;
+    transition: .2s ease;
+}
+
+textarea {
+    min-height: 110px;
+    resize: vertical;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: #a0a99f;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    background: var(--white);
+    border-color: var(--green-600);
+    box-shadow: 0 0 0 4px rgba(75,144,103,.12);
+}
+
+/* =========================================
+   BUTTONS
+========================================= */
+
+button {
+    min-height: 45px;
+    padding: 11px 22px;
+    border: 0;
+    border-radius: 12px;
+    background: linear-gradient(120deg, var(--green-800), var(--green-950));
+    color: white;
+    font-weight: 700;
+    transition: .22s ease;
+}
+
+button:hover {
+    background: linear-gradient(120deg, var(--green-700), var(--green-800));
+    transform: translateY(-1px);
+    box-shadow: 0 7px 18px rgba(23,62,45,.15);
+}
+
+button:disabled {
+    opacity: .55;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.application-card form button {
+    width: 100%;
+}
+
+.application-card > button {
+    margin: 8px 8px 8px 0;
+}
+
+/* =========================================
+   STATUS MESSAGES
+========================================= */
+
+#admin-message,
+#dashboard-message,
+#management-message,
+#participant-message,
+#results-message,
+#reset-message,
+#registration-message {
+    margin-top: 15px;
+    font-size: 13px;
+    font-weight: 600;
+    overflow-wrap: anywhere;
+}
+
+[role="status"]:empty {
+    display: none;
+}
+
+/* =========================================
+   LINKS AND LISTS
+========================================= */
+
+.application-card a {
+    font-weight: 700;
+}
+
+.application-card > p:last-child {
+    margin-top: 24px;
+}
+
+#management-list,
+#participant-list,
+#results-list {
+    margin-top: 20px;
+    width: 100%;
+    overflow-x: auto;
+}
+
+#management-list > *,
+#participant-list > *,
+#results-list > * {
+    margin-bottom: 14px;
+}
+
+/* =========================================
+   TABLES
+========================================= */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--white);
+    border-radius: 14px;
+    overflow: hidden;
+}
+
+th,
+td {
+    padding: 13px 15px;
+    border-bottom: 1px solid var(--border);
+    text-align: left;
+    font-size: 13px;
+}
+
+th {
+    background: #e7eee2;
+    color: var(--green-900);
+    font-weight: 800;
+}
+
+tbody tr:hover {
+    background: #f1f4e9;
+}
+
+/* =========================================
+   PORTAL HOMEPAGE
+========================================= */
 
 .portal-page {
+    min-height: 100vh;
     background:
-        radial-gradient(circle at 0% 15%, rgba(197,161,91,0.20), transparent 28%),
-        radial-gradient(circle at 100% 45%, rgba(67,123,79,0.14), transparent 30%),
+        radial-gradient(circle at 0% 15%, rgba(197,161,91,.18), transparent 28%),
+        radial-gradient(circle at 100% 45%, rgba(67,123,79,.13), transparent 30%),
         linear-gradient(145deg, #f5f2e7, #e9eee4 55%, #f4eddd);
 }
 
-/* Header — warm tinted background */
-
 .portal-header {
-    background: rgba(247, 247, 237, 0.82);
+    width: 100%;
+    background: rgba(247,247,237,.88);
     backdrop-filter: blur(18px);
-    border-bottom: 1px solid rgba(39,83,54,0.10);
+    border-bottom: 1px solid rgba(39,83,54,.12);
+    position: relative;
+    z-index: 5;
 }
 
-/* Intro heading */
+.portal-header-inner {
+    width: min(100% - 48px, 1180px);
+    min-height: 92px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.portal-logos {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+.portal-logos img {
+    width: 55px;
+    height: 55px;
+    object-fit: contain;
+    display: block;
+}
+
+.portal-brand {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.portal-brand strong {
+    color: var(--green-950);
+    font-size: 16px;
+    letter-spacing: 1.2px;
+    font-weight: 900;
+}
+
+.portal-brand span {
+    color: #879187;
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    font-weight: 800;
+}
+
+.portal-top-button {
+    margin-left: auto;
+    padding: 12px 24px;
+    border-radius: 50px;
+    background: linear-gradient(135deg, var(--green-800), var(--green-950));
+    color: white;
+    font-size: 13px;
+    font-weight: 800;
+    box-shadow: 0 6px 17px rgba(16,44,33,.12);
+}
+
+.portal-top-button:hover {
+    color: var(--gold-light);
+    transform: translateY(-2px);
+}
+
+.portal-main {
+    width: min(100% - 40px, 1050px);
+    margin: auto;
+    padding: 65px 0 75px;
+    position: relative;
+    z-index: 1;
+}
+
+/* Homepage introduction */
+
+.portal-intro {
+    max-width: 750px;
+    margin: 0 auto 48px;
+    text-align: center;
+}
+
+.portal-label {
+    display: inline-block;
+    padding: 9px 17px;
+    border-radius: 50px;
+    background: linear-gradient(120deg, #dfeade, #f4e8c9);
+    color: #285b3e;
+    border: 1px solid rgba(197,161,91,.22);
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 1.5px;
+}
 
 .portal-intro h1 {
-    background: linear-gradient(
-        120deg,
-        #102c21,
-        #347451 55%,
-        #a47c37
-    );
+    margin: 20px 0 8px;
+    font-size: clamp(40px, 7vw, 65px);
+    font-weight: 900;
+    letter-spacing: -2px;
+    background: linear-gradient(120deg, #102c21, #347451 55%, #a47c37);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
 }
 
-.portal-label {
-    background: linear-gradient(120deg, #dfeade, #f4e8c9);
-    color: #285b3e;
-    border: 1px solid rgba(197,161,91,0.22);
+.portal-intro > p {
+    font-size: 17px;
 }
 
-/* Main details surface */
+.portal-divider {
+    width: 65px;
+    height: 3px;
+    margin: 25px auto;
+    border-radius: 5px;
+    background: linear-gradient(90deg, var(--green-700), var(--gold));
+}
+
+.portal-intro .portal-description {
+    max-width: 550px;
+    margin: auto;
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+/* Course information */
 
 .portal-details {
-    background: rgba(255,253,247,0.88);
-    border: 1px solid rgba(197,161,91,0.20);
-    border-radius: 34px;
-    box-shadow: 0 22px 65px rgba(29,65,43,0.09);
+    padding: 35px;
+    background: rgba(255,253,247,.9);
+    border: 1px solid rgba(197,161,91,.2);
+    border-radius: 30px;
+    box-shadow: var(--shadow-card);
     position: relative;
     overflow: hidden;
 }
@@ -89,15 +458,49 @@ body {
     left: 0;
     width: 100%;
     height: 5px;
-    background: linear-gradient(90deg, #24583e, #c5a15b, #4b9067);
+    background: linear-gradient(90deg, var(--green-800), var(--gold), var(--green-600));
 }
 
-/* Detail cards */
+.portal-section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.portal-section-heading span:first-child,
+.portal-sections > small {
+    color: #8a7954;
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 1.5px;
+}
+
+.portal-batch {
+    padding: 7px 13px;
+    border-radius: 50px;
+    background: #e8efe4;
+    color: var(--green-800);
+    font-size: 10px;
+    font-weight: 900;
+}
+
+.portal-detail-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
 
 .portal-detail {
+    min-height: 105px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
     background: linear-gradient(135deg, #f0f3e9, #faf5e9);
-    border: 1px solid rgba(52,116,81,0.08);
-    border-radius: 23px;
+    border: 1px solid rgba(52,116,81,.08);
+    border-radius: 20px;
 }
 
 .portal-detail:nth-child(2) {
@@ -113,9 +516,15 @@ body {
 }
 
 .portal-detail-icon {
+    width: 45px;
+    height: 45px;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    border-radius: 15px;
     background: linear-gradient(145deg, #dceadd, #f0e6c9);
-    color: #24583e;
-    border-radius: 18px;
+    color: var(--green-800);
+    font-size: 21px;
 }
 
 .portal-detail:nth-child(2) .portal-detail-icon,
@@ -124,165 +533,616 @@ body {
     color: #85652e;
 }
 
-/* Section tags */
+.portal-detail div {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.portal-detail small {
+    color: #899287;
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: 1px;
+}
+
+.portal-detail strong {
+    color: var(--green-950);
+    font-size: 15px;
+}
+
+.portal-sections {
+    margin-top: 30px;
+}
+
+.portal-section-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 14px;
+}
 
 .portal-section-tags span {
+    padding: 9px 17px;
+    border-radius: 50px;
     background: linear-gradient(135deg, #e0ebdf, #f2ecd9);
     color: #285b3e;
-    border: 1px solid rgba(52,116,81,0.08);
-    padding: 10px 19px;
-    border-radius: 50px;
+    border: 1px solid rgba(52,116,81,.08);
+    font-size: 12px;
+    font-weight: 800;
 }
 
-/* Registration call-to-action */
+/* Homepage registration call-to-action */
 
 .portal-register {
+    margin-top: 30px;
+    padding: 32px 38px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 25px;
     background:
-        radial-gradient(circle at 90% 10%, rgba(218,184,111,0.25), transparent 35%),
-        radial-gradient(circle at 5% 100%, rgba(84,143,99,0.28), transparent 40%),
+        radial-gradient(circle at 90% 10%, rgba(218,184,111,.25), transparent 35%),
+        radial-gradient(circle at 5% 100%, rgba(84,143,99,.28), transparent 40%),
         linear-gradient(120deg, #102c21, #24583e 65%, #306647);
-    border: 1px solid rgba(234,216,169,0.18);
-    border-radius: 34px;
-    box-shadow: 0 20px 50px rgba(16,44,33,0.18);
+    border: 1px solid rgba(234,216,169,.18);
+    border-radius: 28px;
+    box-shadow: 0 20px 50px rgba(16,44,33,.18);
 }
 
-/* Gold registration button */
+.portal-register > div > span {
+    color: var(--gold-light);
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: 1.6px;
+}
+
+.portal-register h2 {
+    margin: 7px 0;
+    color: white;
+    font-size: 25px;
+}
+
+.portal-register p {
+    color: #d2dfd2;
+    font-size: 13px;
+}
 
 .portal-register-button {
-    background: linear-gradient(135deg, #e5c780, #c5a15b);
-    box-shadow: 0 8px 22px rgba(0,0,0,0.12);
+    padding: 15px 24px;
     border-radius: 50px;
+    background: linear-gradient(135deg, #e5c780, #c5a15b);
+    color: var(--green-950);
+    font-size: 12px;
+    font-weight: 900;
+    white-space: nowrap;
+    box-shadow: 0 8px 22px rgba(0,0,0,.12);
 }
 
 .portal-register-button:hover {
+    color: var(--green-950);
     background: linear-gradient(135deg, #f1d99e, #d4b46d);
-}
-
-/* Header register button */
-
-.portal-top-button {
-    background: linear-gradient(135deg, #24583e, #102c21);
-    border-radius: 50px;
-    box-shadow: 0 6px 17px rgba(16,44,33,0.12);
+    transform: translateY(-2px);
 }
 
 /* Footer */
 
 .portal-footer {
+    padding: 27px 20px;
     background:
-        radial-gradient(circle at 90% 0%, rgba(197,161,91,0.15), transparent 35%),
+        radial-gradient(circle at 90% 0%, rgba(197,161,91,.15), transparent 35%),
         #102c21;
     border-top: 3px solid #b99552;
 }
 
-/* Application and admin cards */
-
-.application-card,
-.auth-card,
-.dashboard-card,
-.stat-card,
-.panel,
-.content-card,
-.management-card,
-.participant-card,
-.result-card,
-.result-document,
-.pdf-card {
-    background: rgba(255,253,247,0.94);
-    border: 1px solid rgba(52,116,81,0.09);
-    border-radius: 28px;
-    box-shadow: var(--shadow-soft);
+.portal-footer-inner {
+    width: min(100%, 1180px);
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
 }
 
-/* Inputs — softer edges */
-
-input,
-select,
-textarea {
-    background: #f5f5ed;
-    border: 1px solid rgba(52,116,81,0.14);
-    border-radius: 17px;
+.portal-footer-inner span {
+    color: #d0ddcf;
+    font-size: 10px;
+    letter-spacing: .5px;
 }
 
-input:focus,
-select:focus,
-textarea:focus {
-    background: #fffdf7;
-    border-color: #4b9067;
-    box-shadow: 0 0 0 4px rgba(75,144,103,0.12);
+.portal-footer-inner strong {
+    color: var(--gold-light);
 }
 
-/* Buttons */
+/* =========================================
+   REGISTRATION PAGE
+========================================= */
 
-button,
-.btn,
-.button {
+.registration-brand {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    text-decoration: none;
+}
+
+.registration-main {
+    width: min(100% - 32px, 850px);
+    margin: auto;
+    padding: 55px 0 65px;
+}
+
+.registration-intro {
+    text-align: center;
+    max-width: 650px;
+    margin: 0 auto 32px;
+}
+
+.registration-intro h1 {
+    font-size: clamp(38px, 6vw, 53px);
+    margin: 20px 0 10px;
+    background: linear-gradient(120deg, #102c21, #347451, #a47c37);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.registration-intro > p {
+    color: #718075;
+    font-size: 15px;
+    max-width: 520px;
+    margin: auto;
+}
+
+/* Registration period */
+
+.registration-period {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 25px;
+    margin-bottom: 23px;
+    border-radius: 24px;
+    background: linear-gradient(110deg, #173e2d, #347451);
+    color: white;
+    box-shadow: 0 13px 30px rgba(23,62,45,.15);
+}
+
+.registration-period-icon {
+    width: 46px;
+    height: 46px;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    border-radius: 16px;
+    background: rgba(255,255,255,.13);
+    color: #ead8a9;
+    font-size: 23px;
+}
+
+.registration-period div {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.registration-period div span {
+    color: #d5e3d5;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.3px;
+}
+
+.registration-period div strong {
+    font-size: 17px;
+    color: white;
+}
+
+.registration-open-tag {
+    margin-left: auto;
+    padding: 8px 13px;
     border-radius: 50px;
-    box-shadow: 0 5px 14px rgba(23,62,45,0.10);
+    background: rgba(234,216,169,.17);
+    color: #f0dcae;
+    font-size: 10px;
+    font-weight: 800;
+    white-space: nowrap;
 }
 
-/* Tables */
+/* Registration form card */
 
-.table-container {
-    background: #fffdf7;
-    border-radius: 25px;
-    overflow: hidden;
-    border: 1px solid rgba(52,116,81,0.08);
-}
-
-th {
-    background: linear-gradient(120deg, #e3ecdf, #f4ecd9);
-    color: #24583e;
-}
-
-tbody tr:hover {
-    background: #f1f4e9;
-}
-
-/* Admin header */
-
-.admin-header,
-.dashboard-header {
-    background:
-        radial-gradient(circle at 90% 0%, rgba(197,161,91,0.20), transparent 35%),
-        linear-gradient(120deg, #102c21, #24583e);
-}
-
-/* Rounded search fields */
-
-.search-box input,
-.filter-box select {
-    border-radius: 50px;
-}
-
-/* Soft page sections */
-
-.portal-main {
+.registration-form-card {
+    padding: 38px;
+    border-radius: 30px;
+    background: rgba(255,253,247,.95);
+    border: 1px solid rgba(197,161,91,.19);
+    box-shadow: var(--shadow-card);
     position: relative;
-    z-index: 1;
+    overflow: hidden;
 }
 
-/* Mobile refinements */
+.registration-form-card::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto;
+    height: 5px;
+    background: linear-gradient(90deg, #24583e, #c5a15b, #4b9067);
+}
+
+.registration-form-heading {
+    margin-bottom: 30px;
+}
+
+.registration-form-heading > span {
+    font-size: 10px;
+    letter-spacing: 1.7px;
+    font-weight: 800;
+    color: #a17d3f;
+}
+
+.registration-form-heading h2 {
+    font-size: 29px;
+    margin: 7px 0;
+}
+
+.registration-form-heading p {
+    color: #879187;
+    font-size: 13px;
+}
+
+/* Registration sections */
+
+.registration-section {
+    padding: 27px;
+    margin-bottom: 20px;
+    border-radius: 23px;
+    background: linear-gradient(135deg, #f0f4eb, #faf5e9);
+    border: 1px solid rgba(52,116,81,.07);
+}
+
+.registration-section-heading {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 24px;
+}
+
+.section-number {
+    width: 43px;
+    height: 43px;
+    display: grid;
+    place-items: center;
+    border-radius: 15px;
+    flex-shrink: 0;
+    background: linear-gradient(140deg, #24583e, #4b9067);
+    color: white;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.registration-section-heading h3 {
+    font-size: 19px;
+    margin-bottom: 3px;
+}
+
+.registration-section-heading p {
+    font-size: 12px;
+    color: #7c897d;
+}
+
+/* Registration fields */
+
+.registration-section .form-group {
+    margin-bottom: 20px;
+}
+
+.registration-section .form-group:last-child {
+    margin-bottom: 0;
+}
+
+.registration-section label {
+    font-size: 13px;
+    color: #294b35;
+}
+
+.required-star {
+    color: #b45a42;
+}
+
+.optional-label {
+    margin-left: 7px;
+    font-size: 9px;
+    letter-spacing: .7px;
+    color: #9a8356;
+    font-weight: 800;
+}
+
+.registration-section input,
+.registration-section select {
+    background: rgba(255,255,255,.75);
+    border: 1px solid rgba(52,116,81,.13);
+    border-radius: 13px;
+    min-height: 49px;
+}
+
+.registration-section input:focus,
+.registration-section select:focus {
+    background: white;
+    border-color: #4b9067;
+}
+
+.registration-two-column {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+}
+
+/* Scouting information note */
+
+.registration-section-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 13px 15px;
+    margin-top: 5px;
+    border-radius: 15px;
+    background: rgba(197,161,91,.13);
+    color: #776239;
+}
+
+.registration-section-info span {
+    color: #b18b47;
+}
+
+.registration-section-info p {
+    font-size: 12px;
+}
+
+/* Captcha */
+
+.registration-captcha {
+    padding: 18px;
+    border-radius: 17px;
+    background: rgba(255,255,255,.75);
+    border: 1px solid rgba(52,116,81,.09);
+    overflow: hidden;
+}
+
+.registration-captcha > p {
+    font-size: 12px;
+    color: #77847b;
+    margin-bottom: 14px;
+}
+
+.registration-captcha .cf-turnstile {
+    max-width: 100%;
+}
+
+/* Submit */
+
+.registration-submit-area {
+    padding: 25px 5px 0;
+    text-align: center;
+}
+
+.registration-submit-area > p:first-child {
+    max-width: 490px;
+    margin: 0 auto 20px;
+    font-size: 12px;
+    color: #849087;
+}
+
+.registration-submit-button {
+    width: min(100%, 390px);
+    min-height: 56px;
+    border-radius: 50px;
+    background: linear-gradient(120deg, #173e2d, #347451);
+    color: white;
+    font-size: 15px;
+    font-weight: 700;
+    box-shadow: 0 10px 25px rgba(23,62,45,.18);
+    transition: .25s ease;
+}
+
+.registration-submit-button:hover {
+    background: linear-gradient(120deg, #24583e, #4b9067);
+    transform: translateY(-2px);
+}
+
+.registration-submit-button span {
+    color: #ead8a9;
+    font-size: 20px;
+}
+
+#registration-message {
+    margin-top: 16px;
+    font-size: 13px;
+}
+
+/* Back link */
+
+.registration-back {
+    text-align: center;
+    margin-top: 27px;
+}
+
+.registration-back a {
+    color: #347451;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.registration-back a:hover {
+    color: #a47c37;
+}
+
+/* =========================================
+   RESPONSIVE DESIGN
+========================================= */
 
 @media (max-width: 700px) {
-    .portal-details,
-    .portal-register {
-        border-radius: 25px;
+
+    .application-container {
+        padding: 25px 0;
+    }
+
+    .application-card {
+        padding: 28px 20px;
+        border-radius: 22px;
+    }
+
+    .portal-header-inner {
+        width: min(100% - 25px, 1180px);
+        min-height: 75px;
+        gap: 10px;
+    }
+
+    .portal-logos {
+        gap: 5px;
+    }
+
+    .portal-logos img {
+        width: 39px;
+        height: 39px;
+    }
+
+    .portal-brand strong {
+        font-size: 12px;
+        letter-spacing: .5px;
+    }
+
+    .portal-brand span {
+        font-size: 7px;
+        letter-spacing: .7px;
+    }
+
+    .portal-top-button {
+        padding: 10px 15px;
+        font-size: 11px;
+    }
+
+    .portal-main {
+        width: min(100% - 24px, 1050px);
+        padding: 42px 0;
+    }
+
+    .portal-intro {
+        margin-bottom: 32px;
+    }
+
+    .portal-intro h1 {
+        font-size: 43px;
+    }
+
+    .portal-details {
+        padding: 23px 17px;
+        border-radius: 23px;
+    }
+
+    .portal-detail-grid {
+        grid-template-columns: 1fr;
     }
 
     .portal-detail {
+        min-height: 85px;
+        padding: 16px;
+    }
+
+    .portal-detail strong {
+        font-size: 13px;
+    }
+
+    .portal-register {
+        padding: 25px 21px;
+        flex-direction: column;
+        align-items: flex-start;
+        border-radius: 23px;
+    }
+
+    .portal-register-button {
+        width: 100%;
+        text-align: center;
+    }
+
+    .portal-footer-inner {
+        flex-direction: column;
+        text-align: center;
+        gap: 9px;
+    }
+
+    .registration-main {
+        width: min(100% - 24px, 850px);
+        padding: 38px 0 45px;
+    }
+
+    .registration-brand {
+        gap: 9px;
+    }
+
+    .registration-period {
+        padding: 16px;
+        gap: 11px;
+        flex-wrap: wrap;
+        border-radius: 20px;
+    }
+
+    .registration-period div strong {
+        font-size: 14px;
+    }
+
+    .registration-open-tag {
+        margin-left: 57px;
+        margin-top: -7px;
+    }
+
+    .registration-form-card {
+        padding: 25px 16px;
+        border-radius: 24px;
+    }
+
+    .registration-form-heading h2 {
+        font-size: 25px;
+    }
+
+    .registration-section {
+        padding: 20px 15px;
         border-radius: 19px;
     }
 
-    .application-card,
-    .auth-card,
-    .dashboard-card,
-    .stat-card,
-    .panel,
-    .content-card,
-    .management-card,
-    .participant-card,
-    .result-card {
-        border-radius: 23px;
+    .registration-two-column {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .registration-section-heading h3 {
+        font-size: 17px;
+    }
+
+    .registration-captcha {
+        padding: 12px;
+    }
+}
+
+@media (max-width: 380px) {
+
+    .portal-brand span {
+        font-size: 6px;
+    }
+
+    .portal-top-button {
+        padding: 9px 11px;
+    }
+
+    .registration-period {
+        align-items: flex-start;
+    }
+
+    .registration-open-tag {
+        margin-left: 0;
+        margin-top: 0;
+    }
+
+    .registration-intro h1 {
+        font-size: 36px;
     }
 }
