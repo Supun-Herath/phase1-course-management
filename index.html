@@ -19,11 +19,11 @@
 
         .portal-header-inner {
             max-width: 1180px;
-            min-height: 112px;
+            min-height: 125px;
             margin: auto;
-            padding: 18px 28px;
+            padding: 15px 28px;
             display: grid;
-            grid-template-columns: 90px 1fr 90px;
+            grid-template-columns: 115px 1fr 90px;
             align-items: center;
             gap: 28px;
         }
@@ -39,17 +39,22 @@
             display: block;
         }
 
+        /* Larger MP logo */
         .portal-logos img:first-child {
             grid-column: 1;
             grid-row: 1;
+            width: 108px;
+            height: 108px;
         }
 
+        /* Sri Lanka Scout logo */
         .portal-logos img:last-child {
             grid-column: 3;
             grid-row: 1;
             justify-self: end;
         }
 
+        /* CENTRE BRANDING */
         .portal-brand {
             grid-column: 2;
             grid-row: 1;
@@ -115,13 +120,18 @@
         /* MOBILE HEADER */
         @media (max-width: 600px) {
             .portal-header-inner {
-                min-height: auto;
-                padding: 17px 14px;
-                grid-template-columns: 55px 1fr 55px;
+                min-height: 90px;
+                padding: 12px 14px;
+                grid-template-columns: 75px 1fr 55px;
                 gap: 10px;
             }
 
-            .portal-logos img {
+            .portal-logos img:first-child {
+                width: 70px;
+                height: 70px;
+            }
+
+            .portal-logos img:last-child {
                 width: 51px;
                 height: 51px;
             }
@@ -153,11 +163,16 @@
 
         @media (max-width: 360px) {
             .portal-header-inner {
-                grid-template-columns: 43px 1fr 43px;
+                grid-template-columns: 62px 1fr 43px;
                 gap: 7px;
             }
 
-            .portal-logos img {
+            .portal-logos img:first-child {
+                width: 60px;
+                height: 60px;
+            }
+
+            .portal-logos img:last-child {
                 width: 42px;
                 height: 42px;
             }
@@ -179,10 +194,10 @@
     <div class="portal-header-inner">
 
         <div class="portal-logos">
-            <img src="mp.png?v=5"
+            <img src="mp.png?v=6"
                  alt="Moratuwa - Piliyandala District Scout Association">
 
-            <img src="sl.png?v=5"
+            <img src="sl.png?v=6"
                  alt="Sri Lanka Scout Association">
         </div>
 
