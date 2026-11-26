@@ -3,6 +3,7 @@
 
 const SUPABASE_URL = "https://etfqfyyoagsyiwafziji.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_RDrPK0Kus5rKT5v3ioaZ5Q_H3YdfAyp";
+
 const BATCH_ID = "5b1c2d61-dc49-4dc2-b9a6-92ce716eaeff";
 const BUCKET = "phase1-result-pdfs";
 
@@ -16,9 +17,13 @@ const list = document.getElementById("participant-list");
 const searchInput = document.getElementById("participant-search");
 
 let registrations = [];
-let adminUser = null;
 let completions = [];
 let documents = [];
+let adminUser = null;
+
+// --------------------------------------------------
+// HELPERS
+// --------------------------------------------------
 
 function showMessage(text) {
     message.textContent = text;
@@ -35,12 +40,33 @@ function escapeHTML(value) {
 }
 
 function safeFilename(name) {
-    return String(name || "Participant")
+    const clean = String(name || "Participant")
         .trim()
         .replace(/[<>:"/\\|?*\x00-\x1F]/g, "")
-        .replace(/\s+/g, "_")
-        .replace(/_+/g, "_") + ".pdf";
+        .replace(/\s+/g, "_");
+
+    return (clean || "Participant") + ".pdf";
 }
+
+function getParticipant(registration) {
+    return registration.participants || {};
+}
+
+function getCompletion(registrationId) {
+    return completions.find(
+        item => item.registration_id === registrationId
+    );
+}
+
+function getLatestDocument(completionId) {
+    return documents
+        .filter(item => item.completion_id === completionId)
+        .sort((a, b) => b.version - a.version)[0];
+}
+
+// --------------------------------------------------
+// ADMIN VERIFICATION
+// --------------------------------------------------
 
 async function verifyAdmin() {
     const { data, error } = await db.auth.getSession();
@@ -69,7 +95,9 @@ async function verifyAdmin() {
     return true;
 }
 
-// LOAD PARTICIPANTS AND RELATED RECORDS
+// --------------------------------------------------
+// LOAD DATA
+// --------------------------------------------------
 
 async function loadParticipants() {
     try {
@@ -98,15 +126,14 @@ async function loadParticipants() {
             `)
             .eq("batch_id", BATCH_ID)
             .neq("status", "cancelled")
-            .order("registration_number");
+            .order("registration_number", { ascending: true });
 
         if (error) throw error;
 
         registrations = data || [];
 
         const [completionResult, documentResult] = await Promise.all([
-            db.from("course_completions")
-                .select("*"),
+            db.from("course_completions").select("*"),
 
             db.from("result_documents")
                 .select("*")
@@ -126,23 +153,9 @@ async function loadParticipants() {
     }
 }
 
-// GET COMPLETION RECORD
-
-function getCompletion(registrationId) {
-    return completions.find(
-        item => item.registration_id === registrationId
-    );
-}
-
-// GET LATEST PDF RECORD
-
-function getLatestDocument(completionId) {
-    return documents
-        .filter(item => item.completion_id === completionId)
-        .sort((a, b) => b.version - a.version)[0];
-}
-
+// --------------------------------------------------
 // PARTICIPANT TABLE
+// --------------------------------------------------
 
 function displayParticipants(items) {
     list.replaceChildren();
@@ -157,10 +170,7 @@ function displayParticipants(items) {
     const table = document.createElement("table");
     table.className = "participant-table";
 
-    const thead = document.createElement("thead");
-    const headerRow = document.createElement("tr");
-
-    [
+    const headers = [
         "Registration No.",
         "Participant Name",
         "Section",
@@ -171,7 +181,12 @@ function displayParticipants(items) {
         "Registration Status",
         "Course Complete",
         "Result Sheet"
-    ].forEach(title => {
+    ];
+
+    const thead = document.createElement("thead");
+    const headerRow = document.createElement("tr");
+
+    headers.forEach(title => {
         const th = document.createElement("th");
         th.textContent = title;
         headerRow.appendChild(th);
@@ -182,7 +197,7 @@ function displayParticipants(items) {
     const tbody = document.createElement("tbody");
 
     items.forEach(registration => {
-        const participant = registration.participants || {};
+        const participant = getParticipant(registration);
         const completion = getCompletion(registration.id);
 
         const row = document.createElement("tr");
@@ -199,30 +214,29 @@ function displayParticipants(items) {
         ];
 
         values.forEach(value => {
-            const cell = document.createElement("td");
-            cell.textContent = value || "-";
-            row.appendChild(cell);
+            const td = document.createElement("td");
+            td.textContent = value || "-";
+            row.appendChild(td);
         });
 
         // COMPLETION CHECKBOX
 
         const completionCell = document.createElement("td");
-        const completionLabel = document.createElement("label");
-
-        completionLabel.className = "completion-control";
+        const label = document.createElement("label");
+        label.className = "completion-control";
 
         const checkbox = document.createElement("input");
         checkbox.type = "checkbox";
         checkbox.checked =
             completion?.completion_status === "completed";
 
-        const checkboxText = document.createElement("span");
-        checkboxText.textContent = "Completed";
+        const labelText = document.createElement("span");
+        labelText.textContent = "Completed";
 
-        completionLabel.append(checkbox, checkboxText);
-        completionCell.appendChild(completionLabel);
+        label.append(checkbox, labelText);
+        completionCell.appendChild(label);
 
-        // PDF DOWNLOAD BUTTON
+        // PDF BUTTON
 
         const pdfCell = document.createElement("td");
         pdfCell.className = "participant-actions";
@@ -238,20 +252,20 @@ function displayParticipants(items) {
         row.append(completionCell, pdfCell);
         tbody.appendChild(row);
 
-        // SAVE COMPLETION IMMEDIATELY
+        // SAVE COMPLETION
 
         checkbox.addEventListener("change", async () => {
-            const previousValue = !checkbox.checked;
+            const requestedValue = checkbox.checked;
 
             checkbox.disabled = true;
+            pdfButton.disabled = true;
+
             showMessage(
                 `Saving completion status for ${participant.full_name}...`
             );
 
             try {
-                const completed = checkbox.checked;
-
-                const completionDate = completed
+                const completionDate = requestedValue
                     ? new Intl.DateTimeFormat("en-CA", {
                         timeZone: "Asia/Colombo"
                     }).format(new Date())
@@ -261,7 +275,7 @@ function displayParticipants(items) {
                     .from("course_completions")
                     .upsert({
                         registration_id: registration.id,
-                        completion_status: completed
+                        completion_status: requestedValue
                             ? "completed"
                             : "pending",
                         completion_date: completionDate,
@@ -275,28 +289,27 @@ function displayParticipants(items) {
 
                 if (error) throw error;
 
-                const existingIndex = completions.findIndex(
+                const index = completions.findIndex(
                     item => item.registration_id === registration.id
                 );
 
-                if (existingIndex >= 0) {
-                    completions[existingIndex] = data;
+                if (index >= 0) {
+                    completions[index] = data;
                 } else {
                     completions.push(data);
                 }
 
-                pdfButton.disabled = !completed;
-
-                if (!completed) {
-                    pdfButton.textContent = "Download Result PDF";
-                }
+                pdfButton.disabled = !requestedValue;
 
                 showMessage(
-                    `${participant.full_name}: completion status saved.`
+                    `${participant.full_name}: completion status saved successfully.`
                 );
 
             } catch (error) {
-                checkbox.checked = previousValue;
+                checkbox.checked = !requestedValue;
+
+                pdfButton.disabled =
+                    !checkbox.checked;
 
                 showMessage(
                     "Could not save completion: " + error.message
@@ -307,7 +320,7 @@ function displayParticipants(items) {
             }
         });
 
-        // DOWNLOAD OR GENERATE PDF
+        // DOWNLOAD PDF
 
         pdfButton.addEventListener("click", async () => {
             const currentCompletion = getCompletion(registration.id);
@@ -316,7 +329,7 @@ function displayParticipants(items) {
                 !currentCompletion ||
                 currentCompletion.completion_status !== "completed"
             ) {
-                showMessage("Mark the participant as completed first.");
+                showMessage("Mark this participant as completed first.");
                 return;
             }
 
@@ -324,14 +337,14 @@ function displayParticipants(items) {
             pdfButton.textContent = "Preparing PDF...";
 
             try {
-                let latestDocument = getLatestDocument(
+                let documentRecord = getLatestDocument(
                     currentCompletion.id
                 );
 
-                if (!latestDocument) {
-                    showMessage("Generating and saving result PDF...");
+                if (!documentRecord) {
+                    showMessage("Generating official result sheet...");
 
-                    latestDocument = await generatePDF(
+                    documentRecord = await generatePDF(
                         registration,
                         currentCompletion
                     );
@@ -339,7 +352,7 @@ function displayParticipants(items) {
 
                 const { data: file, error } = await db.storage
                     .from(BUCKET)
-                    .download(latestDocument.storage_path);
+                    .download(documentRecord.storage_path);
 
                 if (error) throw error;
 
@@ -353,10 +366,10 @@ function displayParticipants(items) {
                 link.click();
                 link.remove();
 
-                setTimeout(() => URL.revokeObjectURL(url), 1000);
+                setTimeout(() => URL.revokeObjectURL(url), 1500);
 
                 showMessage(
-                    `Result PDF downloaded for ${participant.full_name}.`
+                    `Result sheet downloaded for ${participant.full_name}.`
                 );
 
                 pdfButton.textContent = "Download Again";
@@ -375,10 +388,13 @@ function displayParticipants(items) {
     list.appendChild(table);
 }
 
-// CREATE RESULT SHEET
+// --------------------------------------------------
+// OFFICIAL RESULT SHEET DESIGN
+// --------------------------------------------------
 
-function createResultSheet(registration, completion) {
-    const participant = registration.participants || {};
+async function createResultSheet(registration, completion) {
+    const participant = getParticipant(registration);
+
     const result = Array.isArray(registration.results)
         ? registration.results[0]
         : registration.results;
@@ -387,71 +403,248 @@ function createResultSheet(registration, completion) {
 
     sheet.style.cssText = `
         width: 180mm;
-        padding: 15mm;
-        background: white;
-        color: #202b26;
+        min-height: 255mm;
+        padding: 13mm;
+        background: #ffffff;
+        color: #24352b;
         font-family: Arial, sans-serif;
         box-sizing: border-box;
     `;
 
     sheet.innerHTML = `
-        <div style="text-align:center;border-bottom:2px solid #245b40;padding-bottom:15px;">
-            <h1 style="color:#245b40;">PHASE 1 COURSE</h1>
-            <h2>PARTICIPANT RESULT SHEET</h2>
-        </div>
+        <div style="
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            border-bottom:3px solid #245b40;
+            padding-bottom:18px;
+        ">
+            <img
+                src="mp.png?v=3"
+                alt="Organization Logo"
+                style="width:85px;height:85px;object-fit:contain;"
+            >
 
-        <div style="margin-top:30px;line-height:2;">
-            <p><strong>Registration Number:</strong>
-                ${escapeHTML(registration.registration_number)}</p>
+            <div style="text-align:center;flex:1;padding:0 12px;">
+                <h1 style="
+                    color:#183d2b;
+                    font-size:23px;
+                    margin:0 0 7px;
+                ">
+                    PHASE 1 COURSE
+                </h1>
 
-            <p><strong>Full Name:</strong>
-                ${escapeHTML(participant.full_name)}</p>
+                <h2 style="
+                    font-size:14px;
+                    margin:0;
+                    letter-spacing:1px;
+                ">
+                    SCOUT LEADER DEVELOPMENT
+                </h2>
 
-            <p><strong>School / Troop:</strong>
-                ${escapeHTML(participant.school_troop)}</p>
-
-            <p><strong>District:</strong>
-                ${escapeHTML(participant.district)}</p>
-
-            <p><strong>Section:</strong>
-                ${escapeHTML(registration.section)}</p>
-
-            <p><strong>Completion Date:</strong>
-                ${escapeHTML(completion.completion_date)}</p>
-
-            <p><strong>Completion Status:</strong> COMPLETED</p>
-
-            <p><strong>Marks:</strong>
-                ${escapeHTML(result?.marks ?? "Not recorded")}</p>
-
-            <p><strong>Grade:</strong>
-                ${escapeHTML(result?.grade || "Not recorded")}</p>
-
-            <p><strong>Remarks:</strong>
-                ${escapeHTML(result?.remarks || "-")}</p>
-        </div>
-
-        <div style="margin-top:75px;display:flex;justify-content:space-between;">
-            <div style="text-align:center;">
-                ______________________<br>
-                Authorized Signature
+                <p style="
+                    font-size:12px;
+                    margin:8px 0 0;
+                    color:#637568;
+                ">
+                    OFFICIAL PARTICIPANT RESULT SHEET
+                </p>
             </div>
 
-            <div style="text-align:center;">
-                ______________________<br>
-                Course Coordinator
+            <img
+                src="sl.png?v=3"
+                alt="Scout Logo"
+                style="width:85px;height:85px;object-fit:contain;"
+            >
+        </div>
+
+        <div style="
+            margin-top:28px;
+            padding:13px;
+            background:#edf4ee;
+            border-left:4px solid #245b40;
+        ">
+            <h3 style="margin:0;color:#245b40;font-size:15px;">
+                PARTICIPANT INFORMATION
+            </h3>
+        </div>
+
+        <table style="
+            width:100%;
+            border-collapse:collapse;
+            margin-top:12px;
+            font-size:13px;
+        ">
+            <tr>
+                <td style="padding:12px;border-bottom:1px solid #ddd;width:38%;">
+                    <strong>Registration Number</strong>
+                </td>
+                <td style="padding:12px;border-bottom:1px solid #ddd;">
+                    ${escapeHTML(registration.registration_number)}
+                </td>
+            </tr>
+
+            <tr>
+                <td style="padding:12px;border-bottom:1px solid #ddd;">
+                    <strong>Full Name</strong>
+                </td>
+                <td style="padding:12px;border-bottom:1px solid #ddd;">
+                    ${escapeHTML(participant.full_name)}
+                </td>
+            </tr>
+
+            <tr>
+                <td style="padding:12px;border-bottom:1px solid #ddd;">
+                    <strong>School / Troop</strong>
+                </td>
+                <td style="padding:12px;border-bottom:1px solid #ddd;">
+                    ${escapeHTML(participant.school_troop)}
+                </td>
+            </tr>
+
+            <tr>
+                <td style="padding:12px;border-bottom:1px solid #ddd;">
+                    <strong>District</strong>
+                </td>
+                <td style="padding:12px;border-bottom:1px solid #ddd;">
+                    ${escapeHTML(participant.district)}
+                </td>
+            </tr>
+
+            <tr>
+                <td style="padding:12px;border-bottom:1px solid #ddd;">
+                    <strong>Scouting Section</strong>
+                </td>
+                <td style="padding:12px;border-bottom:1px solid #ddd;">
+                    ${escapeHTML(registration.section)}
+                </td>
+            </tr>
+        </table>
+
+        <div style="
+            margin-top:25px;
+            padding:13px;
+            background:#edf4ee;
+            border-left:4px solid #245b40;
+        ">
+            <h3 style="margin:0;color:#245b40;font-size:15px;">
+                COURSE RESULTS
+            </h3>
+        </div>
+
+        <table style="
+            width:100%;
+            border-collapse:collapse;
+            margin-top:12px;
+            font-size:13px;
+        ">
+            <tr>
+                <td style="padding:12px;border-bottom:1px solid #ddd;width:38%;">
+                    <strong>Completion Status</strong>
+                </td>
+                <td style="
+                    padding:12px;
+                    border-bottom:1px solid #ddd;
+                    color:#267347;
+                    font-weight:bold;
+                ">
+                    COMPLETED
+                </td>
+            </tr>
+
+            <tr>
+                <td style="padding:12px;border-bottom:1px solid #ddd;">
+                    <strong>Completion Date</strong>
+                </td>
+                <td style="padding:12px;border-bottom:1px solid #ddd;">
+                    ${escapeHTML(completion.completion_date || "-")}
+                </td>
+            </tr>
+
+            <tr>
+                <td style="padding:12px;border-bottom:1px solid #ddd;">
+                    <strong>Marks</strong>
+                </td>
+                <td style="padding:12px;border-bottom:1px solid #ddd;">
+                    ${escapeHTML(result?.marks ?? "Not recorded")}
+                </td>
+            </tr>
+
+            <tr>
+                <td style="padding:12px;border-bottom:1px solid #ddd;">
+                    <strong>Grade</strong>
+                </td>
+                <td style="padding:12px;border-bottom:1px solid #ddd;">
+                    ${escapeHTML(result?.grade || "Not recorded")}
+                </td>
+            </tr>
+
+            <tr>
+                <td style="padding:12px;border-bottom:1px solid #ddd;">
+                    <strong>Remarks</strong>
+                </td>
+                <td style="padding:12px;border-bottom:1px solid #ddd;">
+                    ${escapeHTML(result?.remarks || "-")}
+                </td>
+            </tr>
+        </table>
+
+        <div style="
+            display:flex;
+            justify-content:space-between;
+            margin-top:75px;
+            font-size:12px;
+            text-align:center;
+        ">
+            <div style="width:43%;">
+                __________________________
+                <p>Authorized Signature</p>
+            </div>
+
+            <div style="width:43%;">
+                __________________________
+                <p>Course Coordinator</p>
             </div>
         </div>
 
-        <p style="text-align:center;margin-top:50px;font-size:11px;">
-            Official Phase 1 Course Result Document
-        </p>
+        <div style="
+            margin-top:40px;
+            padding-top:12px;
+            border-top:1px solid #dce5dd;
+            text-align:center;
+            font-size:10px;
+            color:#758078;
+        ">
+            PHASE 1 COURSE · SCOUT LEADER DEVELOPMENT
+            <br>
+            Official Course Administration Document
+        </div>
     `;
+
+    document.body.appendChild(sheet);
+
+    // Wait for both logos to load before creating the PDF.
+    const images = Array.from(sheet.querySelectorAll("img"));
+
+    await Promise.all(images.map(img => {
+        if (img.complete && img.naturalWidth > 0) {
+            return Promise.resolve();
+        }
+
+        return new Promise((resolve, reject) => {
+            img.onload = resolve;
+            img.onerror = () => reject(
+                new Error("Could not load a course logo for the PDF.")
+            );
+        });
+    }));
 
     return sheet;
 }
 
-// GENERATE PDF AND SAVE TO SUPABASE
+// --------------------------------------------------
+// GENERATE AND STORE PDF
+// --------------------------------------------------
 
 async function generatePDF(registration, completion) {
     const { data: previousDocuments, error: versionError } = await db
@@ -465,9 +658,7 @@ async function generatePDF(registration, completion) {
 
     const version = (previousDocuments?.[0]?.version || 0) + 1;
 
-    const sheet = createResultSheet(registration, completion);
-
-    document.body.appendChild(sheet);
+    const sheet = await createResultSheet(registration, completion);
 
     let pdfBlob;
 
@@ -475,7 +666,6 @@ async function generatePDF(registration, completion) {
         pdfBlob = await html2pdf()
             .set({
                 margin: 5,
-                filename: `${registration.registration_number}.pdf`,
                 image: {
                     type: "jpeg",
                     quality: 0.98
@@ -534,13 +724,15 @@ async function generatePDF(registration, completion) {
     return savedDocument;
 }
 
+// --------------------------------------------------
 // SEARCH
+// --------------------------------------------------
 
 searchInput.addEventListener("input", () => {
     const query = searchInput.value.trim().toLowerCase();
 
     const filtered = registrations.filter(registration => {
-        const participant = registration.participants || {};
+        const participant = getParticipant(registration);
 
         const searchableText = [
             registration.registration_number,
@@ -559,7 +751,9 @@ searchInput.addEventListener("input", () => {
     displayParticipants(filtered);
 });
 
+// --------------------------------------------------
 // START
+// --------------------------------------------------
 
 async function start() {
     try {
