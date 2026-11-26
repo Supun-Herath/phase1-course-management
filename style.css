@@ -1166,3 +1166,64 @@ tbody tr:hover {
         font-size: 36px;
     }
 }
+
+
+/* =========================================
+   HOMEPAGE REGISTER BUTTON — GOLD
+========================================= */
+
+.portal-register .portal-register-button {
+    background: linear-gradient(135deg, #e5c780, #c5a15b) !important;
+    border: 1px solid #c5a15b !important;
+    color: #102c21 !important;
+    font-weight: 900;
+    box-shadow: 0 8px 22px rgba(0,0,0,.15);
+}
+
+.portal-register .portal-register-button:hover {
+    background: linear-gradient(135deg, #f1d99e, #d4b46d) !important;
+    color: #102c21 !important;
+    transform: translateY(-2px);
+}
+
+/* =========================================
+   REGISTRATION SUCCESS ACKNOWLEDGEMENT
+========================================= */
+
+#registration-message.success-message {
+    display: block;
+    padding: 18px 20px;
+    margin-top: 22px;
+    border: 1px solid #9ac9a4;
+    border-left: 5px solid #347451;
+    border-radius: 14px;
+    background: #e9f5e9;
+    color: #205b35;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.8;
+    overflow-wrap: anywhere;
+}
+
+#registration-message.success-message::before {
+    content: "✓ Registration Confirmed";
+    display: block;
+    margin-bottom: 6px;
+    color: #24583e;
+    font-size: 16px;
+    font-weight: 900;
+}
+
+#registration-message.error-message {
+    display: block;
+    padding: 15px 18px;
+    margin-top: 18px;
+    border: 1px solid #e5b5ad;
+    border-left: 5px solid #b44c3e;
+    border-radius: 12px;
+    background: #fff0ed;
+    color: #943c32;
+    font-weight: 700;
+    overflow-wrap: anywhere;
+}
+
