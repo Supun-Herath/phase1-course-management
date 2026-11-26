@@ -1,4 +1,6 @@
 
+// Phase 1 Course - Participant Management
+
 const SUPABASE_URL = "https://etfqfyyoagsyiwafziji.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_RDrPK0Kus5rKT5v3ioaZ5Q_H3YdfAyp";
 
@@ -16,15 +18,20 @@ let registrations = [];
 async function loadParticipants() {
     try {
         message.textContent = "Loading participants...";
+        list.replaceChildren();
 
+        // Verify login
         const { data: sessionData, error: sessionError } =
             await supabaseClient.auth.getSession();
 
-        if (sessionError || !sessionData.session) {
+        if (sessionError) throw sessionError;
+
+        if (!sessionData.session) {
             window.location.href = "admin.html";
             return;
         }
 
+        // Verify admin role
         const { data: profile, error: profileError } =
             await supabaseClient
                 .from("profiles")
@@ -32,15 +39,15 @@ async function loadParticipants() {
                 .eq("id", sessionData.session.user.id)
                 .single();
 
-        if (
-            profileError ||
-            !["admin", "super_admin"].includes(profile?.role)
-        ) {
+        if (profileError) throw profileError;
+
+        if (!["admin", "super_admin"].includes(profile.role)) {
             await supabaseClient.auth.signOut();
             window.location.href = "admin.html";
             return;
         }
 
+        // Load registrations without the nonexistent created_at column
         const { data, error } = await supabaseClient
             .from("registrations")
             .select(`
@@ -89,14 +96,15 @@ function displayParticipants(items) {
             participant.full_name || "Unknown participant";
 
         const details = document.createElement("p");
+
         details.textContent = [
             `Registration: ${registration.registration_number}`,
-            `Section: ${registration.section}`,
+            `Section: ${registration.section || "-"}`,
             `Contact: ${participant.contact_number || "-"}`,
             `School/Troop: ${participant.school_troop || "-"}`,
             `District: ${participant.district || "-"}`,
             `Email: ${participant.email || "-"}`,
-            `Status: ${registration.status}`
+            `Status: ${registration.status || "-"}`
         ].join(" | ");
 
         card.append(heading, details);
@@ -104,6 +112,7 @@ function displayParticipants(items) {
     });
 }
 
+// Search participants
 searchInput.addEventListener("input", () => {
     const query = searchInput.value.trim().toLowerCase();
 
@@ -127,4 +136,5 @@ searchInput.addEventListener("input", () => {
     displayParticipants(filtered);
 });
 
+// Start
 loadParticipants();
