@@ -4,88 +4,272 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#102c21">
     <title>Participant Management | Phase 1 Course</title>
     <link rel="stylesheet" href="style.css">
+
     <style>
-        .participant-table-wrap {
-            width: 100%;
-            overflow-x: auto;
-            margin-top: 20px;
+        * {
+            box-sizing: border-box;
         }
-        .participant-table {
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+        }
+
+        .participants-page {
             width: 100%;
-            min-width: 1150px;
-            border-collapse: collapse;
+            max-width: 100%;
+            padding: 35px clamp(16px, 3vw, 55px);
+        }
+
+        .participants-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+
+        .participants-header h1 {
+            margin: 0 0 8px;
+            color: #183d2b;
+        }
+
+        .participants-header p {
+            margin: 0;
+            color: #68766e;
+        }
+
+        .participants-back {
+            display: inline-block;
+            padding: 11px 18px;
+            border: 1px solid #d4dfd6;
+            border-radius: 8px;
+            text-decoration: none;
+            color: #245b40;
+            font-weight: 600;
+        }
+
+        .participants-panel {
+            width: 100%;
+            background: #fff;
+            border: 1px solid #e0e8e1;
+            border-radius: 14px;
+            padding: clamp(16px, 2vw, 28px);
+            box-shadow: 0 5px 24px rgba(20, 50, 30, 0.06);
+        }
+
+        .participants-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .participants-toolbar h2 {
+            margin: 0 0 6px;
+            color: #183d2b;
+        }
+
+        .participants-toolbar p {
+            margin: 0;
+            color: #758078;
             font-size: 14px;
         }
-        .participant-table th,
-        .participant-table td {
-            padding: 12px;
-            border-bottom: 1px solid #ddd;
+
+        .search-area {
+            width: min(100%, 420px);
+        }
+
+        .search-area label {
+            display: block;
+            margin-bottom: 7px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #45584b;
+        }
+
+        .search-area input {
+            width: 100%;
+            padding: 13px 15px;
+            border: 1px solid #d8e1da;
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .search-area input:focus {
+            border-color: #397b52;
+            box-shadow: 0 0 0 3px rgba(57, 123, 82, 0.1);
+        }
+
+        #participant-message {
+            padding: 12px 15px;
+            margin: 15px 0;
+            background: #f1f6f2;
+            border-radius: 8px;
+            color: #315b3e;
+            font-size: 14px;
+        }
+
+        #participant-list {
+            width: 100%;
+            overflow-x: auto;
+            border: 1px solid #e4eae5;
+            border-radius: 9px;
+        }
+
+        .participant-table {
+            width: 100%;
+            min-width: 1250px;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        .participant-table th {
+            background: #183d2b;
+            color: white;
+            padding: 16px 13px;
             text-align: left;
+            white-space: nowrap;
+            font-weight: 600;
+        }
+
+        .participant-table td {
+            padding: 15px 13px;
+            border-bottom: 1px solid #edf0ed;
+            color: #34463a;
             vertical-align: middle;
         }
-        .participant-table th {
-            background: #eaf1eb;
-            color: #183d2b;
-            white-space: nowrap;
+
+        .participant-table tbody tr:nth-child(even) {
+            background: #f8faf8;
         }
-        .participant-table tr:hover {
-            background: #f7faf7;
+
+        .participant-table tbody tr:hover {
+            background: #edf5ef;
         }
-        .participant-actions {
-            min-width: 190px;
-        }
-        .participant-actions button {
-            margin-top: 8px;
-            white-space: nowrap;
-        }
+
         .completion-control {
             display: flex;
             align-items: center;
             gap: 8px;
             white-space: nowrap;
+            font-weight: 600;
         }
+
         .completion-control input {
             width: 18px;
             height: 18px;
+            accent-color: #267347;
+            cursor: pointer;
         }
-        .table-status {
-            margin: 12px 0;
+
+        .participant-actions button {
+            padding: 10px 14px;
+            border: 0;
+            border-radius: 7px;
+            background: #245b40;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .participant-actions button:hover:not(:disabled) {
+            background: #183d2b;
+        }
+
+        .participant-actions button:disabled {
+            background: #b9c4bc;
+            cursor: not-allowed;
+        }
+
+        .participants-footer {
+            margin-top: 25px;
+            padding-top: 18px;
+            border-top: 1px solid #e6ebe7;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            color: #7b877e;
+            font-size: 12px;
+        }
+
+        @media (max-width: 650px) {
+            .participants-page {
+                padding: 20px 12px;
+            }
+
+            .participants-panel {
+                padding: 13px;
+            }
+
+            .participants-header {
+                align-items: flex-start;
+            }
         }
     </style>
 </head>
+
 <body>
-    <main class="application-container">
-        <div class="application-card">
-            <h1>Participant Management</h1>
-            <p>Phase 1 Course Administration</p>
-            <hr>
 
-            <h2>Registered Participants</h2>
-            <p>View participant details, update course completion and download result sheets.</p>
+    <main class="participants-page">
 
-            <div class="form-group">
-                <label for="participant-search">Search participants</label>
-                <input
-                    type="search"
-                    id="participant-search"
-                    placeholder="Search name, registration number, troop or contact number">
+        <header class="participants-header">
+            <div>
+                <h1>Participant Management</h1>
+                <p>PHASE 1 COURSE · SCOUT LEADER DEVELOPMENT</p>
             </div>
 
-            <p id="participant-message" class="table-status" role="status">
+            <a href="dashboard.html" class="participants-back">
+                ← Back to Dashboard
+            </a>
+        </header>
+
+        <section class="participants-panel">
+
+            <div class="participants-toolbar">
+                <div>
+                    <h2>Registered Participants</h2>
+                    <p>Manage participant records and course completion.</p>
+                </div>
+
+                <div class="search-area">
+                    <label for="participant-search">Search participants</label>
+                    <input
+                        type="search"
+                        id="participant-search"
+                        placeholder="Name, registration number, troop or contact">
+                </div>
+            </div>
+
+            <p id="participant-message" role="status" aria-live="polite">
                 Loading participants...
             </p>
 
-            <div id="participant-list" class="participant-table-wrap"></div>
+            <div id="participant-list">
+                <!-- Participant table loads here -->
+            </div>
 
-            <hr>
-            <p><a href="dashboard.html">Back to Dashboard</a></p>
-        </div>
+            <footer class="participants-footer">
+                <span>PHASE 1 COURSE ADMINISTRATION</span>
+                <span>Participant Management System · 2026</span>
+            </footer>
+
+        </section>
+
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.3/html2pdf.bundle.min.js"></script>
     <script src="participant.js?v=3"></script>
+
 </body>
 </html>
