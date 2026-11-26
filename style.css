@@ -1,1 +1,184 @@
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    color: #202b26;
+    background: #ffffff;
+    line-height: 1.7;
+}
+
+.container {
+    width: 90%;
+    max-width: 1100px;
+    margin: auto;
+}
+
+.header {
+    background: #ffffff;
+    border-bottom: 1px solid #eeeeee;
+    padding: 18px 0;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.logo {
+    font-size: 21px;
+    font-weight: bold;
+    color: #173d2b;
+    text-decoration: none;
+}
+
+.logo span {
+    color: #b58a35;
+}
+
+nav {
+    display: flex;
+    gap: 25px;
+}
+
+nav a {
+    color: #333333;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+nav a:hover {
+    color: #b58a35;
+}
+
+.hero {
+    background: linear-gradient(120deg, #123c2b, #235c40);
+    color: white;
+    padding: 110px 0;
+}
+
+.hero-content {
+    text-align: center;
+}
+
+.eyebrow {
+    color: #b58a35;
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+}
+
+.hero h1 {
+    font-size: clamp(38px, 7vw, 64px);
+    margin-bottom: 15px;
+}
+
+.hero-description {
+    max-width: 620px;
+    margin: 0 auto 30px;
+    color: #e4eee8;
+}
+
+.primary-button {
+    display: inline-block;
+    background: #c49a48;
+    color: #172d21;
+    padding: 13px 25px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.primary-button:hover {
+    background: #d6b36e;
+}
+
+.section {
+    padding: 75px 0;
+}
+
+.section h2 {
+    font-size: 30px;
+    margin-bottom: 20px;
+    color: #173d2b;
+}
+
+.about p {
+    max-width: 800px;
+    margin-bottom: 12px;
+    color: #555555;
+}
+
+.sections {
+    background: #f6f8f6;
+    text-align: center;
+}
+
+.section-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    margin-top: 30px;
+}
+
+.section-card {
+    background: white;
+    border: 1px solid #e5e9e5;
+    padding: 30px 15px;
+    border-radius: 8px;
+    font-weight: bold;
+    color: #173d2b;
+}
+
+.registration-box {
+    text-align: center;
+    border: 1px solid #e5e9e5;
+    border-radius: 10px;
+    padding: 40px 20px;
+}
+
+.notice {
+    margin-top: 18px;
+    color: #98732e;
+    font-weight: bold;
+}
+
+.footer {
+    background: #123c2b;
+    color: #ffffff;
+    text-align: center;
+    padding: 25px 0;
+    font-size: 13px;
+}
+
+@media (max-width: 650px) {
+    .nav-container {
+        flex-direction: column;
+    }
+
+    nav {
+        gap: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .hero {
+        padding: 75px 0;
+    }
+
+    .section-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
