@@ -1296,3 +1296,245 @@ tbody tr:hover {
     overflow-wrap: anywhere;
 }
 
+/* ==================================================
+   PHASE 1 COURSE — PREMIUM SCOUT HEADER
+   Shared homepage and registration page design
+================================================== */
+
+.portal-header {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    background:
+        radial-gradient(ellipse at 15% 50%, rgba(197,161,91,.13), transparent 38%),
+        linear-gradient(120deg, #102c21 0%, #173e2d 55%, #102c21 100%);
+    border-bottom: 3px solid #c5a15b;
+    box-shadow: 0 7px 24px rgba(16,44,33,.18);
+}
+
+.portal-header::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    width: 240px;
+    height: 240px;
+    right: -75px;
+    top: -145px;
+    border: 1px solid rgba(197,161,91,.22);
+    border-radius: 50%;
+    box-shadow:
+        0 0 0 20px rgba(197,161,91,.035),
+        0 0 0 40px rgba(197,161,91,.025);
+}
+
+.portal-header::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        #e4c477,
+        #c5a15b,
+        transparent
+    );
+}
+
+.portal-header-inner {
+    position: relative;
+    width: min(1160px, 94%);
+    min-height: 145px;
+    margin: auto;
+    padding: 20px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 25px;
+}
+
+/* LOGOS */
+
+.portal-logos {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 17px;
+    flex-shrink: 0;
+}
+
+.portal-logos img {
+    display: block;
+    width: 86px;
+    height: 86px;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 7px rgba(0,0,0,.2));
+    transition: transform .25s ease;
+}
+
+.portal-logos img:hover {
+    transform: translateY(-3px);
+}
+
+/* COURSE TITLE */
+
+.portal-brand {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 8px;
+    text-align: center;
+    flex: 1;
+}
+
+.portal-brand strong {
+    color: #ffffff;
+    font-size: clamp(23px, 3.2vw, 36px);
+    font-weight: 900;
+    letter-spacing: 3px;
+    line-height: 1.15;
+    text-shadow: 0 3px 12px rgba(0,0,0,.25);
+}
+
+.portal-brand span {
+    color: #e5c780;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2.3px;
+    line-height: 1.5;
+}
+
+/* REGISTRATION HEADER BRAND LINK */
+
+.registration-brand {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    gap: 28px;
+    min-width: 0;
+    text-decoration: none;
+}
+
+/* HOME BUTTON */
+
+.portal-top-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    padding: 11px 19px;
+    border: 1px solid #c5a15b;
+    border-radius: 8px;
+    background: rgba(197,161,91,.12);
+    color: #f0d99e;
+    font-size: 13px;
+    font-weight: 800;
+    text-decoration: none;
+    transition: all .2s ease;
+}
+
+.portal-top-button:hover {
+    background: #c5a15b;
+    color: #102c21;
+    transform: translateY(-2px);
+}
+
+/* REGISTRATION PAGE HEADER */
+
+.registration-page .portal-header-inner {
+    min-height: 132px;
+}
+
+.registration-page .portal-logos img {
+    width: 75px;
+    height: 75px;
+}
+
+/* MOBILE */
+
+@media (max-width: 650px) {
+
+    .portal-header-inner {
+        width: 94%;
+        min-height: 115px;
+        padding: 15px 0;
+        gap: 12px;
+    }
+
+    .portal-logos {
+        gap: 9px;
+    }
+
+    .portal-logos img {
+        width: 55px;
+        height: 55px;
+    }
+
+    .portal-brand {
+        gap: 6px;
+    }
+
+    .portal-brand strong {
+        font-size: 19px;
+        letter-spacing: 1.5px;
+    }
+
+    .portal-brand span {
+        font-size: 8px;
+        letter-spacing: 1px;
+    }
+
+    .registration-brand {
+        gap: 10px;
+    }
+
+    .registration-page .portal-logos img {
+        width: 48px;
+        height: 48px;
+    }
+
+    .portal-top-button {
+        padding: 8px 10px;
+        font-size: 11px;
+    }
+}
+
+@media (max-width: 390px) {
+
+    .portal-header-inner {
+        gap: 7px;
+    }
+
+    .portal-logos {
+        gap: 5px;
+    }
+
+    .portal-logos img {
+        width: 43px;
+        height: 43px;
+    }
+
+    .portal-brand strong {
+        font-size: 16px;
+        letter-spacing: 1px;
+    }
+
+    .portal-brand span {
+        font-size: 7px;
+        letter-spacing: .6px;
+    }
+
+    .registration-page .portal-logos img {
+        width: 39px;
+        height: 39px;
+    }
+
+    .registration-brand {
+        gap: 7px;
+    }
+}
+
