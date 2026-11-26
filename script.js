@@ -4,7 +4,7 @@
 // ==================================================
 
 const SUPABASE_URL = "https://etfqfyyoagsyiwafziji.supabase.co";
-const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_RDrPK0Kus5rKT5v3ioaZ5Q_HY3dfAyp";
+const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_-nAhlgK3wSaRQdZI_TKEhQ_KUHdI5b-";
 const COURSE_BATCH_ID = "5b1c2d61-dc49-4dc2-b9a6-92ce716eaeff";
 
 const form = document.getElementById("registration-form");
