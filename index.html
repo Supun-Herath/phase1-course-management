@@ -1,97 +1,223 @@
 
-<section class="registration section" id="registration">
-    <div class="container registration-box">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <h2>Participant Registration</h2>
+    <title>Phase 1 Course | Registration Portal</title>
 
-        <p>
-            Register for the Phase 1 Course.
-            Please provide accurate information.
-        </p>
+    <meta name="description"
+          content="Official Phase 1 Course participant registration and information portal.">
 
-        <form id="registration-form">
+    <link rel="stylesheet" href="style.css">
+</head>
 
-            <div class="form-group">
-                <label for="full_name">Full Name *</label>
-                <input
-                    type="text"
-                    id="full_name"
-                    name="full_name"
-                    maxlength="150"
-                    required
-                    autocomplete="name"
-                    placeholder="Enter your full name"
-                >
+<body>
+
+    <header class="header">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                PHASE 1 <span>COURSE</span>
+            </a>
+
+            <nav>
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#registration">Registration</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+
+        <!-- HOME SECTION -->
+        <section class="hero" id="home">
+            <div class="container hero-content">
+
+                <p class="eyebrow">SCOUT LEADER TRAINING</p>
+
+                <h1>Phase 1 Course</h1>
+
+                <p class="hero-description">
+                    Developing confident and capable Scout Leaders
+                    through quality training and learning.
+                </p>
+
+                <a href="#registration" class="primary-button">
+                    Participant Registration
+                </a>
+
             </div>
+        </section>
 
-            <div class="form-group">
-                <label for="contact_number">Contact Number *</label>
-                <input
-                    type="tel"
-                    id="contact_number"
-                    name="contact_number"
-                    maxlength="30"
-                    required
-                    autocomplete="tel"
-                    placeholder="Enter your contact number"
-                >
+        <!-- ABOUT SECTION -->
+        <section class="about section" id="about">
+            <div class="container">
+
+                <p class="eyebrow">ABOUT THE COURSE</p>
+
+                <h2>Welcome to the Phase 1 Course</h2>
+
+                <p>
+                    The Phase 1 Course is designed for Scout Leaders
+                    who want to develop their knowledge and skills
+                    in training and guiding Scouts.
+                </p>
+
+                <p>
+                    Course information, batch details and
+                    participant registration will be available
+                    through this portal.
+                </p>
+
             </div>
+        </section>
 
-            <div class="form-group">
-                <label for="email">Email Address (Optional)</label>
-                <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    maxlength="254"
-                    autocomplete="email"
-                    placeholder="Enter your email address"
-                >
+        <!-- SCOUTING SECTIONS -->
+        <section class="sections section">
+            <div class="container">
+
+                <p class="eyebrow">SCOUTING SECTIONS</p>
+
+                <h2>Training for Every Section</h2>
+
+                <div class="section-grid">
+                    <div class="section-card">Singithi</div>
+                    <div class="section-card">Cub</div>
+                    <div class="section-card">Scout</div>
+                    <div class="section-card">Rover</div>
+                </div>
+
             </div>
+        </section>
 
-            <div class="form-group">
-                <label for="school_troop">School / Troop *</label>
-                <input
-                    type="text"
-                    id="school_troop"
-                    name="school_troop"
-                    maxlength="150"
-                    required
-                    placeholder="Enter your school or troop"
-                >
+        <!-- REGISTRATION SECTION -->
+        <section class="registration section" id="registration">
+            <div class="container registration-box">
+
+                <h2>Participant Registration</h2>
+
+                <p>
+                    Register for the Phase 1 Course.
+                    Please provide accurate information.
+                </p>
+
+                <p class="notice">
+                    Registration period:
+                    26 November – 28 November 2026
+                </p>
+
+                <form id="registration-form">
+
+                    <div class="form-group">
+                        <label for="full_name">Full Name *</label>
+                        <input
+                            type="text"
+                            id="full_name"
+                            name="full_name"
+                            maxlength="150"
+                            required
+                            autocomplete="name"
+                            placeholder="Enter your full name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="contact_number">
+                            Contact Number *
+                        </label>
+                        <input
+                            type="tel"
+                            id="contact_number"
+                            name="contact_number"
+                            maxlength="30"
+                            required
+                            autocomplete="tel"
+                            placeholder="Enter your contact number">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">
+                            Email Address (Optional)
+                        </label>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            maxlength="254"
+                            autocomplete="email"
+                            placeholder="Enter your email address">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="school_troop">
+                            School / Troop *
+                        </label>
+                        <input
+                            type="text"
+                            id="school_troop"
+                            name="school_troop"
+                            maxlength="150"
+                            required
+                            placeholder="Enter your school or troop">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="district">District *</label>
+                        <input
+                            type="text"
+                            id="district"
+                            name="district"
+                            maxlength="100"
+                            required
+                            placeholder="Enter your district">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="section">Scout Section *</label>
+                        <select
+                            id="section"
+                            name="section"
+                            required>
+
+                            <option value="">
+                                Select your section
+                            </option>
+
+                            <option value="Singithi">Singithi</option>
+                            <option value="Cub">Cub</option>
+                            <option value="Scout">Scout</option>
+                            <option value="Rover">Rover</option>
+
+                        </select>
+                    </div>
+
+                    <button type="submit" class="primary-button">
+                        Submit Registration
+                    </button>
+
+                    <p
+                        id="registration-message"
+                        role="status"
+                        aria-live="polite">
+                    </p>
+
+                </form>
+
             </div>
+        </section>
 
-            <div class="form-group">
-                <label for="district">District *</label>
-                <input
-                    type="text"
-                    id="district"
-                    name="district"
-                    maxlength="100"
-                    required
-                    placeholder="Enter your district"
-                >
-            </div>
+    </main>
 
-            <div class="form-group">
-                <label for="section">Scout Section *</label>
-                <select id="section" name="section" required>
-                    <option value="">Select your section</option>
-                    <option value="Singithi">Singithi</option>
-                    <option value="Cub">Cub</option>
-                    <option value="Scout">Scout</option>
-                    <option value="Rover">Rover</option>
-                </select>
-            </div>
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <p>Phase 1 Course Management System</p>
+            <p>Official Training Course Portal</p>
+        </div>
+    </footer>
 
-            <button type="submit" class="primary-button">
-                Submit Registration
-            </button>
+    <script src="script.js"></script>
 
-            <p id="registration-message" role="status"
-               aria-live="polite"></p>
-
-        </form>
-
-    </div>
-</section>
+</body>
+</html>
