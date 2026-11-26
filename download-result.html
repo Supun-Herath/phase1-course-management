@@ -1,0 +1,208 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#102c21">
+    <title>Download Result Sheet | Phase 1 Course</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: #f4f7f4;
+        }
+
+        .download-page {
+            max-width: 620px;
+            margin: 55px auto;
+            padding: 20px;
+        }
+
+        .download-card {
+            background: white;
+            padding: 35px;
+            border: 1px solid #e0e8e1;
+            border-radius: 14px;
+            box-shadow: 0 5px 24px rgba(20, 50, 30, 0.06);
+        }
+
+        .download-card h1 {
+            color: #183d2b;
+            margin-top: 0;
+        }
+
+        .download-card p {
+            color: #68766e;
+            line-height: 1.6;
+        }
+
+        .download-form label {
+            display: block;
+            margin: 20px 0 7px;
+            font-weight: 600;
+            color: #34463a;
+        }
+
+        .download-form input {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #d8e1da;
+            border-radius: 8px;
+            font-size: 15px;
+            box-sizing: border-box;
+        }
+
+        .download-form input:focus {
+            outline: none;
+            border-color: #397b52;
+            box-shadow: 0 0 0 3px rgba(57, 123, 82, 0.1);
+        }
+
+        .captcha-area {
+            margin-top: 24px;
+        }
+
+        .download-button {
+            width: 100%;
+            margin-top: 25px;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            background: #245b40;
+            color: white;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .download-button:hover {
+            background: #183d2b;
+        }
+
+        .download-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        #download-message {
+            margin-top: 18px;
+            padding: 12px;
+            border-radius: 8px;
+            background: #f1f6f2;
+            color: #315b3e;
+            font-size: 14px;
+            display: none;
+        }
+
+        .download-back {
+            display: inline-block;
+            margin-top: 22px;
+            color: #245b40;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .download-footer {
+            margin-top: 25px;
+            text-align: center;
+            color: #849187;
+            font-size: 12px;
+        }
+
+        @media (max-width: 600px) {
+            .download-page {
+                margin: 20px auto;
+                padding: 12px;
+            }
+
+            .download-card {
+                padding: 24px 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="download-page">
+        <section class="download-card">
+
+            <h1>Download Your Result Sheet</h1>
+
+            <p>
+                Enter your course registration number and the contact
+                number you provided during registration.
+            </p>
+
+            <form id="download-form" class="download-form">
+
+                <label for="registration-number">
+                    Registration Number
+                </label>
+
+                <input
+                    type="text"
+                    id="registration-number"
+                    placeholder="Example: P1-2026-000001"
+                    maxlength="50"
+                    autocomplete="off"
+                    required>
+
+                <label for="contact-number">
+                    Registered Contact Number
+                </label>
+
+                <input
+                    type="tel"
+                    id="contact-number"
+                    placeholder="Enter your registered contact number"
+                    maxlength="30"
+                    autocomplete="tel"
+                    required>
+
+                <div class="captcha-area">
+                    <div
+                        class="cf-turnstile"
+                        data-sitekey="0x4AAAAAAGT8CiT4EPn508ah">
+                    </div>
+                </div>
+
+                <button
+                    type="submit"
+                    id="download-button"
+                    class="download-button">
+                    Verify & Download Result Sheet
+                </button>
+
+                <div
+                    id="download-message"
+                    role="status"
+                    aria-live="polite">
+                </div>
+
+            </form>
+
+            <a href="index.html" class="download-back">
+                ← Back to Home
+            </a>
+
+        </section>
+
+        <div class="download-footer">
+            PHASE 1 COURSE · SCOUT LEADER DEVELOPMENT · 2026
+        </div>
+    </main>
+
+    <script
+        src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+        async
+        defer>
+    </script>
+
+    <script src="download-result.js?v=1"></script>
+
+</body>
+</html>
