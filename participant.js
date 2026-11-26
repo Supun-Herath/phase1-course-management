@@ -72,8 +72,11 @@ async function loadParticipants() {
 
         details.textContent =
             `Registration: ${registration.registration_number} | ` +
+            `Section: ${registration.section} | ` +
+            `Contact: ${participant?.contact_number || "-"} | ` +
             `School/Troop: ${participant?.school_troop || "-"} | ` +
             `District: ${participant?.district || "-"} | ` +
+            `Email: ${participant?.email || "-"} | ` +
             `Status: ${registration.status}`;
 
         card.appendChild(heading);
