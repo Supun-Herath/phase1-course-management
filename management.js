@@ -1,6 +1,6 @@
 
 const SUPABASE_URL = "https://etfqfyyoagsyiwafziji.supabase.co";
-const SUPABASE_PUBLISHABLE_KEY = "PASTE_YOUR_PUBLIC_KEY_HERE";
+const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_RDrPK0Kus5rKT5v3ioaZ5Q_H3YdfAyp";
 const BATCH_ID = "5b1c2d61-dc49-4dc2-b9a6-92ce716eaeff";
 
 const db = window.supabase.createClient(
