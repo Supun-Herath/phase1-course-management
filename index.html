@@ -7,22 +7,95 @@
     <meta name="theme-color" content="#102f24">
     <title>Phase 1 Leader Training Course | Registration Portal</title>
     <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* Header layout */
+        .portal-header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+        }
+
+        /* Separate the two logos */
+        .portal-logos {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 22px;
+            flex-shrink: 0;
+        }
+
+        .portal-logos img {
+            width: 62px;
+            height: 62px;
+            object-fit: contain;
+            padding: 5px;
+            background: #ffffff;
+            border-radius: 12px;
+            box-sizing: border-box;
+        }
+
+        .portal-brand {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .portal-top-button {
+            flex-shrink: 0;
+        }
+
+        /* Mobile layout */
+        @media (max-width: 600px) {
+            .portal-header-inner {
+                gap: 12px;
+            }
+
+            .portal-logos {
+                gap: 10px;
+            }
+
+            .portal-logos img {
+                width: 43px;
+                height: 43px;
+                padding: 3px;
+            }
+
+            .portal-brand strong {
+                font-size: 14px;
+            }
+
+            .portal-brand span {
+                font-size: 10px;
+            }
+
+            .portal-top-button {
+                font-size: 12px;
+                padding: 9px 11px;
+            }
+        }
+    </style>
 </head>
+
 <body class="portal-page">
 
 <header class="portal-header">
     <div class="portal-header-inner">
+
         <div class="portal-logos">
-            <img src="mp.png?v=3" alt="Organization Logo">
-            <img src="sl.png?v=3" alt="Scout Logo">
+            <img src="mp.png?v=4" alt="Moratuwa-Piliyandala District Logo">
+            <img src="sl.png?v=4" alt="Sri Lanka Scout Logo">
         </div>
+
         <div class="portal-brand">
             <strong>PHASE 1 COURSE</strong>
             <span>Scout Leader Development Program</span>
         </div>
+
         <a href="registration.html" class="portal-top-button">
             Register <span>↗</span>
         </a>
+
     </div>
 </header>
 
@@ -30,9 +103,13 @@
 
     <section class="portal-intro">
         <span class="portal-label">OFFICIAL COURSE REGISTRATION PORTAL</span>
+
         <h1>Phase 1 Leader Training Course</h1>
+
         <p>ORGANIZED BY MORATUWA - PILIYANDALA DISTRICT SCOUT ASSOCIATION</p>
+
         <div class="portal-divider"></div>
+
         <p class="portal-description">
             Welcome to the Phase 1 Course registration portal.
             Find the essential course information below and register online.
@@ -40,6 +117,7 @@
     </section>
 
     <section class="portal-details">
+
         <div class="portal-section-heading">
             <span>COURSE INFORMATION</span>
             <span class="portal-batch">2026 BATCH</span>
@@ -83,6 +161,7 @@
 
         <div class="portal-sections">
             <small>AVAILABLE SCOUTING SECTIONS</small>
+
             <div class="portal-section-tags">
                 <span>Singithi</span>
                 <span>Cub</span>
@@ -90,17 +169,21 @@
                 <span>Rover</span>
             </div>
         </div>
+
     </section>
 
     <section class="portal-register">
+
         <div>
             <span>YOUR NEXT STEP</span>
             <h2>Ready to register?</h2>
             <p>Complete the online participant registration form.</p>
         </div>
+
         <a href="registration.html" class="portal-register-button">
             Register for the Course <span>→</span>
         </a>
+
     </section>
 
 </main>
