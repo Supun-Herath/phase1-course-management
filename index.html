@@ -106,6 +106,35 @@
             background: #103522;
         }
 
+        /* HOMEPAGE ACTIONS */
+
+        .portal-actions {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            gap: 12px;
+        }
+
+        .portal-download-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 13px 20px;
+            border: 1px solid #245b40;
+            border-radius: 6px;
+            background: transparent;
+            color: #245b40;
+            text-decoration: none;
+            font-weight: 700;
+            transition: background 0.2s ease, color 0.2s ease;
+        }
+
+        .portal-download-button:hover {
+            background: #edf5ef;
+            color: #183d2b;
+        }
+
         /* MOBILE */
 
         @media (max-width: 650px) {
@@ -147,7 +176,8 @@
                 line-height: 1.2;
             }
 
-            .portal-register-button {
+            .portal-register-button,
+            .portal-download-button {
                 width: 100%;
                 box-sizing: border-box;
             }
@@ -291,9 +321,17 @@
             <p>Complete the online participant registration form.</p>
         </div>
 
-        <a href="registration.html" class="portal-register-button">
-            Register for the Course <span>→</span>
-        </a>
+        <div class="portal-actions">
+
+            <a href="registration.html" class="portal-register-button">
+                Register for the Course <span>→</span>
+            </a>
+
+            <a href="download-result.html" class="portal-download-button">
+                Download Result Sheet <span>↓</span>
+            </a>
+
+        </div>
 
     </section>
 
