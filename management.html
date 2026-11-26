@@ -4,14 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Phase 1 Course Participant Management">
     <title>Course Management | Phase 1 Course</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <main class="application-container">
         <div class="application-card">
-
             <h1>Course Management</h1>
             <p>Phase 1 Course Administration</p>
 
@@ -42,36 +40,35 @@
 
             <hr>
 
+            <h2>Attendance Management</h2>
+
+            <div class="form-group">
+                <label for="session-select">Select session</label>
+                <select id="session-select">
+                    <option value="">Loading sessions...</option>
+                </select>
+            </div>
+
+            <hr>
+
             <h2>Registered Participants</h2>
-            <p>Manage attendance, course completion and result documents.</p>
+            <p>View participants, update course completion and download result PDFs.</p>
 
             <div class="form-group">
                 <label for="participant-search">Search participants</label>
                 <input
                     type="search"
                     id="participant-search"
-                    placeholder="Search by name or registration number">
+                    placeholder="Search by name or registration number"
+                >
             </div>
 
-            <div class="form-group">
-                <label for="session-select">Attendance session</label>
-                <select id="session-select">
-                    <option value="">Loading sessions...</option>
-                </select>
-            </div>
-
-            <p id="management-message" role="status">
-                Loading participants...
-            </p>
-
+            <p id="management-message" role="status"></p>
             <div id="management-list"></div>
 
             <hr>
 
-            <p>
-                <a href="dashboard.html">Back to Admin Dashboard</a>
-            </p>
-
+            <p><a href="dashboard.html">Back to Dashboard</a></p>
         </div>
     </main>
 
