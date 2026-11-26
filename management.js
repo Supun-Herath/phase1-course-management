@@ -1,7 +1,6 @@
 
 const SUPABASE_URL = "https://etfqfyyoagsyiwafziji.supabase.co";
-const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_RDrPK0Kus5rKT5v3ioaZ5Q_H3YdfAyp";
-
+const SUPABASE_PUBLISHABLE_KEY = "PASTE_YOUR_PUBLIC_KEY_HERE";
 const BATCH_ID = "5b1c2d61-dc49-4dc2-b9a6-92ce716eaeff";
 
 const db = window.supabase.createClient(
@@ -14,9 +13,19 @@ const sessionSelect = document.getElementById("session-select");
 const managementList = document.getElementById("management-list");
 
 let adminUser = null;
-let registrations = [];
 
-function makeSelect(options, selectedValue) {
+function createField(labelText, control) {
+    const wrapper = document.createElement("div");
+    wrapper.className = "form-group";
+
+    const label = document.createElement("label");
+    label.textContent = labelText;
+
+    wrapper.append(label, control);
+    return wrapper;
+}
+
+function createSelect(options, selectedValue) {
     const select = document.createElement("select");
 
     options.forEach(([value, label]) => {
@@ -28,16 +37,6 @@ function makeSelect(options, selectedValue) {
 
     select.value = selectedValue || "";
     return select;
-}
-
-function makeField(labelText, control) {
-    const wrapper = document.createElement("div");
-    const label = document.createElement("label");
-
-    label.textContent = labelText;
-    wrapper.append(label, control);
-
-    return wrapper;
 }
 
 async function verifyAdmin() {
@@ -103,9 +102,12 @@ document.getElementById("session-form").addEventListener(
         try {
             const { error } = await db.from("course_sessions").insert({
                 batch_id: BATCH_ID,
-                session_title: document.getElementById("session-title").value.trim(),
-                session_date: document.getElementById("session-date").value,
-                description: document.getElementById("session-description").value.trim() || null
+                session_title:
+                    document.getElementById("session-title").value.trim(),
+                session_date:
+                    document.getElementById("session-date").value,
+                description:
+                    document.getElementById("session-description").value.trim() || null
             });
 
             if (error) throw error;
@@ -134,25 +136,23 @@ async function loadManagement() {
     message.textContent = "Loading participants...";
 
     try {
-        const { data: registrationsData, error: registrationsError } =
-            await db.from("registrations")
-                .select(`
-                    id,
-                    registration_number,
-                    section,
-                    status,
-                    participants (
-                        full_name,
-                        school_troop
-                    )
-                `)
-                .eq("batch_id", BATCH_ID)
-                .neq("status", "cancelled")
-                .order("registration_number");
+        const { data: registrations, error } = await db
+            .from("registrations")
+            .select(`
+                id,
+                registration_number,
+                section,
+                status,
+                participants (
+                    full_name,
+                    school_troop
+                )
+            `)
+            .eq("batch_id", BATCH_ID)
+            .neq("status", "cancelled")
+            .order("registration_number");
 
-        if (registrationsError) throw registrationsError;
-
-        registrations = registrationsData || [];
+        if (error) throw error;
 
         const [attendanceResult, completionResult, resultsResult] =
             await Promise.all([
@@ -160,11 +160,9 @@ async function loadManagement() {
                     .select("*")
                     .eq("session_id", sessionId),
 
-                db.from("course_completions")
-                    .select("*"),
+                db.from("course_completions").select("*"),
 
-                db.from("results")
-                    .select("*")
+                db.from("results").select("*")
             ]);
 
         if (attendanceResult.error) throw attendanceResult.error;
@@ -183,8 +181,8 @@ async function loadManagement() {
             resultsResult.data.map(item => [item.registration_id, item])
         );
 
-        if (registrations.length === 0) {
-            message.textContent = "No registrations found for this batch.";
+        if (!registrations?.length) {
+            message.textContent = "No registrations found.";
             return;
         }
 
@@ -203,16 +201,16 @@ async function loadManagement() {
 
             const details = document.createElement("p");
             details.textContent =
-                `${registration.section} | ${participant.school_troop || "-"} | ${registration.status}`;
+                `${registration.section} | ${participant.school_troop || "-"}`;
 
-            const attendanceSelect = makeSelect([
+            const attendanceSelect = createSelect([
                 ["", "Not recorded"],
                 ["present", "Present"],
                 ["absent", "Absent"],
                 ["excused", "Excused"]
             ], attendance?.attendance_status);
 
-            const completionSelect = makeSelect([
+            const completionSelect = createSelect([
                 ["pending", "Pending"],
                 ["completed", "Completed"],
                 ["not_completed", "Not completed"]
@@ -235,7 +233,7 @@ async function loadManagement() {
             grade.value = result?.grade || "";
 
             const remarks = document.createElement("textarea");
-            remarks.placeholder = "Result remarks";
+            remarks.placeholder = "Remarks";
             remarks.value = result?.remarks || "";
 
             const saveButton = document.createElement("button");
@@ -245,12 +243,12 @@ async function loadManagement() {
             card.append(
                 heading,
                 details,
-                makeField("Attendance", attendanceSelect),
-                makeField("Completion status", completionSelect),
-                makeField("Completion date", completionDate),
-                makeField("Marks", marks),
-                makeField("Grade", grade),
-                makeField("Remarks", remarks),
+                createField("Attendance", attendanceSelect),
+                createField("Completion status", completionSelect),
+                createField("Completion date", completionDate),
+                createField("Marks", marks),
+                createField("Grade", grade),
+                createField("Remarks", remarks),
                 saveButton
             );
 
@@ -265,25 +263,26 @@ async function loadManagement() {
                         completionSelect.value === "completed" &&
                         !completionDate.value
                     ) {
-                        throw new Error(
-                            "Enter a completion date for completed participants."
-                        );
+                        throw new Error("Enter a completion date.");
                     }
 
                     if (attendanceSelect.value) {
-                        const { error } = await db.from("attendance").upsert({
-                            registration_id: registrationId,
-                            session_id: sessionId,
-                            attendance_status: attendanceSelect.value
-                        }, {
-                            onConflict: "registration_id,session_id"
-                        });
+                        const { error } = await db
+                            .from("attendance")
+                            .upsert({
+                                registration_id: registrationId,
+                                session_id: sessionId,
+                                attendance_status: attendanceSelect.value
+                            }, {
+                                onConflict: "registration_id,session_id"
+                            });
 
                         if (error) throw error;
                     }
 
-                    const { error: completionError } =
-                        await db.from("course_completions").upsert({
+                    const { error: completionError } = await db
+                        .from("course_completions")
+                        .upsert({
                             registration_id: registrationId,
                             completion_status: completionSelect.value,
                             completion_date:
@@ -308,13 +307,16 @@ async function loadManagement() {
                             ? null
                             : Number(marks.value);
 
-                        if (markValue !== null &&
-                            (!Number.isFinite(markValue) || markValue < 0)) {
-                            throw new Error("Enter valid marks (zero or greater).");
+                        if (
+                            markValue !== null &&
+                            (!Number.isFinite(markValue) || markValue < 0)
+                        ) {
+                            throw new Error("Enter valid marks.");
                         }
 
-                        const { error: resultError } =
-                            await db.from("results").upsert({
+                        const { error: resultError } = await db
+                            .from("results")
+                            .upsert({
                                 registration_id: registrationId,
                                 marks: markValue,
                                 grade: grade.value.trim() || null,
@@ -327,7 +329,7 @@ async function loadManagement() {
                     }
 
                     message.textContent =
-                        `Saved: ${registration.registration_number}`;
+                        `Saved ${registration.registration_number}.`;
 
                     saveButton.textContent = "Saved";
 
@@ -354,8 +356,7 @@ sessionSelect.addEventListener("change", loadManagement);
 
 async function start() {
     try {
-        const allowed = await verifyAdmin();
-        if (!allowed) return;
+        if (!await verifyAdmin()) return;
 
         await loadSessions();
         await loadManagement();
