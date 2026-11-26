@@ -389,13 +389,13 @@ async function createResultSheet(registration, completion) {
 
     const sheet = document.createElement("div");
 
-    // Exact A4 dimensions
+    // Reduced sheet size for a centred A4 layout
     sheet.style.cssText = `
-        width: 210mm;
-        height: 297mm;
-        min-width: 210mm;
-        max-width: 210mm;
-        padding: 10mm;
+        width: 180mm;
+        height: 254mm;
+        min-width: 180mm;
+        max-width: 180mm;
+        padding: 8mm;
         margin: 0;
         box-sizing: border-box;
         background: #ffffff;
@@ -414,7 +414,7 @@ async function createResultSheet(registration, completion) {
             height:100%;
             box-sizing:border-box;
             border:2px solid #24583e;
-            padding:9mm;
+            padding:8mm;
             position:relative;
             background:#ffffff;
             font-family:Arial,Helvetica,sans-serif;
@@ -426,46 +426,46 @@ async function createResultSheet(registration, completion) {
                 display:flex;
                 align-items:center;
                 justify-content:space-between;
-                gap:10px;
+                gap:8px;
                 border-bottom:2px solid #24583e;
-                padding-bottom:6mm;
+                padding-bottom:5mm;
             ">
                 <img src="${mpLogo}" alt="Organization Logo"
                     style="
-                        width:23mm;
-                        height:23mm;
+                        width:20mm;
+                        height:20mm;
                         object-fit:contain;
                         flex-shrink:0;
                     ">
 
                 <div style="flex:1;text-align:center;">
                     <div style="
-                        font-size:9px;
+                        font-size:8px;
                         font-weight:600;
-                        letter-spacing:2px;
+                        letter-spacing:1.5px;
                         color:#718075;
-                        margin-bottom:5px;
+                        margin-bottom:4px;
                     ">SCOUT LEADER DEVELOPMENT</div>
 
                     <div style="
-                        font-size:22px;
+                        font-size:19px;
                         font-weight:700;
-                        letter-spacing:1px;
+                        letter-spacing:0.5px;
                         color:#17452e;
                     ">PHASE 1 COURSE</div>
 
                     <div style="
-                        font-size:9px;
-                        letter-spacing:1.5px;
+                        font-size:8px;
+                        letter-spacing:1px;
                         color:#718075;
-                        margin-top:5px;
+                        margin-top:4px;
                     ">OFFICIAL COURSE DOCUMENT</div>
                 </div>
 
                 <img src="${scoutLogo}" alt="Scout Logo"
                     style="
-                        width:23mm;
-                        height:23mm;
+                        width:20mm;
+                        height:20mm;
                         object-fit:contain;
                         flex-shrink:0;
                     ">
@@ -475,48 +475,47 @@ async function createResultSheet(registration, completion) {
 
             <div style="
                 text-align:center;
-                margin-top:15mm;
+                margin-top:10mm;
             ">
                 <div style="
-                    font-size:10px;
+                    font-size:9px;
                     font-weight:600;
-                    letter-spacing:3px;
+                    letter-spacing:2px;
                     color:#8a9a8e;
-                    margin-bottom:8px;
+                    margin-bottom:6px;
                 ">CERTIFICATE OF</div>
-
-                <div style="
-                    font-size:25px;
-                    font-weight:700;
-                    color:#24583e;
-                    letter-spacing:0.5px;
-                ">COURSE COMPLETION</div>
-
-                <div style="
-                    width:20mm;
-                    height:1mm;
-                    background:#b89b58;
-                    margin:7mm auto;
-                "></div>
-
-                <div style="
-                    font-size:11px;
-                    color:#65746a;
-                ">This document confirms the successful completion of</div>
 
                 <div style="
                     font-size:21px;
                     font-weight:700;
+                    color:#24583e;
+                    letter-spacing:0.3px;
+                ">COURSE COMPLETION</div>
+
+                <div style="
+                    width:18mm;
+                    height:1mm;
+                    background:#b89b58;
+                    margin:5mm auto;
+                "></div>
+
+                <div style="
+                    font-size:10px;
+                    color:#65746a;
+                ">This document confirms the successful completion of</div>
+
+                <div style="
+                    font-size:18px;
+                    font-weight:700;
                     color:#183d2b;
-                    margin:8mm 0 3mm;
-                    padding-bottom:3mm;
+                    margin:6mm 0 2mm;
+                    padding-bottom:2mm;
                     border-bottom:1px solid #cbd8ce;
                     overflow-wrap:anywhere;
-                    word-break:normal;
                 ">${escapeHTML(participant.full_name)}</div>
 
                 <div style="
-                    font-size:12px;
+                    font-size:11px;
                     color:#65746a;
                 ">of the Phase 1 Course</div>
             </div>
@@ -526,34 +525,34 @@ async function createResultSheet(registration, completion) {
             <div style="
                 background:#f1f6f2;
                 border:1px solid #d7e4d9;
-                padding:6mm;
-                margin-top:11mm;
+                padding:5mm;
+                margin-top:8mm;
                 box-sizing:border-box;
             ">
                 <div style="
-                    font-size:10px;
+                    font-size:9px;
                     font-weight:700;
-                    letter-spacing:1.5px;
+                    letter-spacing:1.2px;
                     color:#24583e;
-                    margin-bottom:4mm;
+                    margin-bottom:3mm;
                 ">PARTICIPANT DETAILS</div>
 
                 <table style="
                     width:100%;
                     border-collapse:collapse;
                     font-family:Arial,Helvetica,sans-serif;
-                    font-size:10px;
+                    font-size:9px;
                     table-layout:fixed;
                 ">
                     <tr>
                         <td style="
-                            padding:3.5mm 2mm;
+                            padding:2.5mm 2mm;
                             color:#718075;
                             width:43%;
                             border-bottom:1px solid #dce5dd;
                         ">Registration Number</td>
                         <td style="
-                            padding:3.5mm 2mm;
+                            padding:2.5mm 2mm;
                             font-weight:700;
                             color:#263b30;
                             border-bottom:1px solid #dce5dd;
@@ -563,12 +562,12 @@ async function createResultSheet(registration, completion) {
 
                     <tr>
                         <td style="
-                            padding:3.5mm 2mm;
+                            padding:2.5mm 2mm;
                             color:#718075;
                             border-bottom:1px solid #dce5dd;
                         ">Scouting Section</td>
                         <td style="
-                            padding:3.5mm 2mm;
+                            padding:2.5mm 2mm;
                             font-weight:700;
                             color:#263b30;
                             border-bottom:1px solid #dce5dd;
@@ -577,12 +576,12 @@ async function createResultSheet(registration, completion) {
 
                     <tr>
                         <td style="
-                            padding:3.5mm 2mm;
+                            padding:2.5mm 2mm;
                             color:#718075;
                             border-bottom:1px solid #dce5dd;
                         ">School / Troop</td>
                         <td style="
-                            padding:3.5mm 2mm;
+                            padding:2.5mm 2mm;
                             font-weight:700;
                             color:#263b30;
                             border-bottom:1px solid #dce5dd;
@@ -592,12 +591,12 @@ async function createResultSheet(registration, completion) {
 
                     <tr>
                         <td style="
-                            padding:3.5mm 2mm;
+                            padding:2.5mm 2mm;
                             color:#718075;
                             border-bottom:1px solid #dce5dd;
                         ">District</td>
                         <td style="
-                            padding:3.5mm 2mm;
+                            padding:2.5mm 2mm;
                             font-weight:700;
                             color:#263b30;
                             border-bottom:1px solid #dce5dd;
@@ -606,11 +605,11 @@ async function createResultSheet(registration, completion) {
 
                     <tr>
                         <td style="
-                            padding:3.5mm 2mm;
+                            padding:2.5mm 2mm;
                             color:#718075;
                         ">Completion Date</td>
                         <td style="
-                            padding:3.5mm 2mm;
+                            padding:2.5mm 2mm;
                             font-weight:700;
                             color:#263b30;
                         ">${escapeHTML(completion.completion_date || "-")}</td>
@@ -622,24 +621,24 @@ async function createResultSheet(registration, completion) {
 
             <div style="
                 text-align:center;
-                margin-top:9mm;
-                padding:5mm;
+                margin-top:7mm;
+                padding:4mm;
                 border:1px solid #b8d0bd;
                 box-sizing:border-box;
             ">
                 <div style="
-                    font-size:9px;
+                    font-size:8px;
                     font-weight:600;
-                    letter-spacing:2px;
+                    letter-spacing:1.5px;
                     color:#758579;
                 ">COURSE STATUS</div>
 
                 <div style="
-                    font-size:17px;
+                    font-size:15px;
                     font-weight:700;
-                    letter-spacing:2px;
+                    letter-spacing:1.5px;
                     color:#24583e;
-                    margin-top:3mm;
+                    margin-top:2mm;
                 ">✓ COMPLETED</div>
             </div>
 
@@ -647,30 +646,30 @@ async function createResultSheet(registration, completion) {
 
             <div style="
                 position:absolute;
-                bottom:25mm;
-                left:9mm;
-                right:9mm;
+                bottom:21mm;
+                left:8mm;
+                right:8mm;
                 display:flex;
                 justify-content:space-between;
-                gap:15mm;
+                gap:12mm;
                 font-family:Arial,Helvetica,sans-serif;
-                font-size:10px;
+                font-size:9px;
                 text-align:center;
             ">
                 <div style="flex:1;">
                     <div style="
-                        height:12mm;
+                        height:10mm;
                         border-bottom:1px solid #52665a;
                     "></div>
 
                     <div style="
                         font-weight:700;
-                        margin-top:3mm;
+                        margin-top:2mm;
                         color:#244b35;
                     ">Course Leader</div>
 
                     <div style="
-                        font-size:9px;
+                        font-size:8px;
                         color:#7b897f;
                         margin-top:2px;
                     ">Signature</div>
@@ -678,18 +677,18 @@ async function createResultSheet(registration, completion) {
 
                 <div style="flex:1;">
                     <div style="
-                        height:12mm;
+                        height:10mm;
                         border-bottom:1px solid #52665a;
                     "></div>
 
                     <div style="
                         font-weight:700;
-                        margin-top:3mm;
+                        margin-top:2mm;
                         color:#244b35;
                     ">District Commissioner</div>
 
                     <div style="
-                        font-size:9px;
+                        font-size:8px;
                         color:#7b897f;
                         margin-top:2px;
                     ">Signature</div>
@@ -700,14 +699,14 @@ async function createResultSheet(registration, completion) {
 
             <div style="
                 position:absolute;
-                bottom:7mm;
-                left:9mm;
-                right:9mm;
+                bottom:6mm;
+                left:8mm;
+                right:8mm;
                 border-top:1px solid #dce5dd;
-                padding-top:3mm;
+                padding-top:2mm;
                 text-align:center;
-                font-size:8px;
-                letter-spacing:1px;
+                font-size:7px;
+                letter-spacing:0.8px;
                 color:#849187;
             ">
                 PHASE 1 COURSE · SCOUT LEADER DEVELOPMENT
@@ -773,7 +772,9 @@ async function generatePDF(registration, completion) {
     try {
         pdfBlob = await window.html2pdf()
             .set({
-                margin: 0,
+                // Equal margins centre the smaller sheet on A4.
+                // Available content area: 180mm x 254mm.
+                margin: [21.5, 15, 21.5, 15],
 
                 filename: safeFilename(
                     registration.registration_number
