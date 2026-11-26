@@ -16,6 +16,7 @@ if (form && submitButton && messageBox) {
         messageBox.textContent = "";
         messageBox.className = "";
 
+        // Collect registration information
         const registrationData = {
             full_name: document.getElementById("full_name").value.trim(),
             contact_number: document.getElementById("contact_number").value.trim(),
@@ -39,11 +40,16 @@ if (form && submitButton && messageBox) {
             return;
         }
 
-        // Get Cloudflare Turnstile token
-        const turnstileToken = document.querySelector(
-            '[name="cf-turnstile-response"]'
-        )?.value;
+        // Read Cloudflare Turnstile token
+        const turnstileField = document.querySelector(
+            'input[name="cf-turnstile-response"]'
+        );
 
+        const turnstileToken = turnstileField
+            ? turnstileField.value.trim()
+            : "";
+
+        // Check CAPTCHA completion
         if (!turnstileToken) {
             messageBox.textContent =
                 "Please complete the security verification.";
@@ -51,11 +57,13 @@ if (form && submitButton && messageBox) {
             return;
         }
 
+        // Disable button while submitting
         submitButton.disabled = true;
         submitButton.textContent = "Submitting...";
 
         try {
 
+            // Send registration and CAPTCHA token to Supabase
             const response = await fetch(
                 `${SUPABASE_URL}/functions/v1/public-registration`,
                 {
@@ -81,6 +89,7 @@ if (form && submitButton && messageBox) {
                 );
             }
 
+            // Successful registration
             messageBox.textContent =
                 `Registration successful! Your registration number is ${result.registration_number}.`;
 
@@ -97,7 +106,7 @@ if (form && submitButton && messageBox) {
 
         } finally {
 
-            // Reset Cloudflare verification
+            // Reset CAPTCHA for another attempt
             if (window.turnstile) {
                 window.turnstile.reset();
             }
