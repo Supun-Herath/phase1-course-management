@@ -1,41 +1,31 @@
-# Phase 1 Course Management System
+# Phase 1 – Course Management System
 
-Static frontend for Phase 1 course registration, participant management, attendance, and results.
+A web-based course management system designed to support the registration and management of participants in Phase 1 training programmes.
 
-## Project structure
+## Overview
 
-```text
-.
-├── index.html
-├── registration.html
-├── admin.html
-├── dashboard.html
-├── participant.html
-├── management.html
-├── result.html
-├── download-result.html
-├── reset-password.html
-├── assets/
-│   ├── css/style.css
-│   ├── js/
-│   │   ├── admin.js
-│   │   ├── dashboard.js
-│   │   ├── download-result.js
-│   │   ├── management.js
-│   │   ├── participant.js
-│   │   ├── reset-password.js
-│   │   ├── result.js
-│   │   └── script.js
-│   └── images/
-│       ├── mp.png
-│       └── sl.png
-└── README.md
-```
+This project provides a simple platform for participants to register for courses and for administrators to manage course-related information.
 
-## Deployment
+## Features
 
-HTML entry pages remain at the repository root to preserve existing static-hosting URLs. Stylesheets, JavaScript, and images are stored in `assets/`.
+- Online participant registration
+- Course and batch management
+- Participant management
+- Attendance tracking
+- Course completion records
+- Result management and PDF downloads
+- Admin dashboard
 
-## Backend
+## Technologies Used
 
-This repository organization does not change Supabase tables, functions, permissions, Row Level Security policies, or Storage configuration.
+- HTML, CSS and JavaScript
+- Supabase – Database and authentication
+- Cloudflare Turnstile – Bot protection
+
+## Purpose
+
+Built to simplify course registration, participant administration and training record management through a centralized web platform.
+
+---
+
+**Developed by [Supun-Herath](https://github.com/Supun-Herath)**
