@@ -4,503 +4,360 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#123b2b">
-    <meta name="description" content="Official Phase 1 Scout Leader Training Course portal of the Moratuwa - Piliyandala District Scout Association.">
-    <title>Phase 1 Leader Training Course | Scout Programme</title>
+    <meta name="description" content="Phase 1 Leader Training Course — Moratuwa–Piliyandala District Scout Association.">
+    <title>Phase 1 | Leader Training Course</title>
     <link rel="stylesheet" href="assets/css/style.css">
     <style>
         :root {
             --forest: #123b2b;
-            --forest-2: #1c6042;
-            --forest-3: #2d8057;
-            --mint: #eaf3eb;
-            --cream: #f7f7f1;
-            --paper: #fffefa;
-            --ink: #20352b;
-            --muted: #718078;
-            --gold: #d8b45e;
-            --gold-pale: #fbf3df;
-            --blue-pale: #eaf1f5;
-            --line: #e4eae2;
-            --shadow: 0 18px 50px rgba(18, 59, 43, .09);
+            --forest-light: #1d5a3e;
+            --gold: #e2bd68;
+            --cream: #f5f2e9;
+            --ink: #173b2b;
         }
-
-        *, *::before, *::after { box-sizing: border-box; }
-        html { scroll-behavior: smooth; scroll-padding-top: 105px; }
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
         body.home-page {
             margin: 0;
             min-height: 100vh;
             color: var(--ink);
-            background:
-                radial-gradient(ellipse at 0% 18%, rgba(216,180,94,.11), transparent 28rem),
-                radial-gradient(ellipse at 100% 48%, rgba(45,128,87,.08), transparent 30rem),
-                var(--cream);
-            font-family: Inter, "Segoe UI", Arial, sans-serif;
+            background: var(--cream);
+            font-family: "Segoe UI", Arial, sans-serif;
             -webkit-font-smoothing: antialiased;
         }
-        a { -webkit-tap-highlight-color: transparent; }
-        .site-shell { width: min(1180px, calc(100% - 48px)); margin: 0 auto; }
-
-        .topline {
-            background: var(--forest);
-            color: #e8f1e9;
-            font-size: 11px;
-            letter-spacing: .055em;
+        .opening {
+            min-height: min(850px, 100svh);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            color: white;
+            background:
+                radial-gradient(ellipse at 82% 25%, rgba(226,189,104,.16), transparent 32%),
+                radial-gradient(ellipse at 12% 100%, rgba(75,139,96,.24), transparent 42%),
+                linear-gradient(125deg, #0d2c20 0%, #123b2b 55%, #1d5a3e 100%);
         }
-        .topline-inner {
-            min-height: 34px;
+        .opening::before {
+            content: "";
+            position: absolute;
+            width: min(66vw, 780px);
+            aspect-ratio: 1;
+            border: 1px solid rgba(255,255,255,.10);
+            border-radius: 50%;
+            right: -16%;
+            top: 7%;
+            box-shadow: 0 0 0 34px rgba(255,255,255,.025), 0 0 0 76px rgba(255,255,255,.018);
+            pointer-events: none;
+        }
+        .opening::after {
+            content: "01";
+            position: absolute;
+            right: 5%;
+            bottom: -12%;
+            color: rgba(255,255,255,.035);
+            font-size: clamp(220px, 37vw, 520px);
+            line-height: .8;
+            font-weight: 900;
+            letter-spacing: -.1em;
+            pointer-events: none;
+        }
+        .opening-inner {
+            position: relative;
+            z-index: 1;
+            width: min(1320px, calc(100% - 88px));
+            margin: 0 auto;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .masthead {
             display: flex;
             align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            padding: 32px 0;
+            border-bottom: 1px solid rgba(255,255,255,.18);
+        }
+        .identity { display: flex; align-items: center; gap: 17px; }
+        .identity img { width: 62px; height: 62px; object-fit: contain; }
+        .identity-copy strong {
+            display: block;
+            color: white;
+            font-size: 15px;
+            font-weight: 900;
+            letter-spacing: .11em;
+        }
+        .identity-copy span {
+            display: block;
+            margin-top: 6px;
+            color: #c5d7ca;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: .13em;
+        }
+        .masthead-label {
+            color: #e7d39e;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: .18em;
+            text-align: right;
+        }
+        .hero-copy {
+            width: min(100%, 1040px);
+            padding: clamp(75px, 12vh, 135px) 0 70px;
+        }
+        .overline {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            margin-bottom: 29px;
+            color: var(--gold);
+            font-size: 12px;
+            font-weight: 900;
+            letter-spacing: .22em;
+        }
+        .overline::before { content: ""; width: 42px; height: 2px; background: var(--gold); }
+        h1 {
+            margin: 0;
+            color: white;
+            font-size: clamp(64px, 10.2vw, 142px);
+            line-height: .91;
+            letter-spacing: -.075em;
+            font-weight: 900;
+        }
+        h1 span { display: block; color: var(--gold); }
+        .hero-bottom {
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+            gap: 38px;
+            margin-top: 48px;
+        }
+        .hero-description {
+            max-width: 470px;
+            margin: 0;
+            color: #d8e6dc;
+            font-size: clamp(16px, 1.7vw, 20px);
+            line-height: 1.65;
+        }
+        .primary-link {
+            min-width: 235px;
+            min-height: 64px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 22px;
+            padding: 0 24px;
+            border-radius: 4px;
+            color: #1b3425;
+            background: var(--gold);
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 900;
+            transition: background .2s ease, transform .2s ease;
+        }
+        .primary-link:hover { background: #f0d58f; transform: translateY(-3px); }
+        .primary-link span { font-size: 24px; line-height: 1; }
+        .opening-foot {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            padding: 22px 0 28px;
+            border-top: 1px solid rgba(255,255,255,.18);
+            color: #c3d4c8;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: .13em;
+        }
+        .opening-foot strong { color: white; }
+        .details {
+            width: min(1180px, calc(100% - 88px));
+            margin: 0 auto;
+            padding: 76px 0 64px;
+        }
+        .details-heading {
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+            gap: 24px;
+            padding-bottom: 27px;
+            border-bottom: 2px solid var(--forest);
+        }
+        .details-heading span {
+            color: #92702e;
+            font-size: 11px;
+            font-weight: 900;
+            letter-spacing: .2em;
+        }
+        .details-heading h2 {
+            margin: 10px 0 0;
+            color: var(--forest);
+            font-size: clamp(34px, 5vw, 58px);
+            line-height: 1;
+            letter-spacing: -.055em;
+        }
+        .batch { color: #52705e; font-size: 13px; font-weight: 800; white-space: nowrap; }
+        .facts {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0;
+        }
+        .fact {
+            min-height: 145px;
+            padding: 28px 28px 24px 0;
+            border-bottom: 1px solid #d8d9ce;
+        }
+        .fact + .fact { padding-left: 28px; border-left: 1px solid #d8d9ce; }
+        .fact small {
+            display: block;
+            color: #78877c;
+            font-size: 10px;
+            font-weight: 900;
+            letter-spacing: .16em;
+        }
+        .fact strong {
+            display: block;
+            margin-top: 15px;
+            color: var(--forest);
+            font-size: clamp(20px, 2.5vw, 30px);
+            font-weight: 900;
+            line-height: 1.2;
+        }
+        .lower-actions {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            padding-top: 34px;
+        }
+        .lower-actions p { margin: 0; color: #627267; font-size: 14px; line-height: 1.6; }
+        .secondary-links { display: flex; flex-wrap: wrap; gap: 12px; }
+        .secondary-links a {
+            display: inline-flex;
+            align-items: center;
             justify-content: center;
-            gap: 9px;
+            min-height: 48px;
+            padding: 0 19px;
+            border: 1px solid #b7c4b8;
+            color: var(--forest);
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 900;
+            transition: background .2s ease, border-color .2s ease;
+        }
+        .secondary-links a:hover { background: #e8eee5; border-color: var(--forest); }
+        .page-footer {
+            padding: 22px 44px;
+            color: #d3e0d6;
+            background: var(--forest);
+            font-size: 10px;
+            letter-spacing: .1em;
             text-align: center;
         }
-        .topline-dot {
-            width: 6px; height: 6px; border-radius: 50%;
-            background: var(--gold); box-shadow: 0 0 0 4px rgba(216,180,94,.13);
-        }
-
-        .site-header {
-            position: sticky; top: 0; z-index: 20;
-            background: rgba(255,254,250,.94);
-            border-bottom: 1px solid rgba(18,59,43,.08);
-            backdrop-filter: blur(14px);
-        }
-        .header-inner {
-            min-height: 86px;
-            display: grid;
-            grid-template-columns: 1fr auto 1fr;
-            align-items: center;
-            gap: 24px;
-        }
-        .brand-lockup { display: flex; align-items: center; gap: 13px; min-width: 0; }
-        .brand-logos { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
-        .brand-logos img { width: 47px; height: 47px; object-fit: contain; }
-        .brand-copy { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
-        .brand-copy strong {
-            color: var(--forest); font-size: 13px; font-weight: 900;
-            letter-spacing: .09em; white-space: nowrap;
-        }
-        .brand-copy span { color: var(--muted); font-size: 9px; font-weight: 750; letter-spacing: .09em; }
-        .main-nav { display: flex; align-items: center; gap: 27px; }
-        .main-nav a {
-            color: #596b60; text-decoration: none; font-size: 12px; font-weight: 750;
-            transition: color .2s ease;
-        }
-        .main-nav a:hover { color: var(--forest-3); }
-        .header-action {
-            justify-self: end; display: inline-flex; align-items: center; justify-content: center;
-            gap: 9px; padding: 12px 18px; border-radius: 999px;
-            color: white; background: var(--forest); border: 1px solid var(--forest);
-            box-shadow: 0 7px 16px rgba(18,59,43,.15);
-            font-size: 11px; font-weight: 850; text-decoration: none;
-            transition: transform .2s ease, background .2s ease, box-shadow .2s ease;
-        }
-        .header-action:hover { transform: translateY(-2px); background: var(--forest-2); box-shadow: 0 10px 22px rgba(18,59,43,.2); }
-
-        .hero-wrap { padding: 42px 0 30px; }
-        .hero {
-            position: relative; isolation: isolate; overflow: hidden;
-            display: grid; grid-template-columns: minmax(0, 1.12fr) minmax(310px, .88fr);
-            align-items: center; gap: 42px;
-            min-height: 440px; padding: clamp(34px, 5vw, 66px);
-            border-radius: 30px;
-            color: white;
-            background:
-                radial-gradient(circle at 85% 15%, rgba(216,180,94,.22), transparent 23rem),
-                radial-gradient(circle at 10% 110%, rgba(90,166,116,.26), transparent 24rem),
-                linear-gradient(118deg, #102f23 0%, #174c35 54%, #216443 100%);
-            box-shadow: 0 28px 65px rgba(18,59,43,.19);
-        }
-        .hero::before, .hero::after {
-            content: ""; position: absolute; z-index: -1; border: 1px solid rgba(255,255,255,.1);
-            border-radius: 50%; pointer-events: none;
-        }
-        .hero::before { width: 440px; height: 440px; right: -180px; top: -250px; box-shadow: 0 0 0 28px rgba(255,255,255,.025), 0 0 0 58px rgba(255,255,255,.02); }
-        .hero::after { width: 260px; height: 260px; left: 38%; bottom: -220px; }
-        .hero-copy { position: relative; z-index: 1; max-width: 630px; }
-        .eyebrow {
-            display: inline-flex; align-items: center; gap: 9px;
-            padding: 9px 13px; border: 1px solid rgba(240,220,164,.34);
-            border-radius: 999px; background: rgba(240,220,164,.1);
-            color: #f5dfaa; font-size: 9px; font-weight: 900; letter-spacing: .16em;
-        }
-        .eyebrow-mark { width: 7px; height: 7px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 0 4px rgba(216,180,94,.16); }
-        .hero h1 {
-            margin: 23px 0 17px; max-width: 650px;
-            color: #fff; font-size: clamp(39px, 5.2vw, 65px);
-            line-height: 1.04; letter-spacing: -.055em; font-weight: 900;
-        }
-        .hero h1 span { color: #edcf83; }
-        .hero-lead { max-width: 570px; margin: 0; color: #dcebe0; font-size: 14px; line-height: 1.9; }
-        .hero-organizer {
-            display: flex; align-items: center; gap: 11px; margin-top: 25px;
-            color: #c8d9ce; font-size: 10px; font-weight: 800; line-height: 1.6; letter-spacing: .075em;
-        }
-        .organizer-rule { width: 30px; height: 2px; flex-shrink: 0; background: var(--gold); border-radius: 4px; }
-        .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
-        .btn {
-            min-height: 49px; display: inline-flex; align-items: center; justify-content: center;
-            gap: 11px; padding: 0 21px; border-radius: 13px;
-            text-decoration: none; font-size: 12px; font-weight: 900;
-            transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
-        }
-        .btn:hover { transform: translateY(-3px); }
-        .btn-gold { color: #203526; background: linear-gradient(135deg, #f1d991, #d8b45e); box-shadow: 0 9px 20px rgba(0,0,0,.15); }
-        .btn-gold:hover { background: #f6e4b3; box-shadow: 0 13px 25px rgba(0,0,0,.19); }
-        .btn-glass { color: #f5fbf6; border: 1px solid rgba(255,255,255,.3); background: rgba(255,255,255,.07); }
-        .btn-glass:hover { background: rgba(255,255,255,.14); }
-
-        .hero-art {
-            position: relative; z-index: 1; min-height: 305px;
-            display: grid; place-items: center;
-        }
-        .art-orbit {
-            position: absolute; width: min(100%, 330px); aspect-ratio: 1;
-            border: 1px solid rgba(239,218,166,.24); border-radius: 50%;
-            box-shadow: 0 0 0 22px rgba(255,255,255,.025), 0 0 0 48px rgba(255,255,255,.018);
-        }
-        .art-orbit::before, .art-orbit::after {
-            content: ""; position: absolute; width: 9px; height: 9px; border-radius: 50%;
-            background: var(--gold); box-shadow: 0 0 0 6px rgba(216,180,94,.13);
-        }
-        .art-orbit::before { top: 18%; right: 12%; }
-        .art-orbit::after { bottom: 15%; left: 9%; background: #8fc6a0; box-shadow: 0 0 0 6px rgba(143,198,160,.13); }
-        .emblem-card {
-            position: relative; width: min(82%, 270px); aspect-ratio: 1;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            border: 1px solid rgba(255,255,255,.23); border-radius: 42px;
-            background: linear-gradient(145deg, rgba(255,255,255,.17), rgba(255,255,255,.055));
-            box-shadow: 0 24px 55px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.17);
-            backdrop-filter: blur(8px); transform: rotate(-5deg);
-        }
-        .emblem-star { color: #f0d58f; font-size: 38px; line-height: 1; margin-bottom: 13px; }
-        .emblem-title { color: white; font-size: 17px; font-weight: 900; letter-spacing: .14em; text-align: center; }
-        .emblem-subtitle { margin-top: 9px; color: #d7e8dc; font-size: 9px; font-weight: 800; letter-spacing: .18em; text-align: center; }
-        .floating-note {
-            position: absolute; right: -2px; bottom: 14px;
-            display: flex; align-items: center; gap: 10px; padding: 13px 16px;
-            border: 1px solid rgba(255,255,255,.2); border-radius: 15px;
-            background: #fffefa; color: var(--forest); box-shadow: 0 14px 30px rgba(0,0,0,.17);
-            transform: rotate(3deg);
-        }
-        .floating-note-icon { width: 31px; height: 31px; display: grid; place-items: center; border-radius: 10px; background: var(--gold-pale); color: #9a7429; font-size: 17px; }
-        .floating-note strong { display: block; font-size: 10px; font-weight: 900; }
-        .floating-note span { display: block; margin-top: 3px; color: var(--muted); font-size: 9px; }
-
-        .section-block { padding: 27px 0 15px; }
-        .section-heading {
-            display: flex; align-items: end; justify-content: space-between; gap: 18px;
-            margin: 0 0 21px;
-        }
-        .section-kicker { display: block; margin-bottom: 7px; color: #a27c32; font-size: 9px; font-weight: 900; letter-spacing: .17em; }
-        .section-heading h2 { margin: 0; color: var(--forest); font-size: clamp(23px, 3vw, 31px); font-weight: 900; letter-spacing: -.035em; }
-        .batch-pill {
-            display: inline-flex; align-items: center; gap: 8px; padding: 9px 13px;
-            border: 1px solid #d9e7d9; border-radius: 999px;
-            background: #edf5ed; color: #2c6846; font-size: 9px; font-weight: 900; letter-spacing: .08em;
-            white-space: nowrap;
-        }
-        .batch-pill::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--forest-3); }
-
-        .info-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
-        .info-card {
-            position: relative; overflow: hidden; min-height: 170px; padding: 21px 19px;
-            border: 1px solid var(--line); border-radius: 20px; background: var(--paper);
-            box-shadow: 0 8px 22px rgba(25,62,43,.045);
-            transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
-        }
-        .info-card:hover { transform: translateY(-5px); border-color: #cbdccc; box-shadow: 0 17px 32px rgba(25,62,43,.1); }
-        .info-card::after { content: ""; position: absolute; width: 90px; height: 90px; right: -38px; bottom: -46px; border-radius: 50%; background: var(--card-tint); opacity: .8; }
-        .info-card:nth-child(1) { --card-tint: #dcecdf; --icon-bg: #e7f3e8; --icon-color: #2c7149; }
-        .info-card:nth-child(2) { --card-tint: #f4e6c3; --icon-bg: #fbf3df; --icon-color: #9b772c; }
-        .info-card:nth-child(3) { --card-tint: #dce9f0; --icon-bg: #edf4f7; --icon-color: #47728a; }
-        .info-card:nth-child(4) { --card-tint: #f0dfd2; --icon-bg: #f8eee7; --icon-color: #9a6541; }
-        .info-icon { width: 43px; height: 43px; display: grid; place-items: center; border-radius: 14px; background: var(--icon-bg); color: var(--icon-color); }
-        .info-icon svg { width: 21px; height: 21px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-        .info-label { display: block; margin-top: 20px; color: #819087; font-size: 9px; font-weight: 900; letter-spacing: .13em; }
-        .info-value { display: block; margin-top: 7px; color: var(--forest); font-size: 16px; font-weight: 900; line-height: 1.35; }
-        .info-card:nth-child(4) .info-value { color: #98653d; }
-
-        .sections-panel {
-            display: flex; align-items: center; justify-content: space-between; gap: 22px;
-            margin-top: 17px; padding: 20px 23px;
-            border: 1px solid #e3eae1; border-radius: 18px;
-            background: linear-gradient(105deg, #edf5ed, #fffefa 78%);
-        }
-        .sections-copy strong { display: block; color: var(--forest); font-size: 12px; font-weight: 900; }
-        .sections-copy span { display: block; margin-top: 4px; color: var(--muted); font-size: 10px; }
-        .section-tags { display: flex; flex-wrap: wrap; gap: 8px; }
-        .section-tags span {
-            padding: 8px 13px; border: 1px solid #d8e7d9; border-radius: 999px;
-            background: white; color: #2c6846; font-size: 10px; font-weight: 850;
-        }
-
-        .action-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 16px; padding: 24px 0 54px; }
-        .register-panel, .results-panel {
-            position: relative; overflow: hidden; min-height: 195px; padding: 29px 30px;
-            border-radius: 23px; display: flex; align-items: center; justify-content: space-between; gap: 20px;
-        }
-        .register-panel {
-            color: white;
-            background:
-                radial-gradient(circle at 100% 0%, rgba(216,180,94,.2), transparent 18rem),
-                linear-gradient(120deg, #123b2b, #236a47);
-            box-shadow: 0 17px 35px rgba(18,59,43,.15);
-        }
-        .register-panel::after { content: ""; position: absolute; width: 220px; height: 220px; right: -125px; bottom: -160px; border: 1px solid rgba(255,255,255,.16); border-radius: 50%; box-shadow: 0 0 0 20px rgba(255,255,255,.025), 0 0 0 42px rgba(255,255,255,.02); }
-        .action-copy { position: relative; z-index: 1; max-width: 360px; }
-        .action-kicker { color: #f0d58f; font-size: 9px; font-weight: 900; letter-spacing: .17em; }
-        .action-copy h2 { margin: 9px 0 8px; font-size: 24px; font-weight: 900; letter-spacing: -.03em; }
-        .action-copy p { margin: 0; color: #d8e8dd; font-size: 11px; line-height: 1.7; }
-        .register-link {
-            position: relative; z-index: 1; flex-shrink: 0;
-            display: inline-flex; align-items: center; justify-content: center; gap: 10px;
-            padding: 15px 18px; border-radius: 13px;
-            color: #263a2b; background: linear-gradient(135deg, #f2dc9e, #d8b45e);
-            text-decoration: none; font-size: 11px; font-weight: 900;
-            box-shadow: 0 9px 18px rgba(0,0,0,.14); transition: transform .2s ease, background .2s ease;
-        }
-        .register-link:hover { transform: translateY(-3px); background: #f7e8bd; }
-        .results-panel { border: 1px solid #dce7ec; background: linear-gradient(125deg, #edf4f7, #fff 82%); }
-        .results-panel .action-kicker { color: #527f96; }
-        .results-panel .action-copy h2 { color: #23475b; font-size: 21px; }
-        .results-panel .action-copy p { color: #74848b; }
-        .results-icon { width: 47px; height: 47px; display: grid; place-items: center; flex-shrink: 0; border-radius: 15px; background: #dceaf1; color: #386f8a; font-size: 22px; margin-bottom: 13px; }
-        .results-link {
-            position: relative; z-index: 1; flex-shrink: 0;
-            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-            padding: 13px 16px; border-radius: 13px; border: 1px solid #2d6d89;
-            color: white; background: linear-gradient(135deg, #3c829f, #2c6885);
-            text-decoration: none; font-size: 10px; font-weight: 900;
-            box-shadow: 0 8px 16px rgba(44,104,133,.16); transition: transform .2s ease, background .2s ease;
-        }
-        .results-link:hover { transform: translateY(-3px); background: #397b99; }
-
-        .site-footer { background: #102f23; color: #d1e0d5; border-top: 3px solid var(--gold); }
-        .footer-inner {
-            min-height: 82px; display: flex; align-items: center; justify-content: space-between;
-            gap: 15px; flex-wrap: wrap; padding: 20px 0;
-        }
-        .footer-brand { font-size: 9px; font-weight: 850; letter-spacing: .11em; }
-        .footer-credit { color: #b9cbbf; font-size: 10px; }
-        .footer-credit strong { color: #f0d58f; }
-        .footer-admin { color: #d9e8dc; font-size: 10px; font-weight: 800; text-decoration: none; }
-        .footer-admin:hover { color: #f0d58f; }
-
-        a:focus-visible { outline: 3px solid #d8b45e; outline-offset: 4px; }
-        @media (max-width: 980px) {
-            .header-inner { grid-template-columns: 1fr auto; }
-            .main-nav { display: none; }
-            .hero { grid-template-columns: 1fr .72fr; gap: 18px; padding: 42px; }
-            .info-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-            .action-grid { grid-template-columns: 1fr; }
-            .results-panel { min-height: 165px; }
-        }
-        @media (max-width: 680px) {
-            .site-shell { width: min(100% - 28px, 560px); }
-            .topline-inner { min-height: 32px; font-size: 9px; }
-            .header-inner { min-height: 72px; gap: 10px; }
-            .brand-lockup { gap: 8px; }
-            .brand-logos { gap: 3px; }
-            .brand-logos img { width: 35px; height: 35px; }
-            .brand-copy strong { font-size: 10px; letter-spacing: .06em; }
-            .brand-copy span { max-width: 190px; font-size: 7px; line-height: 1.4; letter-spacing: .04em; }
-            .header-action { padding: 10px 13px; font-size: 9px; }
-            .hero-wrap { padding: 20px 0 17px; }
-            .hero { display: block; min-height: 0; padding: 34px 24px 30px; border-radius: 23px; }
-            .hero h1 { max-width: 470px; margin-top: 20px; font-size: clamp(37px, 10vw, 53px); }
-            .hero-lead { font-size: 12px; }
-            .hero-organizer { font-size: 9px; }
-            .hero-actions { margin-top: 23px; }
-            .btn { min-height: 46px; padding: 0 16px; font-size: 10px; }
-            .hero-art { min-height: 220px; margin-top: 24px; }
-            .art-orbit { width: 205px; }
-            .emblem-card { width: 170px; border-radius: 30px; }
-            .emblem-star { font-size: 29px; }
-            .emblem-title { font-size: 13px; }
-            .emblem-subtitle { font-size: 7px; }
-            .floating-note { right: 1px; bottom: 0; padding: 10px 12px; }
-            .section-block { padding-top: 18px; }
-            .section-heading { align-items: flex-start; flex-direction: column; gap: 11px; }
-            .section-heading h2 { font-size: 25px; }
-            .info-grid { gap: 10px; }
-            .info-card { min-height: 147px; padding: 16px 14px; border-radius: 17px; }
-            .info-label { margin-top: 15px; font-size: 8px; }
-            .info-value { font-size: 13px; }
-            .sections-panel { align-items: flex-start; flex-direction: column; padding: 18px; gap: 13px; }
-            .action-grid { padding: 19px 0 38px; gap: 12px; }
-            .register-panel, .results-panel { min-height: 0; align-items: flex-start; flex-direction: column; padding: 23px 21px; border-radius: 19px; }
-            .action-copy h2 { font-size: 21px; }
-            .register-link, .results-link { width: 100%; min-height: 46px; }
-            .results-panel .action-copy h2 { font-size: 19px; }
-            .footer-inner { min-height: 0; flex-direction: column; align-items: center; text-align: center; padding: 23px 0; }
-        }
-        @media (max-width: 370px) {
-            .brand-logos img { width: 29px; height: 29px; }
-            .brand-copy strong { font-size: 9px; }
-            .brand-copy span { font-size: 6px; }
-            .header-action { padding: 9px 10px; }
-            .info-grid { grid-template-columns: 1fr; }
-            .info-card { min-height: 125px; }
+        .page-footer a { margin-left: 16px; color: var(--gold); text-decoration: none; font-weight: 800; }
+        a:focus-visible { outline: 3px solid var(--gold); outline-offset: 4px; }
+        @media (max-width: 700px) {
+            .opening { min-height: 780px; min-height: 100svh; }
+            .opening-inner, .details { width: calc(100% - 40px); }
+            .masthead { padding: 22px 0; }
+            .identity { gap: 10px; }
+            .identity img { width: 43px; height: 43px; }
+            .identity-copy strong { font-size: 10px; }
+            .identity-copy span { max-width: 185px; font-size: 7px; line-height: 1.5; }
+            .masthead-label { max-width: 105px; font-size: 8px; line-height: 1.6; }
+            .hero-copy { padding: clamp(86px, 13vh, 125px) 0 60px; }
+            .overline { font-size: 9px; letter-spacing: .15em; margin-bottom: 25px; }
+            h1 { font-size: clamp(58px, 13.5vw, 90px); }
+            .hero-bottom { align-items: stretch; flex-direction: column; gap: 28px; margin-top: 34px; }
+            .hero-description { font-size: 16px; }
+            .primary-link { width: 100%; min-height: 60px; }
+            .opening-foot { align-items: flex-start; flex-direction: column; gap: 9px; font-size: 8px; }
+            .details { padding: 54px 0 45px; }
+            .details-heading { align-items: flex-start; flex-direction: column; gap: 15px; }
+            .details-heading h2 { font-size: 40px; }
+            .facts { grid-template-columns: 1fr; }
+            .fact, .fact + .fact { min-height: 0; padding: 22px 0; border-left: 0; }
+            .fact strong { margin-top: 9px; font-size: 24px; }
+            .lower-actions { align-items: stretch; flex-direction: column; gap: 20px; }
+            .secondary-links { flex-direction: column; }
+            .secondary-links a { width: 100%; }
+            .page-footer { padding: 22px 18px; line-height: 2; }
+            .page-footer a { display: inline-block; margin-left: 10px; }
         }
         @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
+            *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
         }
     </style>
 </head>
 <body class="home-page">
-    <div class="topline">
-        <div class="site-shell topline-inner">
-            <span class="topline-dot" aria-hidden="true"></span>
-            <span>OFFICIAL SCOUT LEADER DEVELOPMENT PROGRAMME</span>
-        </div>
-    </div>
-
-    <header class="site-header">
-        <div class="site-shell header-inner">
-            <a class="brand-lockup" href="index.html" aria-label="Phase 1 Course home">
-                <span class="brand-logos">
-                    <img src="assets/images/mp.png?v=7" alt="Moratuwa - Piliyandala District Scout Association">
-                    <img src="assets/images/sl.png?v=7" alt="Sri Lanka Scout Association">
-                </span>
-                <span class="brand-copy">
-                    <strong>PHASE 1 COURSE</strong>
-                    <span>MORATUWA – PILIYANDALA DISTRICT</span>
-                </span>
-            </a>
-
-            <nav class="main-nav" aria-label="Main navigation">
-                <a href="#overview">Overview</a>
-                <a href="#course-details">Course details</a>
-                <a href="#results">Results</a>
-            </nav>
-
-            <a class="header-action" href="registration.html">
-                Register now <span aria-hidden="true">↗</span>
-            </a>
-        </div>
-    </header>
-
     <main>
-        <section class="hero-wrap" id="overview">
-            <div class="site-shell">
-                <div class="hero">
-                    <div class="hero-copy">
-                        <span class="eyebrow"><span class="eyebrow-mark" aria-hidden="true"></span> OFFICIAL COURSE PORTAL · 2026</span>
-                        <h1>Lead with purpose.<br><span>Grow through Scouting.</span></h1>
-                        <p class="hero-lead">
-                            Welcome to the Phase 1 Leader Training Course. Find the essential course information and complete your participant registration through our online portal.
-                        </p>
-                        <div class="hero-organizer">
-                            <span class="organizer-rule" aria-hidden="true"></span>
-                            <span>ORGANIZED BY MORATUWA – PILIYANDALA DISTRICT SCOUT ASSOCIATION</span>
-                        </div>
-                        <div class="hero-actions">
-                            <a class="btn btn-gold" href="registration.html">Register for the course <span aria-hidden="true">→</span></a>
-                            <a class="btn btn-glass" href="#course-details">Explore course details <span aria-hidden="true">↓</span></a>
+        <section class="opening" aria-labelledby="page-title">
+            <div class="opening-inner">
+                <header class="masthead">
+                    <div class="identity">
+                        <img src="assets/images/mp.png?v=7" alt="Moratuwa–Piliyandala District Scout Association">
+                        <img src="assets/images/sl.png?v=7" alt="Sri Lanka Scout Association">
+                        <div class="identity-copy">
+                            <strong>PHASE 1 COURSE</strong>
+                            <span>MORATUWA – PILIYANDALA DISTRICT</span>
                         </div>
                     </div>
+                    <div class="masthead-label">SCOUT LEADER<br>TRAINING · 2026</div>
+                </header>
 
-                    <div class="hero-art" aria-hidden="true">
-                        <div class="art-orbit"></div>
-                        <div class="emblem-card">
-                            <div class="emblem-star">✦</div>
-                            <div class="emblem-title">SCOUT<br>LEADERSHIP</div>
-                            <div class="emblem-subtitle">LEARN · LEAD · SERVE</div>
-                        </div>
-                        <div class="floating-note">
-                            <div class="floating-note-icon">✧</div>
-                            <div>
-                                <strong>Phase 1 Training</strong>
-                                <span>2026 · First Batch</span>
-                            </div>
-                        </div>
+                <div class="hero-copy">
+                    <div class="overline">THE FIRST STEP IN LEADERSHIP</div>
+                    <h1 id="page-title">PHASE 1<span>LEADER<br>TRAINING.</span></h1>
+                    <div class="hero-bottom">
+                        <p class="hero-description">Moratuwa – Piliyandala District Scout Association<br>Official course registration and information.</p>
+                        <a class="primary-link" href="registration.html">REGISTER FOR THE COURSE <span aria-hidden="true">↗</span></a>
                     </div>
+                </div>
+
+                <div class="opening-foot">
+                    <span><strong>28–29 NOVEMBER 2026</strong> &nbsp;·&nbsp; FIRST BATCH</span>
+                    <span>LEARN &nbsp; / &nbsp; LEAD &nbsp; / &nbsp; SERVE</span>
                 </div>
             </div>
         </section>
 
-        <section class="site-shell section-block" id="course-details">
-            <div class="section-heading">
+        <section class="details" aria-labelledby="details-title">
+            <div class="details-heading">
                 <div>
-                    <span class="section-kicker">EVERYTHING YOU NEED TO KNOW</span>
-                    <h2>Course at a glance</h2>
+                    <span>COURSE INFORMATION</span>
+                    <h2 id="details-title">At a glance.</h2>
                 </div>
-                <span class="batch-pill">2026 · 1ST BATCH</span>
+                <div class="batch">2026 · FIRST BATCH</div>
             </div>
-
-            <div class="info-grid">
-                <article class="info-card">
-                    <div class="info-icon" aria-hidden="true">
-                        <svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="16" rx="2.5"></rect><path d="M7.5 3v4M16.5 3v4M3.5 9.5h17"></path></svg>
-                    </div>
-                    <span class="info-label">COURSE DATES</span>
-                    <strong class="info-value">28–29 November 2026</strong>
-                </article>
-                <article class="info-card">
-                    <div class="info-icon" aria-hidden="true">
-                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7v5l3.5 2"></path></svg>
-                    </div>
-                    <span class="info-label">DURATION</span>
-                    <strong class="info-value">2 Days</strong>
-                </article>
-                <article class="info-card">
-                    <div class="info-icon" aria-hidden="true">
-                        <svg viewBox="0 0 24 24"><path d="M16 20v-1.5a3.5 3.5 0 0 0-3.5-3.5h-5A3.5 3.5 0 0 0 4 18.5V20"></path><circle cx="10" cy="7.5" r="3.5"></circle><path d="M17 4.5a3.5 3.5 0 0 1 0 6.8M17 15h.5a3.5 3.5 0 0 1 3.5 3.5V20"></path></svg>
-                    </div>
-                    <span class="info-label">ELIGIBLE SECTIONS</span>
-                    <strong class="info-value">Singithi, Cub, Scout</strong>
-                </article>
-                <article class="info-card">
-                    <div class="info-icon" aria-hidden="true">
-                        <svg viewBox="0 0 24 24"><path d="M6 3.5h9l4 4V20a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4.5a1 1 0 0 1 1-1Z"></path><path d="M14.5 3.5V8h4.5M8 12h8M8 16h8"></path></svg>
-                    </div>
-                    <span class="info-label">REGISTRATION CLOSES</span>
-                    <strong class="info-value">28 November 2026</strong>
-                </article>
-            </div>
-
-            <div class="sections-panel">
-                <div class="sections-copy">
-                    <strong>Scouting sections</strong>
-                    <span>Sections listed for this course batch</span>
+            <div class="facts">
+                <div class="fact">
+                    <small>COURSE DATES</small>
+                    <strong>28–29 November 2026</strong>
                 </div>
-                <div class="section-tags" aria-label="Scouting sections">
-                    <span>Singithi</span>
-                    <span>Cub</span>
-                    <span>Scout</span>
+                <div class="fact">
+                    <small>DURATION</small>
+                    <strong>2 Days</strong>
+                </div>
+                <div class="fact">
+                    <small>REGISTRATION CLOSES</small>
+                    <strong>28 November 2026</strong>
                 </div>
             </div>
-        </section>
-
-        <section class="site-shell action-grid" aria-label="Participant actions">
-            <div class="register-panel">
-                <div class="action-copy">
-                    <span class="action-kicker">TAKE THE NEXT STEP</span>
-                    <h2>Ready to begin your journey?</h2>
-                    <p>Submit your details through the official participant registration form.</p>
+            <div class="lower-actions">
+                <p>Participant access</p>
+                <div class="secondary-links">
+                    <a href="registration.html">Course registration ↗</a>
+                    <a href="download-result.html">View / download results ↗</a>
                 </div>
-                <a class="register-link" href="registration.html">Start registration <span aria-hidden="true">↗</span></a>
-            </div>
-
-            <div class="results-panel" id="results">
-                <div class="action-copy">
-                    <div class="results-icon" aria-hidden="true">▤</div>
-                    <span class="action-kicker">PARTICIPANT RESULTS</span>
-                    <h2>Your result sheet, in one place.</h2>
-                    <p>View and download your course result sheet using your registration details.</p>
-                </div>
-                <a class="results-link" href="download-result.html">View results <span aria-hidden="true">→</span></a>
             </div>
         </section>
     </main>
-
-    <footer class="site-footer">
-        <div class="site-shell footer-inner">
-            <span class="footer-brand">PHASE 1 COURSE · SCOUT LEADER DEVELOPMENT</span>
-            <span class="footer-credit">Developed by <strong>Supun Herath</strong> with ♡ · © 2026</span>
-            <a class="footer-admin" href="admin.html">Staff portal ↗</a>
-        </div>
+    <footer class="page-footer">
+        PHASE 1 LEADER TRAINING COURSE · 2026
+        <a href="admin.html">STAFF PORTAL ↗</a>
     </footer>
 </body>
 </html>
