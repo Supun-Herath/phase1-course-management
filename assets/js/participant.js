@@ -399,8 +399,8 @@ async function createResultSheet(registration, completion) {
         overflow:hidden;
     `;
 
-    const mpLogo = new URL("mp.png", window.location.href).href;
-    const scoutLogo = new URL("sl.png", window.location.href).href;
+    const mpLogo = new URL("assets/images/mp.png", window.location.href).href;
+    const scoutLogo = new URL("assets/images/sl.png", window.location.href).href;
 
     sheet.innerHTML = `
         <div style="
@@ -637,7 +637,7 @@ async function createResultSheet(registration, completion) {
             return new Promise((resolve, reject) => {
                 img.onload = resolve;
                 img.onerror = () => reject(
-                    new Error("Could not load a course logo. Check mp.png and sl.png.")
+                    new Error("Could not load a course logo. Check assets/images/mp.png and assets/images/sl.png.")
                 );
             });
         }));
