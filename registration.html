@@ -8,6 +8,43 @@
     <meta name="description" content="Register for the Phase 1 Course.">
     <title>Registration | Phase 1 Course</title>
     <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        /* Give the district logo a little more visual presence to balance its transparent padding. */
+        .registration-page .portal-logos img:first-child {
+            width: 92px;
+            height: 92px;
+        }
+        .portal-footer-inner .developer-credit {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #d0ddcf;
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: .02em;
+        }
+        .portal-footer-inner .developer-credit strong {
+            color: #fff;
+            font-weight: 750;
+        }
+        .portal-footer-inner .developer-heart {
+            color: #e58b83;
+            font-size: 15px;
+            line-height: 1;
+        }
+        @media (max-width: 650px) {
+            .registration-page .portal-logos img:first-child {
+                width: 58px;
+                height: 58px;
+            }
+        }
+        @media (max-width: 400px) {
+            .registration-page .portal-logos img:first-child {
+                width: 49px;
+                height: 49px;
+            }
+        }
+    </style>
 </head>
 
 <body class="portal-page registration-page">
@@ -292,7 +329,7 @@
     <footer class="portal-footer">
         <div class="portal-footer-inner">
             <span>PHASE 1 COURSE · SCOUT LEADER DEVELOPMENT</span>
-            <span>Developed by <strong>Supun Herath</strong></span>
+            <span class="developer-credit">Developed by <strong>Supun-Herath</strong> <span class="developer-heart" aria-label="with love">♥</span></span>
             <span>© 2026 All Rights Reserved</span>
         </div>
     </footer>
